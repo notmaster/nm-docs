@@ -9,7 +9,8 @@
 ```text
 {{PROJECT_NAME}}/
 ├── 0a-docs/                    # 项目文档
-├── 0b-todo/                    # 开发任务清单 (无需更新此目录下的文件结构)
+├── 0b-todo/                    # 开发任务清单（无需展开具体任务文件）
+│   └── done/                   # 已完成任务归档
 ├── .gitignore
 ├── .markdownlint.json
 ├── .markdownlintignore
