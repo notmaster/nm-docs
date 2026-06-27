@@ -7,7 +7,7 @@
 ## 项目文件树结构
 
 ```text
-rename-tool/
+{{PROJECT_NAME}}/
 ├── 0a-docs/                    # 项目文档
 ├── 0b-todo/                    # 开发任务清单 (无需更新此目录下的文件结构)
 ├── .gitignore
@@ -16,6 +16,6 @@ rename-tool/
 ├── AGENTS.md
 ├── CLAUDE.md
 ├── package.json                # 前端依赖配置
-└── PROJECT_STRUCTURE.md
+├── PROJECT_STRUCTURE.md
 └── README.md
 ```
