@@ -1,4 +1,4 @@
-# 核心规则-V6.1
+# 核心规则-V6.1.1
 
 ## 环境
 
@@ -58,4 +58,4 @@
 - **主要技术栈**：
 - **项目类型**：
 - **编码前**：先读 PROJECT_STRUCTURE.md 文档了解目录结构
-- **编码后**：必须更新 PROJECT_STRUCTURE.md 文档，然后检查项目的 ReadMe.md 文档是否需要更新
+- **编码后**：必须更新 PROJECT_STRUCTURE.md 文档，然后检查项目的 README.md 文档是否需要更新
