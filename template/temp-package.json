@@ -1,0 +1,14 @@
+{
+  "name": "temp_init",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "fm": "prettier \"**/*.md\" --write",
+    "lm": "markdownlint \"**/*.md\""
+  },
+  "devDependencies": {
+    "markdownlint-cli": "",
+    "prettier": ""
+  }
+}
