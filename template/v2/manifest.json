@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "templateVersion": "2.0.0",
+  "templateVersion": "2.1.0",
   "repository": "https://github.com/notmaster/nm-docs.git",
   "rawBase": "https://raw.githubusercontent.com/notmaster/nm-docs",
   "defaultRef": "main",
@@ -80,6 +80,16 @@
       "policy": "managed"
     },
     {
+      "target": "0a-docs/agent-workflows/multi-agent-coding-operation-manual-v2.md",
+      "source": "template/v2/0a-docs/agent-workflows/multi-agent-coding-operation-manual-v2.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/agent-workflows/grok-native-vs-codex-grok-cli.md",
+      "source": "template/v2/0a-docs/agent-workflows/grok-native-vs-codex-grok-cli.md",
+      "policy": "managed"
+    },
+    {
       "target": "0a-docs/agent-workflows/templates/pr-body-template.md",
       "source": "template/v2/0a-docs/agent-workflows/templates/pr-body-template.md",
       "policy": "managed"
@@ -122,6 +132,11 @@
     {
       "target": "0a-docs/prompts/supervisor-start.md",
       "source": "template/v2/0a-docs/prompts/supervisor-start.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/supervisor-start-grok.md",
+      "source": "template/v2/0a-docs/prompts/supervisor-start-grok.md",
       "policy": "managed"
     },
     {

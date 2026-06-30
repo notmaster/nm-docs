@@ -4,8 +4,8 @@
 project:
   name: ""
   requirementDoc: ""
-  baseBranch: "{{INTEGRATION_BRANCH}}"
-  stableBranch: "{{STABLE_BRANCH}}"
+  baseBranch: "dev"
+  stableBranch: "master"
   status: "planning"
 roles:
   planner: ""
@@ -31,8 +31,14 @@ currentLock:
 
 - 项目名称：
 - 需求文档：
-- 开发集成分支：`{{INTEGRATION_BRANCH}}`
-- 稳定分支：`{{STABLE_BRANCH}}`
+- 开发集成分支：`dev`
+- 稳定分支：`master`
+
+## 编排模式
+
+- 当前模式：`人工编排 / Codex + Grok CLI` 或 `Grok 原生全自动`（见 `supervisor-start.md` / `supervisor-start-grok.md`）
+- **Grok 原生全自动**：Reviewer `approve` 且门禁通过后 Supervisor 自动合并到 `dev`；敏感文件与高风险**不阻塞**合并。
+- **高风险审计**：本文件「高风险操作总表」为管理员事后一眼审查的**唯一汇总入口**；只追加行，不重写历史。合并时将「管理员复审」标为 `待审查`。
 
 ## Agent 角色映射
 
@@ -78,9 +84,20 @@ TODO-001
 | PR  | TODO | 分支 | 状态 | Reviewer 结论 | 测试 | 文档 | 备注 |
 | --- | ---- | ---- | ---- | ------------- | ---- | ---- | ---- |
 
+## 高风险操作总表
+
+管理员事后审计入口。Supervisor 发现敏感文件、越界修改、待删除、测试风险、人工验收或其他高风险时**必须**在此追加一行，并视类型同步写入下方专表。
+
+| 时间 | TODO | PR  | 类型 | 摘要 | 涉及文件/路径 | 风险说明 | 管理员复审 |
+| ---- | ---- | --- | ---- | ---- | ------------- | -------- | ---------- |
+
+类型取值：`sensitive-file` / `scope-overflow` / `delete-pending` / `test-risk` / `manual-acceptance` / `other`。管理员复审取值：`待审查` / `已阅` / `需跟进`。
+
 ## 敏感文件变更表
 
-| TODO | PR  | 文件 | 原因 | 管理员已读 | 备注 |
+与「高风险操作总表」同步维护；Grok 原生全自动模式下**不阻塞**合并到 `dev`。
+
+| TODO | PR  | 文件 | 原因 | 管理员复审 | 备注 |
 | ---- | --- | ---- | ---- | ---------- | ---- |
 
 ## 测试风险表
@@ -108,12 +125,12 @@ TODO-001
 | 原路径 | 新路径 | 原因 | 关联 PR | 验证方式 | 建议删除命令 | 管理员确认 |
 | ------ | ------ | ---- | ------- | -------- | ------------ | ---------- |
 
-## {{INTEGRATION_BRANCH}} 到 {{STABLE_BRANCH}} 发布检查表
+## dev 到 master 发布检查表
 
 - [ ] 目标 TODO 均已完成
 - [ ] 自动检查通过
 - [ ] 文档已更新
-- [ ] 敏感文件变更已读
+- [ ] 「高风险操作总表」已事后复审（敏感文件、测试风险等待删项无遗漏 `需跟进`）
 - [ ] 人工验收已完成
 - [ ] 非阻塞建议已处理或确认延期
 

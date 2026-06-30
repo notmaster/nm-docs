@@ -18,7 +18,7 @@
 │   │   ├── templates/          # TODO、PR 和审查模板
 │   │   └── multi-agent-coding-v2.md
 │   └── prompts/                # 各角色提示词模板
-├── 0b-todo/                    # 开发任务清单和执行记录
+├── 0b-todo/                    # 开发任务清单和执行记录（无需展开具体任务文件）
 │   └── done/                   # 已完成任务归档
 ├── 0c-tools/
 │   └── agent-workflow/         # 协同流程校验脚本
