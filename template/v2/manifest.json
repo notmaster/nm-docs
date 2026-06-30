@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "templateVersion": "2.0.0",
+  "repository": "https://github.com/notmaster/nm-docs.git",
+  "rawBase": "https://raw.githubusercontent.com/notmaster/nm-docs",
+  "defaultRef": "main",
+  "stateFile": ".nm-template-state.json",
+  "directories": [
+    ".delete-pending",
+    ".github",
+    ".github/workflows",
+    "0a-docs",
+    "0a-docs/agent-workflows",
+    "0a-docs/agent-workflows/templates",
+    "0a-docs/prompts",
+    "0b-todo",
+    "0b-todo/done",
+    "0c-tools",
+    "0c-tools/agent-workflow"
+  ],
+  "gitkeepDirectories": [
+    ".delete-pending",
+    "0b-todo/done"
+  ],
+  "templates": [
+    {
+      "target": ".gitignore",
+      "source": "template/v2/.gitignore",
+      "policy": "create-only"
+    },
+    {
+      "target": ".markdownlint.json",
+      "source": "template/v2/.markdownlint.json",
+      "policy": "create-only"
+    },
+    {
+      "target": ".markdownlintignore",
+      "source": "template/v2/.markdownlintignore",
+      "policy": "create-only"
+    },
+    {
+      "target": "AGENTS.md",
+      "source": "template/v2/AGENTS.md",
+      "policy": "create-only"
+    },
+    {
+      "target": "CLAUDE.md",
+      "source": "template/v2/AGENTS.md",
+      "policy": "create-only"
+    },
+    {
+      "target": "PROJECT_STRUCTURE.md",
+      "source": "template/v2/PROJECT_STRUCTURE.md",
+      "policy": "create-only"
+    },
+    {
+      "target": "README.md",
+      "source": "template/v2/README.md",
+      "policy": "create-only"
+    },
+    {
+      "target": "package.json",
+      "source": "template/v2/package.json",
+      "policy": "json-merge",
+      "mergeRoots": ["scripts", "devDependencies"]
+    },
+    {
+      "target": ".github/pull_request_template.md",
+      "source": "template/v2/.github/pull_request_template.md",
+      "policy": "managed"
+    },
+    {
+      "target": ".github/workflows/ci.yml",
+      "source": "template/v2/.github/workflows/ci.yml",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/agent-workflows/multi-agent-coding-v2.md",
+      "source": "template/v2/0a-docs/agent-workflows/multi-agent-coding-v2.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/agent-workflows/templates/pr-body-template.md",
+      "source": "template/v2/0a-docs/agent-workflows/templates/pr-body-template.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/agent-workflows/templates/review-checklist-template.md",
+      "source": "template/v2/0a-docs/agent-workflows/templates/review-checklist-template.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/agent-workflows/templates/single-todo-template.md",
+      "source": "template/v2/0a-docs/agent-workflows/templates/single-todo-template.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/agent-workflows/templates/total-todo-template.md",
+      "source": "template/v2/0a-docs/agent-workflows/templates/total-todo-template.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/coder-task.md",
+      "source": "template/v2/0a-docs/prompts/coder-task.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/fixer-request-changes.md",
+      "source": "template/v2/0a-docs/prompts/fixer-request-changes.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/planner-split-todo.md",
+      "source": "template/v2/0a-docs/prompts/planner-split-todo.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/reviewer-pr.md",
+      "source": "template/v2/0a-docs/prompts/reviewer-pr.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/supervisor-start.md",
+      "source": "template/v2/0a-docs/prompts/supervisor-start.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0c-tools/agent-workflow/check-git.mjs",
+      "source": "template/v2/0c-tools/agent-workflow/check-git.mjs",
+      "policy": "managed"
+    },
+    {
+      "target": "0c-tools/agent-workflow/check-todo.mjs",
+      "source": "template/v2/0c-tools/agent-workflow/check-todo.mjs",
+      "policy": "managed"
+    },
+    {
+      "target": "0c-tools/agent-workflow/check-workflow.mjs",
+      "source": "template/v2/0c-tools/agent-workflow/check-workflow.mjs",
+      "policy": "managed"
+    },
+    {
+      "target": "0c-tools/agent-workflow/shared.mjs",
+      "source": "template/v2/0c-tools/agent-workflow/shared.mjs",
+      "policy": "managed"
+    }
+  ],
+  "github": {
+    "integrationBranch": "{{INTEGRATION_BRANCH}}",
+    "labels": [
+      { "name": "todo-ready", "color": "0E8A16", "description": "TODO 已准备可领取" },
+      { "name": "agent-working", "color": "1D76DB", "description": "Agent 正在处理当前任务" },
+      { "name": "pr-draft", "color": "C5DEF5", "description": "PR 草稿或准备中" },
+      { "name": "needs-review", "color": "5319E7", "description": "等待 Reviewer 审查" },
+      { "name": "reviewing", "color": "BFDADC", "description": "Reviewer 正在审查" },
+      { "name": "request-changes", "color": "D93F0B", "description": "Reviewer 要求修改" },
+      { "name": "fixing", "color": "FBCA04", "description": "正在修复审查阻塞问题" },
+      { "name": "approved", "color": "0E8A16", "description": "Reviewer 已通过" },
+      { "name": "ready-to-merge-{{INTEGRATION_BRANCH}}", "color": "006B75", "description": "已通过门禁等待合并到 {{INTEGRATION_BRANCH}}" },
+      { "name": "merged-to-{{INTEGRATION_BRANCH}}", "color": "0052CC", "description": "已合并到 {{INTEGRATION_BRANCH}}" },
+      { "name": "needs-human", "color": "B60205", "description": "需要管理员介入" },
+      { "name": "needs-replan", "color": "D93F0B", "description": "需要重新规划" },
+      { "name": "replanned", "color": "7057FF", "description": "已由新 TODO 替代" },
+      { "name": "sensitive-change", "color": "B60205", "description": "涉及敏感文件变更" },
+      { "name": "needs-admin-read", "color": "D4C5F9", "description": "等待管理员确认敏感变更已读" },
+      { "name": "test-risk", "color": "FBCA04", "description": "存在测试风险或测试框架缺失" },
+      { "name": "docs-required", "color": "1D76DB", "description": "需要补齐或检查文档" }
+    ]
+  }
+}
