@@ -1,0 +1,18 @@
+{
+  "name": "{{PACKAGE_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "fm": "prettier \"**/*.md\" --write",
+    "lm": "markdownlint \"**/*.md\"",
+    "workflow:check": "node 0c-tools/agent-workflow/check-workflow.mjs",
+    "workflow:check:git": "node 0c-tools/agent-workflow/check-git.mjs",
+    "workflow:check:todo": "node 0c-tools/agent-workflow/check-todo.mjs"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0",
+    "markdownlint-cli": "^0.49.0",
+    "prettier": "^3.9.0"
+  }
+}
