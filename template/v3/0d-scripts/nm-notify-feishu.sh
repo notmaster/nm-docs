@@ -27,10 +27,29 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+fail() {
+  echo "Project Feishu notification unavailable: $*" >&2
+  exit 1
+}
+
+file_mode() {
+  local file="$1"
+  local os
+  os="$(uname -s 2>/dev/null || printf unknown)"
+  if [ "$os" = "Darwin" ] || [ "$os" = "FreeBSD" ]; then
+    stat -f "%Lp" "$file" 2>/dev/null || true
+  else
+    stat -c "%a" "$file" 2>/dev/null || true
+  fi
+}
+
 if [ ! -f "$CONFIG_FILE" ]; then
-  echo "Feishu notify config missing: $CONFIG_FILE"
-  echo "Notification fallback [$LEVEL] $TITLE: $MESSAGE"
-  exit 0
+  fail "missing project config: $CONFIG_FILE"
+fi
+
+MODE="$(file_mode "$CONFIG_FILE")"
+if [ "$MODE" != "600" ]; then
+  fail "unsafe config permissions for $CONFIG_FILE: ${MODE:-unknown}. Run: chmod 600 \"$CONFIG_FILE\""
 fi
 
 # shellcheck disable=SC1090
@@ -40,14 +59,11 @@ WEBHOOK_URL="${FEISHU_WEBHOOK_URL:-}"
 SIGN_SECRET="${FEISHU_SIGN_SECRET:-}"
 
 if [ -z "$WEBHOOK_URL" ]; then
-  echo "Feishu notify config missing FEISHU_WEBHOOK_URL in $CONFIG_FILE"
-  echo "Notification fallback [$LEVEL] $TITLE: $MESSAGE"
-  exit 0
+  fail "missing FEISHU_WEBHOOK_URL in $CONFIG_FILE"
 fi
 
 if ! command -v curl >/dev/null 2>&1; then
-  echo "curl is not available. Notification fallback [$LEVEL] $TITLE: $MESSAGE"
-  exit 0
+  fail "curl is not available"
 fi
 
 TIMESTAMP="$(date +%s)"
@@ -82,12 +98,34 @@ print(json.dumps(payload, ensure_ascii=False))
 PY
 )"
 
-curl -fsS -X POST \
+RESPONSE="$(curl --silent --show-error -X POST \
   -H "Content-Type: application/json" \
   -d "$PAYLOAD" \
-  "$WEBHOOK_URL" >/dev/null || {
-    echo "Feishu notification failed. Notification fallback [$LEVEL] $TITLE: $MESSAGE"
-    exit 0
-  }
+  "$WEBHOOK_URL" 2>&1)" || {
+  fail "curl failed: $RESPONSE"
+}
 
-echo "Feishu notification sent: [$LEVEL] $TITLE"
+PARSED="$(RESPONSE="$RESPONSE" python3 - <<'PY'
+import json
+import os
+
+try:
+    data = json.loads(os.environ["RESPONSE"])
+except Exception:
+    print("unknown|failed to parse Feishu response")
+    raise SystemExit
+
+code = data.get("code", data.get("StatusCode", "unknown"))
+message = data.get("msg", data.get("message", data.get("StatusMessage", "")))
+print(f"{code}|{message}")
+PY
+)"
+
+CODE="${PARSED%%|*}"
+FEISHU_MESSAGE="${PARSED#*|}"
+
+if [ "$CODE" != "0" ]; then
+  fail "Feishu rejected notification: ${FEISHU_MESSAGE:-unknown error} (code: $CODE)"
+fi
+
+echo "Project Feishu notification sent: [$LEVEL] $TITLE"
