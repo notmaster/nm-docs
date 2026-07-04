@@ -145,6 +145,9 @@ GitHub PR → dev
 
 - Codex Supervisor 入口：[`0a-docs/prompts/supervisor-start.md`](../prompts/supervisor-start.md)
 - Grok Supervisor 入口：[`0a-docs/prompts/supervisor-start-grok.md`](../prompts/supervisor-start-grok.md)
+- 管理员驱动的缺陷修复：[`bugfix-workflow.md`](./bugfix-workflow.md) 与 [`prompts/bugfix/`](../prompts/bugfix/README.md)
 - 角色契约（通用）：[`coder-task.md`](../prompts/coder-task.md)、[`reviewer-pr.md`](../prompts/reviewer-pr.md)、[`fixer-request-changes.md`](../prompts/fixer-request-changes.md)
 - 流程契约：[`multi-agent-coding-v2.md`](./multi-agent-coding-v2.md)
 - 人工编排手册：[`multi-agent-coding-operation-manual-v2.md`](./multi-agent-coding-operation-manual-v2.md)
+
+缺陷修复子流程可以由同一 Grok/Codex 主会话完成初始化和多轮修复，但合并阶段仍必须创建新的只读 Reviewer 子 Agent。管理员触发 `bugfix` 合并阶段后，Reviewer approve 且门禁通过即可自动合并到 `dev`；稳定分支授权不变。

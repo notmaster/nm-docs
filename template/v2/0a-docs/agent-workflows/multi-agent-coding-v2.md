@@ -7,13 +7,15 @@
 
 当管理员要求拆分需求文档、启动监督 Agent、执行 Coder/Reviewer/Fixer、创建或审查 PR、处理 `needs-replan` 时，按本文档执行。普通小改动仍遵守 `AGENTS.md` 的 TODO 和实时记录规则。
 
+需要“Agent 多轮修复 + Human Admin 验收指定提交 + 自动合并”的 Bugfix，使用 [`bugfix-workflow.md`](./bugfix-workflow.md) 及 [`prompts/bugfix/`](../prompts/bugfix/README.md)。该流程中的人工验收是当前 Bugfix 的任务级阻塞门禁。
+
 Grok 原生全自动编排见 [`supervisor-start-grok.md`](../prompts/supervisor-start-grok.md) 与 [`grok-native-vs-codex-grok-cli.md`](./grok-native-vs-codex-grok-cli.md)；本文档同时覆盖**人工编排**与**Grok 原生全自动**两种合并策略。
 
 ## 核心原则
 
 - 文档先行：编码前必须存在需求文档、总 TODO 文件和当前单 TODO 文件。
 - 串行 PR：同一项目同一时间默认只允许一个 active 编码 PR。
-- `dev` 集成：任务分支从 `dev` 创建，PR 合并回 `dev`。
+- `dev` 集成：普通任务和 bugfix 分支从 `dev` 创建，PR 合并回 `dev`。
 - 稳定分支人工合并：`main` / `master` 只由管理员手动确认或明确要求后合并。
 - 代码事实优先：文档状态与代码事实冲突时，先核查代码，再记录判断。
 - 规划变更受控：Coder 只记录执行事实，不直接修改规划性内容。
@@ -22,7 +24,7 @@ Grok 原生全自动编排见 [`supervisor-start-grok.md`](../prompts/supervisor
 
 - Planner：理解需求、提出方案、拆分 TODO、定义依赖、测试和验收标准；在 `needs-replan` 时重新规划。
 - Supervisor：维护项目锁、调度 Coder/Reviewer/Fixer、创建分支和 PR、更新总 TODO 状态。
-- Coder：读取总 TODO 和当前 TODO，从 `dev` 创建任务分支，只完成当前 TODO，提交 PR。
+- Coder：读取总 TODO 和当前 TODO，按任务类型从正确基线创建分支，只完成当前 TODO，提交 PR。
 - Reviewer：审查 PR 是否满足当前 TODO、测试、文档和边界要求，给出 `approve`、`request changes` 或 `comment`。
 - Fixer：只修复 Reviewer 指出的阻塞问题，记录修复摘要并重新请求审查。
 - Human Admin：审查总 TODO 高风险留痕、处理异常、决定是否合并到稳定分支、决定是否真正删除文件；人工编排模式下还须事前确认敏感文件已读。
@@ -54,17 +56,21 @@ TODO 以“功能闭环 + 测试闭环”为单位，不再只按固定工时拆
 master/main
   ↓ 人工确认
 dev
-  ↓
-agent/coder/TODO-xxx
-  ↓
-PR → dev
+  ├─ agent/coder/TODO-xxx → PR → dev
+  └─ bugfix/TODO-xxx-slug → PR → dev
+
+origin/main
+  └─ hotfix/TODO-xxx-slug → PR → main（管理员明确确认）
+                                  ↓
+                              同步 PR → dev
 ```
 
 执行要求：
 
 - `dev` 是开发集成分支。
-- 每个 Coder 分支必须从最新 `dev` 创建。
-- PR 目标分支必须是 `dev`。
+- 普通 Coder 分支和 bugfix 必须从最新 `origin/dev` 创建，PR 目标为 `dev`。
+- hotfix 只能由管理员明确声明，从最新 `origin/main` 创建，PR 目标为 `main`；合并后必须同步回 `dev`。
+- 分支类型由预期基线和目标决定，不由当前检出分支决定。
 - `dev` 到 `master` / `main` 只能由管理员确认后执行。
 
 ## 项目锁
@@ -116,6 +122,18 @@ currentLock:
 12. 门禁通过后合并到 `dev`（Grok 原生全自动由 Supervisor 执行；人工编排由管理员或明确授权后执行），更新总 TODO 和单 TODO。
 13. 管理员决定何时把 `dev` 合并到稳定分支；并事后审查总 TODO「高风险操作总表」。
 
+## Agent 缺陷修复子流程
+
+缺陷修复使用 Bugfix 专项流程与人工提示词：
+
+1. [`bugfix-workflow.md`](./bugfix-workflow.md)：只读诊断；首次写文件前创建 taskId、正确类型分支和 TODO；完成候选修复后等待管理员验证指定 SHA。
+2. [`01-start-dev-bugfix.md`](../prompts/bugfix/01-start-dev-bugfix.md)：首次提交普通 Bug。
+3. [`02-manual-test-failed.md`](../prompts/bugfix/02-manual-test-failed.md)：处理管理员复测失败或新证据，复用原 TODO、分支和 PR，只追加执行轮次。
+4. [`03-accept-and-merge-dev.md`](../prompts/bugfix/03-accept-and-merge-dev.md)：管理员验收指定 SHA 后授权合并阶段；创建新的只读 Reviewer 子 Agent；Reviewer approve 且门禁通过后自动 squash 合并到 `dev`。
+5. [`07-start-production-hotfix.md`](../prompts/bugfix/07-start-production-hotfix.md) 与 [`08-approve-stable-merge.md`](../prompts/bugfix/08-approve-stable-merge.md)：稳定分支必须管理员明确确认，合并后再经独立审查和门禁同步回 `dev`。
+
+该子流程的状态机、通知去重和数字编号处理规则见 [`bugfix-workflow.md`](./bugfix-workflow.md)。普通 Grok 原生全自动 TODO 仍沿用 `supervisor-start-grok.md`，不受“等待管理员验证”阶段影响。
+
 ## Coder 执行前检查
 
 - 总 TODO 是否存在 active lock。
@@ -131,7 +149,7 @@ currentLock:
 ## Reviewer 审查清单
 
 - PR 是否对应唯一 TODO。
-- PR 是否从 `dev` 创建并合并回 `dev`。
+- PR 的基线和目标是否符合分支类型：普通任务/bugfix 为 `dev`，hotfix 为明确授权的稳定分支并包含同步 `dev` 计划。
 - 是否只完成当前 TODO。
 - 是否偷偷实现后续 TODO。
 - 是否修改禁止范围。

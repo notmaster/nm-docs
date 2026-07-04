@@ -45,8 +45,11 @@
 
 - 当用户要求拆分需求文档、启动监督 Agent、执行 Coder/Reviewer/Fixer、处理 PR、处理 `needs-replan` 或落地协同流程时，必须读取：
   - `0a-docs/agent-workflows/multi-agent-coding-v2.md`
+- 当用户要求诊断或修复缺陷、处理管理员多轮反馈/手动修改、启动 `bugfix`/`hotfix` 或进入修复合并阶段时，还必须读取：
+  - `0a-docs/agent-workflows/bugfix-workflow.md`
 - 如本机存在 `nm-collab-workflow-v2` skill，应优先使用该 skill。
 - 协同开发默认使用 `{{INTEGRATION_BRANCH}}` 作为开发集成分支，任务分支从该分支创建，PR 合并回该分支。
+- 缺陷分支由预期基线和目标决定，不由当前检出分支决定：普通缺陷使用 `bugfix/<TODO-ID>-<slug>` 从最新 `origin/{{INTEGRATION_BRANCH}}` 创建；只有管理员明确声明生产紧急修复时，才使用 `hotfix/<TODO-ID>-<slug>` 从最新 `origin/{{STABLE_BRANCH}}` 创建。
 - `{{STABLE_BRANCH}}` 是稳定分支，只能由管理员手动确认或明确要求后合并。
 - 同一项目默认只允许一个 active 编码 PR；项目锁、PR 状态、敏感文件和测试风险记录在总 TODO 文件中。
 
@@ -59,6 +62,8 @@
 
 ## 本项目规则
 
+- 项目类型：<由管理员填写>
+- 主要技术栈：<由管理员填写>
 - 编码前先读 `PROJECT_STRUCTURE.md` 了解目录结构。
 - 编码后必须更新 `PROJECT_STRUCTURE.md`，并检查 `README.md` 是否需要更新。
 - 项目技术栈、命名约束、测试命令和发布规则由管理员在本节补充。

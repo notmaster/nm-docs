@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "templateVersion": "2.1.0",
+  "templateVersion": "2.2.0",
   "repository": "https://github.com/notmaster/nm-docs.git",
   "rawBase": "https://raw.githubusercontent.com/notmaster/nm-docs",
   "defaultRef": "main",
@@ -13,6 +13,7 @@
     "0a-docs/agent-workflows",
     "0a-docs/agent-workflows/templates",
     "0a-docs/prompts",
+    "0a-docs/prompts/bugfix",
     "0b-todo",
     "0b-todo/done",
     "0c-tools",
@@ -90,6 +91,11 @@
       "policy": "managed"
     },
     {
+      "target": "0a-docs/agent-workflows/bugfix-workflow.md",
+      "source": "template/v2/0a-docs/agent-workflows/bugfix-workflow.md",
+      "policy": "managed"
+    },
+    {
       "target": "0a-docs/agent-workflows/templates/pr-body-template.md",
       "source": "template/v2/0a-docs/agent-workflows/templates/pr-body-template.md",
       "policy": "managed"
@@ -137,6 +143,51 @@
     {
       "target": "0a-docs/prompts/supervisor-start-grok.md",
       "source": "template/v2/0a-docs/prompts/supervisor-start-grok.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/README.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/README.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/01-start-dev-bugfix.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/01-start-dev-bugfix.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/02-manual-test-failed.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/02-manual-test-failed.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/03-accept-and-merge-dev.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/03-accept-and-merge-dev.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/04-gate-or-scope-decision.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/04-gate-or-scope-decision.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/05-resume.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/05-resume.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/06-pause-or-terminate.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/06-pause-or-terminate.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/07-start-production-hotfix.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/07-start-production-hotfix.md",
+      "policy": "managed"
+    },
+    {
+      "target": "0a-docs/prompts/bugfix/08-approve-stable-merge.md",
+      "source": "template/v2/0a-docs/prompts/bugfix/08-approve-stable-merge.md",
       "policy": "managed"
     },
     {

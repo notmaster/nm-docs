@@ -12,8 +12,16 @@
 
 - 项目根目录：`<PROJECT_ROOT>`
 - 总 TODO：`<TOTAL_TODO>`
-- 初始任务 / 任务标识：`<TODO_ID>`（例如 `NMBT-002`）
+- 初始任务 / 任务标识：`<TODO_ID>`（例如 `TODO-001`）
 - 当前 TODO：`<CURRENT_TODO>`
+
+## 缺陷修复流程路由
+
+当管理员要求诊断/修复缺陷、粘贴多轮错误、声明已手动修改、启动 `bugfix`/`hotfix` 或发送修复合并指令时，先读取 `0a-docs/agent-workflows/bugfix-workflow.md`，并按阶段使用 `0a-docs/prompts/bugfix/` 下的人工提示词模板。
+
+修复子流程在初始化和反复修改阶段停留于 `needs-human`，等待管理员验证指定候选 SHA。管理员触发 `bugfix` 合并阶段后，必须新建只读 Reviewer 子 Agent；Reviewer `approve` 且门禁通过后，自动 squash 合并到 `dev`，不再二次询问。该例外不改变普通 TODO 的端到端全自动行为。
+
+`hotfix → main` 不继承 `dev` 自动合并授权，必须获得管理员针对当前 PR 的明确确认，并在合并后同步回 `dev`。
 
 ## 角色与工具映射
 
@@ -52,6 +60,8 @@
 19. **高风险操作必须在 `<TOTAL_TODO>` 的「高风险操作总表」追加一行**；不得仅写在单 TODO、PR 或 `runs` 中而不更新总表。当前 TODO 与 PR 可写详情，但总 TODO 总表是管理员事后审计的**唯一汇总入口**。
 20. **不得删除文件**；确需删除时只能移入 `.delete-pending/` 并在总 TODO「高风险操作总表」与「待删除文件表」各追加一行，等待管理员手动删除。
 21. 如果 PR 在 Reviewer approve 或 Fixer 完成前被外部合并，立即完整核查并切换 `needs-human`。不得自行创建补救 PR，除非管理员明确授权。
+22. 使用 `nm-notify-feishu` 按关键状态变化通知：新 blocker、`needs-replan`、需要管理员选择的 `needs-human`、`merged-to-dev`，以及 hotfix 稳定分支/同步结果。普通心跳、测试命令和未变化状态不得重复通知。
+23. 通知键使用 `<TODO-ID>:<round>:<state>:<head-or-merge-sha>` 并写入 `runs`。发送失败时运行 `doctor` 后重试一次；仍失败只报告目标、阶段和飞书错误，不回滚已完成的 Git 合并。
 
 ## 高风险操作记录（不阻塞自动流程）
 
