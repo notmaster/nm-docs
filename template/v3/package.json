@@ -1,0 +1,18 @@
+{
+  "name": "{{PACKAGE_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "fm": "prettier \"**/*.md\" --write",
+    "lm": "markdownlint \"**/*.md\"",
+    "design:lint": "npx @google/design.md lint 0a-docs/0b-design/DESIGN.md",
+    "workflow:check": "bash 0d-scripts/check-workflow.sh",
+    "verify": "bash 0d-scripts/verify.sh",
+    "notify:admin": "bash 0d-scripts/notify-admin.sh"
+  },
+  "devDependencies": {
+    "markdownlint-cli": "^0.49.0",
+    "prettier": "^3.9.0"
+  }
+}
