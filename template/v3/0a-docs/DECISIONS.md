@@ -17,11 +17,6 @@
 
 ## Decision Log
 
-## 2026-07-05 - Project notification boundary
+项目初始化后，本节默认保持为空。
 
-- Decision: Project notification scripts are authoritative. When project Feishu notification is unavailable, agents must report the concrete cause and wait for administrator authorization before using system-level Feishu notification.
-- Reason: The repository and the local agent environment can both provide Feishu notification. Silent fallback to a system-level notifier hides project configuration or script problems and violates project-local ownership.
-- Alternatives: Always use the system-level Feishu helper; keep project notification failures as successful fallbacks.
-- Impact: `0d-scripts/nm-notify-feishu.sh` now reports unavailable project notification as a nonzero failure instead of silently falling back. `AGENTS.md` and `AGENTS.zh-CN.md` define the required operator behavior.
-- Owner: Administrator.
-- Related files: `AGENTS.md`, `AGENTS.zh-CN.md`, `0d-scripts/nm-notify-feishu.sh`.
+新增决策时，把已确认的关键决策按上面的格式追加到本节下方。
