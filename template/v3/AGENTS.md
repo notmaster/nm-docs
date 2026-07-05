@@ -21,6 +21,8 @@ For the full workflow, read `0c-workflow/WORKFLOW_V3.md`.
 
 - Plans live under `0b-goals/0a-plans/` and must use `Plan-<YYYYMMDD>-PlanID<001>-<slug>.md`.
 - Active Goals live under `0b-goals/0b-current/` and must use `Goal-<YYYYMMDD>-PlanID<001>-<GoalID001>-<slug>.md`.
+- Prototype deliverables must live under versioned directories in `0a-docs/0b-design/prototype/`, using `v<number>` names such as `v1`, `v2`, and `v3`.
+- Before creating a new prototype, scan existing `v<number>` directories and use the next number after the current maximum; if none exist, start with `v1`. Each version directory must contain its own prototype files and assets, and old versions must not be overwritten unless the administrator explicitly requests it.
 - Before implementation, read the active Goal under `0b-goals/0b-current/` and its referenced Plan.
 - `0b-goals/0b-current/` must contain at most one active Goal by default. If multiple Goal files exist, stop and ask the administrator which one is active.
 - If no active Goal exists, do not start substantial implementation. Ask the administrator whether a Goal should be created first.

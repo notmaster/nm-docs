@@ -24,8 +24,14 @@ Plan-<YYYYMMDD>-PlanID<001>-<slug>.md
 
 - Requirements: `0a-docs/0a-product/REQUIREMENTS.md`
 - Acceptance: `0a-docs/0a-product/ACCEPTANCE.md`
-- Prototype: `0a-docs/0b-design/prototype/`
+- Prototype: `0a-docs/0b-design/prototype/v<number>/`
 - Design: `0a-docs/0b-design/DESIGN.md`
+
+## Prototype Version Rule
+
+- 如果本 Plan 创建或修改原型，原型必须放在 `0a-docs/0b-design/prototype/v<number>/`。
+- 创建新原型前，扫描已有 `v<number>` 目录，并使用当前最大数字加 1；如果还没有版本目录，从 `v1` 开始。
+- 每个版本目录必须自包含该版原型文件和资产，除非管理员明确要求，不得覆盖旧版本。
 
 ## Scope
 
