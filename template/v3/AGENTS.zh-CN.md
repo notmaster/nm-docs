@@ -22,6 +22,8 @@
 
 - Plan 放在 `0b-goals/0a-plans/`，命名必须使用 `Plan-<YYYYMMDD>-PlanID<001>-<slug>.md`。
 - Active Goal 放在 `0b-goals/0b-current/`，命名必须使用 `Goal-<YYYYMMDD>-PlanID<001>-<GoalID001>-<slug>.md`。
+- 原型产物必须放在 `0a-docs/0b-design/prototype/` 下的版本目录中，目录名使用 `v<number>`，例如 `v1`、`v2`、`v3`。
+- 创建新原型前必须扫描已有 `v<number>` 目录，并使用当前最大数字加 1；如果还没有版本目录，则从 `v1` 开始。每个版本目录必须自包含该版原型文件和资产，除非管理员明确要求，不得覆盖旧版本。
 - 实现前必须读取 `0b-goals/0b-current/` 下的 active Goal 及其引用的 Plan。
 - `0b-goals/0b-current/` 默认只允许存在一个 active Goal；如果存在多个，必须停止并询问管理员。
 - 没有 active Goal 时，不得开始大规模实现；应先询问管理员是否需要创建 Goal。

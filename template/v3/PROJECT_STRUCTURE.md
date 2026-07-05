@@ -18,7 +18,8 @@
 │   │   ├── REQUIREMENTS.md          # 需求和产品决策主文档
 │   │   └── ACCEPTANCE.md            # 管理员验收标准
 │   ├── 0b-design/
-│   │   ├── prototype/               # 静态原型或原型说明
+│   │   ├── prototype/               # 原型版本根目录，使用 v1、v2、v3 自增长目录
+│   │   │   └── v1/                  # 第 1 版原型；后续新原型使用 v2、v3 ...
 │   │   └── DESIGN.md                # 设计规范
 │   └── 0c-prompts/
 │       ├── discover-requirements.md # 需求挖掘提示词模板
