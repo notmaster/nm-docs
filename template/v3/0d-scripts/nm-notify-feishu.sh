@@ -70,6 +70,7 @@ TIMESTAMP="$(date +%s)"
 
 PAYLOAD="$(LEVEL="$LEVEL" TITLE="$TITLE" MESSAGE="$MESSAGE" TIMESTAMP="$TIMESTAMP" SIGN_SECRET="$SIGN_SECRET" python3 - <<'PY'
 import base64
+from datetime import datetime, timezone, timedelta
 import hashlib
 import hmac
 import json
@@ -81,10 +82,66 @@ message = os.environ["MESSAGE"]
 timestamp = os.environ["TIMESTAMP"]
 secret = os.environ.get("SIGN_SECRET", "")
 
+def header_template(value):
+    normalized = value.lower().replace("-", "_")
+    if normalized in {"success", "done", "completed", "merged", "merged_to_dev"}:
+        return "green"
+    if normalized in {"error", "failed", "failure", "blocked"}:
+        return "red"
+    if normalized in {"warning", "warn", "action_required", "needs_human", "needs_replan"}:
+        return "yellow"
+    if normalized in {"no_change", "skipped", "noop"}:
+        return "grey"
+    return "blue"
+
+def next_step(value):
+    normalized = value.lower().replace("-", "_")
+    if normalized in {"action_required", "needs_human", "needs_replan"}:
+        return "请管理员在当前 Agent 会话中回复确认或选择。"
+    if normalized in {"error", "failed", "failure", "blocked"}:
+        return "请查看失败阶段、终端输出和当前 Goal 状态后决定下一步。"
+    if normalized in {"success", "done", "completed", "merged", "merged_to_dev"}:
+        return "无需立即操作，按当前工作流继续验收或归档。"
+    return "如需处理，请回到当前 Agent 会话继续。"
+
+def is_diagnostic(value):
+    normalized = value.lower().replace("-", "_")
+    return normalized in {
+        "action_required",
+        "needs_human",
+        "needs_replan",
+        "warning",
+        "warn",
+        "error",
+        "failed",
+        "failure",
+        "blocked",
+    }
+
+def markdown_block(content):
+    return {"tag": "div", "text": {"tag": "lark_md", "content": content}}
+
+sent_at = datetime.fromtimestamp(int(timestamp), timezone.utc).astimezone(
+    timezone(timedelta(hours=8))
+).strftime("%Y-%m-%d %H:%M:%S UTC+8")
+
+lines = [
+    f"{level} · sent {sent_at}",
+    message or "-",
+]
+
+if is_diagnostic(level):
+    lines.append(f"下一步：{next_step(level)}")
+
 payload = {
-    "msg_type": "text",
-    "content": {
-        "text": f"[{level}] {title}\n{message}",
+    "msg_type": "interactive",
+    "card": {
+        "config": {"wide_screen_mode": True},
+        "header": {
+            "template": header_template(level),
+            "title": {"tag": "plain_text", "content": title},
+        },
+        "elements": [markdown_block("\n".join(lines))],
     },
 }
 
