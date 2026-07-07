@@ -59,6 +59,12 @@ npm run workflow:check
 ./0d-scripts/notify-admin.sh --level info --title "Status" --message "Message"
 ```
 
+通知卡片会自动包含项目来源，默认使用当前 Git 仓库根目录名。需要覆盖时可以使用 `--project`，或在项目飞书配置中设置 `FEISHU_PROJECT_NAME` / `PROJECT_NAME`：
+
+```bash
+./0d-scripts/notify-admin.sh --project "{{PROJECT_NAME}}" --level info --title "Status" --message "Message"
+```
+
 通知默认使用飞书卡片格式，并按 `--level` 映射标题颜色：
 
 - `success` / `completed` / `merged_to_dev`：绿色。
@@ -72,7 +78,7 @@ npm run workflow:check
 - 默认紧凑模式：`info`、`success`、`no_change` 等普通状态只展示一行元信息加一段正文，避免在手机端占用过多屏幕空间。
 - 诊断模式：`warning`、`action_required`、`needs_replan`、`error`、`blocked` 等需要处理的通知会额外展示 `下一步`。
 
-所有卡片都会自动包含 `sent YYYY-MM-DD HH:mm:ss UTC+8`，用于判断通知投递是否延迟。
+所有卡片都会自动包含 `项目：<project>` 和 `sent YYYY-MM-DD HH:mm:ss UTC+8`，用于区分多个项目共用同一飞书机器人时的消息来源，并判断通知投递是否延迟。
 
 飞书频控注意事项：
 

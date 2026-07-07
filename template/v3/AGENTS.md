@@ -60,6 +60,7 @@ For the full workflow, read `0c-workflow/WORKFLOW_V3.md`.
 - Do not bypass or replace project notification behavior with system-level Feishu tools such as `~/.agents/skills/nm-notify-feishu/scripts/notify.sh`.
 - System-level Feishu notification may be used only after the administrator explicitly authorizes that fallback for the current task.
 - The project Feishu config path is fixed at `~/.config/nm-docs/nm-notify-feishu.env`.
+- Project Feishu notifications must include a stable project source identity. The default is the Git repository root directory name; override it with `--project`, `FEISHU_PROJECT_NAME`, or `PROJECT_NAME` when needed.
 - If project Feishu notification is unavailable, report whether the failure is caused by project script behavior, missing or unsafe project config, missing local dependencies, network delivery, or Feishu rejection. Then stop and ask the administrator before using any system-level notifier.
 - Feishu notification delivery is recommended and does not invalidate completed development work, but notification failures must not be silently treated as success.
 
