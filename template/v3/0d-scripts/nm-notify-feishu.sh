@@ -5,6 +5,7 @@ CONFIG_FILE="${HOME}/.config/nm-docs/nm-notify-feishu.env"
 LEVEL="info"
 TITLE="nm-docs notification"
 MESSAGE=""
+REQUESTED_PROJECT_NAME=""
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -18,6 +19,10 @@ while [ "$#" -gt 0 ]; do
       ;;
     --message)
       MESSAGE="${2:-}"
+      shift 2
+      ;;
+    --project)
+      REQUESTED_PROJECT_NAME="${2:-}"
       shift 2
       ;;
     *)
@@ -57,6 +62,12 @@ source "$CONFIG_FILE"
 
 WEBHOOK_URL="${FEISHU_WEBHOOK_URL:-}"
 SIGN_SECRET="${FEISHU_SIGN_SECRET:-}"
+PROJECT_NAME="${REQUESTED_PROJECT_NAME:-${FEISHU_PROJECT_NAME:-${PROJECT_NAME:-}}}"
+
+if [ -z "$PROJECT_NAME" ]; then
+  PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+  PROJECT_NAME="$(basename "$PROJECT_ROOT")"
+fi
 
 if [ -z "$WEBHOOK_URL" ]; then
   fail "missing FEISHU_WEBHOOK_URL in $CONFIG_FILE"
@@ -68,7 +79,7 @@ fi
 
 TIMESTAMP="$(date +%s)"
 
-PAYLOAD="$(LEVEL="$LEVEL" TITLE="$TITLE" MESSAGE="$MESSAGE" TIMESTAMP="$TIMESTAMP" SIGN_SECRET="$SIGN_SECRET" python3 - <<'PY'
+PAYLOAD="$(LEVEL="$LEVEL" TITLE="$TITLE" MESSAGE="$MESSAGE" PROJECT_NAME="$PROJECT_NAME" TIMESTAMP="$TIMESTAMP" SIGN_SECRET="$SIGN_SECRET" python3 - <<'PY'
 import base64
 from datetime import datetime, timezone, timedelta
 import hashlib
@@ -79,6 +90,7 @@ import os
 level = os.environ["LEVEL"]
 title = os.environ["TITLE"]
 message = os.environ["MESSAGE"]
+project_name = os.environ["PROJECT_NAME"]
 timestamp = os.environ["TIMESTAMP"]
 secret = os.environ.get("SIGN_SECRET", "")
 
@@ -127,6 +139,7 @@ sent_at = datetime.fromtimestamp(int(timestamp), timezone.utc).astimezone(
 
 lines = [
     f"{level} · sent {sent_at}",
+    f"项目：{project_name}",
     message or "-",
 ]
 
