@@ -99,14 +99,14 @@ auto_push: true
 
 默认情况下，任务完成后等待管理员验收。
 
-- 验收通过：管理员明确要求后，Agent 合并回 `dev` 并同步远端。
+- 验收通过：管理员明确要求后，Agent 合并回 `dev`、同步远端，并按 `0c-workflow/BRANCHING.md` 评估是否清理已合并的短期任务分支。
 - 验收不通过：Agent 继续在当前任务分支修复。
 - 管理员要求新增功能：从 `dev` 新建新分支处理。
 
 只有管理员明确授权，或者当前 Plan 和 Goal 都设置 `auto_merge_to_dev: true` 时，Agent 才能在验证通过后自动合并回 `dev`。
 
 当 Plan 设置 `administrator_review_required: false`、`auto_execute_goals: true`、
-`auto_merge_to_dev: true` 时，Agent 可以按 Plan 串行拆分、执行、验证、push、合并和归档所有 Goal。遇到阻塞、范围扩大、安全风险或同类验证失败连续 5 次时，必须停止并通知管理员。
+`auto_merge_to_dev: true` 时，Agent 可以按 Plan 串行拆分、执行、验证、push、合并、评估已合并短期分支清理并归档所有 Goal。遇到阻塞、范围扩大、安全风险或同类验证失败连续 5 次时，必须停止并通知管理员。
 
 ## 阶段 5：维护与发布
 
