@@ -127,4 +127,6 @@ auto_push: true
 ./0d-scripts/notify-admin.sh --level action_required --title "Title" --message "Message"
 ```
 
-飞书通知是推荐能力。缺少 `~/.config/nm-docs/nm-notify-feishu.env` 时，脚本只打印提示并成功退出。
+通知卡片必须包含项目来源标识。项目通知脚本默认使用当前 Git 仓库根目录名；需要覆盖时使用 `--project`，或在 `~/.config/nm-docs/nm-notify-feishu.env` 中设置 `FEISHU_PROJECT_NAME` / `PROJECT_NAME`。
+
+飞书通知是推荐能力。缺少 `~/.config/nm-docs/nm-notify-feishu.env` 时，脚本会报告项目配置缺失并失败退出；Agent 必须说明失败原因，不得自行改用系统级通知。
