@@ -59,6 +59,29 @@ npm run workflow:check
 ./0d-scripts/notify-admin.sh --level info --title "Status" --message "Message"
 ```
 
+通知默认使用飞书卡片格式，并按 `--level` 映射标题颜色：
+
+- `success` / `completed` / `merged_to_dev`：绿色。
+- `error` / `failed` / `blocked`：红色。
+- `warning` / `action_required` / `needs_human` / `needs_replan`：黄色。
+- `info`：蓝色。
+- `no_change` / `skipped`：灰色。
+
+通知卡片使用两档布局：
+
+- 默认紧凑模式：`info`、`success`、`no_change` 等普通状态只展示一行元信息加一段正文，避免在手机端占用过多屏幕空间。
+- 诊断模式：`warning`、`action_required`、`needs_replan`、`error`、`blocked` 等需要处理的通知会额外展示 `下一步`。
+
+所有卡片都会自动包含 `sent YYYY-MM-DD HH:mm:ss UTC+8`，用于判断通知投递是否延迟。
+
+飞书频控注意事项：
+
+- 自定义机器人限制为单租户单机器人 `100 次/分钟`、`5 次/秒`，达到任一窗口上限都会触发限流。
+- 飞书从 2022-01-05 起严格执行自定义机器人 `100 次/分钟` 频控，超出频率的消息会发送失败。
+- 错误码 `11232` 表示创建消息触发服务级频控，`11233` 表示创建消息触发会话级频控，`11247` 表示内部发送消息触发频控。
+- 官方建议发送消息尽量避开整点和半点，例如 `10:00`、`17:30`，否则可能因系统压力触发 `11232`。
+- 人工测试通知不要连续快速发送大量卡片；如果出现 `11232 frequency limited`，应等待至少 60 秒后重试，整点/半点附近建议等待 2-3 分钟。
+
 校验设计规范：
 
 ```bash
