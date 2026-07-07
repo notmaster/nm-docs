@@ -16,6 +16,7 @@ For the full workflow, read `0c-workflow/WORKFLOW_V3.md`.
   `feature/*`, `fix/*`, `docs/*`, `refactor/*`, or `chore/*`.
 - Use `hotfix/*` only for urgent production fixes, and create it from `main`.
 - Before merging back to `dev`, local verification must pass and the administrator must accept the work, unless both the active Plan and the active Goal set `auto_merge_to_dev: true`.
+- After a branch is merged, evaluate whether to clean it up according to `0c-workflow/BRANCHING.md`. Never auto-delete `main`, `dev`, `release/*`, `hotfix/*`, unmerged branches, or branches still under review, acceptance, canary, release, or rollback responsibility.
 
 ## Goal Workflow
 
@@ -66,5 +67,6 @@ For the full workflow, read `0c-workflow/WORKFLOW_V3.md`.
 
 - Do not overwrite uncommitted user changes.
 - Do not run destructive git operations unless the administrator explicitly requests them.
+- Before deleting any local or remote branch, confirm the working tree is clean and report the merge proof, branch role, and exact delete command.
 - When files need to be deleted, prefer moving them to `.delete-pending/` and wait for administrator confirmation.
 - If acceptance criteria are unclear, verification commands are missing, external services are unavailable, or safety risks exist, stop and ask the administrator.
