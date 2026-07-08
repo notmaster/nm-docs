@@ -72,7 +72,7 @@ template/v3/                 # 当前推荐的 NM V3 工作流模板
 skills/nm-init-project-v3/    # V3 初始化/更新的 Agent skill
 tools/nm-v3/                  # V3 确定性工具
 template/v2/                  # 旧版 V2 协同工作流
-template/temp-*               # V1 基础模板
+template/v1/                  # V1 基础模板，仅保留作参考
 docs/                         # 用户文档和国际化文档
 ```
 
@@ -96,7 +96,7 @@ npm run verify
 
 ## 更多文档
 
-- [Template versions](template-versions.md)
+- [模板版本](template-versions.zh-CN.md)
 - [Skill and tool installation](installation.md)
 - [V3 template README](../template/v3/README.md)
 - [V3 manifest](../template/v3/manifest.json)

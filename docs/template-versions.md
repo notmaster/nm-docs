@@ -23,4 +23,6 @@ Keep V2 for existing projects that already depend on it. Prefer V3 for new proje
 
 ## Legacy: V1
 
-The `template/temp-*` files are legacy base templates. They are retained for compatibility and reference only.
+`template/v1` contains the legacy base template that previously lived as `template/temp-*` files.
+
+V1 is retained for compatibility and reference only. It is almost unused for current work; prefer V3 for new projects unless an existing project explicitly depends on V1.
