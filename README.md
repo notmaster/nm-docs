@@ -72,7 +72,7 @@ template/v3/                 # Recommended NM V3 workflow template
 skills/nm-init-project-v3/    # Agent skill wrapper for V3 init/update
 tools/nm-v3/                  # Deterministic V3 CLI-style tooling
 template/v2/                  # Previous V2 collaboration workflow
-template/temp-*               # Legacy V1 base templates
+template/v1/                  # Legacy V1 base template, retained for reference
 docs/                         # User-facing documentation and translations
 ```
 
