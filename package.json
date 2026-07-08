@@ -7,7 +7,9 @@
     "fm": "prettier \"**/*.md\" --write",
     "lm": "markdownlint \"**/*.md\"",
     "v3:check": "python3 tools/nm-v3/nm_v3.py check --target template/v3 --source-dir .",
-    "skill:v3:check": "python3 /Users/jango/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/nm-init-project-v3"
+    "v4:check": "python3 tools/nm-v4/nm_v4.py check --target template/v4 --source-dir .",
+    "skill:v3:check": "python3 /Users/jango/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/nm-init-project-v3",
+    "skill:v4:check": "python3 /Users/jango/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/nm-init-project-v4"
   },
   "devDependencies": {
     "markdownlint-cli": "^0.49.0",
