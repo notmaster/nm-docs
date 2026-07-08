@@ -32,9 +32,9 @@ For the Simplified Chinese administrator review copy, see `AGENTS.zh-CN.md`.
 
 ## Template Rules
 
-- Treat `template/v3/manifest.json` as the source of truth for V3 template files.
-- When adding or renaming V3 template files, update `manifest.json`, `PROJECT_STRUCTURE.md`, and `README.md`.
-- Keep V3 files self-contained; generated projects should pass `npm run workflow:check` and `npm run verify`.
+- Treat `template/v4/manifest.json` as the source of truth for V4 template files, and `template/v3/manifest.json` for V3.
+- When adding or renaming V3 or V4 template files, update that version's `manifest.json` and `PROJECT_STRUCTURE.md`, plus the repository `README.md`.
+- Keep V3 and V4 files self-contained; generated projects should pass `npm run workflow:check` and `npm run verify`.
 - Do not remove old template versions unless the user explicitly asks.
 
 ## Skill Rules
@@ -61,9 +61,10 @@ For the Simplified Chinese administrator review copy, see `AGENTS.zh-CN.md`.
 ## Validation
 
 - Run `npm run lm` after Markdown changes.
+- Run `python3 tools/nm-v4/nm_v4.py check --target template/v4 --source-dir .` after V4 template or tool changes.
 - Run `python3 tools/nm-v3/nm_v3.py check --target template/v3 --source-dir .` after V3 template or tool changes.
 - Run the skill validator after editing skills:
 
 ```bash
-python3 /Users/jango/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/nm-init-project-v3
+python3 /Users/jango/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/<skill-name>
 ```
