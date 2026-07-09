@@ -15,7 +15,7 @@
    only inside its non-production sandbox.
 7. **Stop**: hard risk, acceptance, Spec conflict, repair exhausted without `skip_on_fail`.
 8. **Skip**: only `skip_on_fail: true` after 10 repairs (auto), ledger entry.
-9. **Notify**: events via `notify-event.sh` (Feishu first).
+9. **Notify**: events via `notify-event.sh` (Feishu first). Dual channel: progress vs attention webhooks in `~/.config/nm-docs/nm-notify-feishu.env`; see project `0c-workflow/NOTIFY_EVENTS.md`.
 10. **Docs**: English agent source; Chinese admin mirrors.
 
 Ratified design: project file `0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md`.

@@ -7,6 +7,10 @@ default_timezone: UTC+8
 notify:
   channels:
     - type: feishu
-      # progress_webhook_env: FEISHU_WEBHOOK_PROGRESS
-      # attention_webhook_env: FEISHU_WEBHOOK_ATTENTION
+      # Env var *names* only — secrets live in ~/.config/nm-docs/nm-notify-feishu.env
+      progress_webhook_env: FEISHU_WEBHOOK_PROGRESS
+      attention_webhook_env: FEISHU_WEBHOOK_ATTENTION
+      # Optional; derived from webhook names when omitted:
+      # progress_secret_env: FEISHU_SIGN_SECRET_PROGRESS
+      # attention_secret_env: FEISHU_SIGN_SECRET_ATTENTION
 repair_max_attempts: 10

@@ -116,8 +116,15 @@ Events (not raw prose only): see `NOTIFY_EVENTS.md`.
 ./0d-scripts/notify-event.sh --event need_review --severity attention --message "..."
 ```
 
-Feishu is the first channel. Configure separate webhooks for progress vs attention
-if desired (e.g. two groups). Future channels plug in without changing producers.
+Feishu is the first channel.
+
+- Secrets: `~/.config/nm-docs/nm-notify-feishu.env` (mode `600`), machine-global.
+- Routing: `severity=progress` → progress webhook; `severity=attention` → attention
+  webhook; missing split URLs fall back to `FEISHU_WEBHOOK_URL`.
+- Project profile lists **env var names** only (`project-profile.yml`); never secrets.
+- Quiet vs popup is a Feishu group/notification setting (prefer two groups), not a
+  per-message API flag. Card body is built-in; no separate message templates.
+- Full setup: `NOTIFY_EVENTS.md` → “Feishu configuration”.
 
 ## Self-repair and skip
 

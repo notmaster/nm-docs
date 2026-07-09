@@ -28,7 +28,19 @@ NM **V5** experimental workflow project.
 npm run workflow:check
 npm run verify
 npm run notify:event -- --event notify_test --severity progress --message "hello"
+npm run notify:event -- --event notify_test --severity attention --message "needs eyes"
 ```
+
+## Feishu (optional)
+
+Machine-global config (not in this repo):
+
+```text
+~/.config/nm-docs/nm-notify-feishu.env   # mode 600
+```
+
+Progress vs attention can use separate webhooks; see `0c-workflow/NOTIFY_EVENTS.md`.
+`0c-workflow/project-profile.yml` only names env vars—never secrets.
 
 ## Safety
 
