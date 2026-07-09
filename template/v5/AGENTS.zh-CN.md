@@ -46,3 +46,6 @@
 
 - Task：任务验收命令 + 自修 ≤10。Phase：全量 `verify.sh`。
 - 通过 `notify-event.sh` 发事件；飞书为首个渠道。
+- 飞书密钥：`~/.config/nm-docs/nm-notify-feishu.env`（`600`，本机全局）。勿把 webhook/secret 写进仓库。
+- 双通道：`FEISHU_WEBHOOK_PROGRESS` / `FEISHU_WEBHOOK_ATTENTION`（及对应 `FEISHU_SIGN_SECRET_*`）；未配置则回落 `FEISHU_WEBHOOK_URL`。
+- `project-profile.yml` 只声明 env **变量名**。配置与签名说明见 `0c-workflow/NOTIFY_EVENTS.md`。

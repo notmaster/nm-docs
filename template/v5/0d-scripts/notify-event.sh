@@ -67,9 +67,13 @@ fi
 export NM_NOTIFY_EVENT="$EVENT"
 export NM_NOTIFY_SEVERITY="$SEVERITY"
 
-# Prefer split webhooks when present in env file (sourced by nm-notify-feishu if supported).
-# Always go through project notify path.
-ARGS=(--level "$LEVEL" --title "$TITLE" --message "event=$EVENT severity=$SEVERITY ${MESSAGE}")
+# Route progress/attention to split Feishu webhooks when configured.
+ARGS=(
+  --severity "$SEVERITY"
+  --level "$LEVEL"
+  --title "$TITLE"
+  --message "event=$EVENT severity=$SEVERITY ${MESSAGE}"
+)
 if [ -n "$PROJECT" ]; then
   ARGS+=(--project "$PROJECT")
 fi

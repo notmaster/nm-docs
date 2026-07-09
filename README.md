@@ -58,7 +58,11 @@ Status and notify test:
 ```bash
 python3 tools/nm-v5/nm_v5.py status --target /absolute/path/to/project
 python3 tools/nm-v5/nm_v5.py notify-test --target /absolute/path/to/project
+python3 tools/nm-v5/nm_v5.py notify-test --target /absolute/path/to/project --severity attention
 ```
+
+Feishu setup (global env + dual channel): see
+[template/v5/0c-workflow/NOTIFY_EVENTS.md](template/v5/0c-workflow/NOTIFY_EVENTS.md).
 
 Install the V5 skill for local agents:
 

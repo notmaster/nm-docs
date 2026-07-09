@@ -6,6 +6,8 @@ LEVEL="info"
 TITLE="nm-docs notification"
 MESSAGE=""
 REQUESTED_PROJECT_NAME=""
+# progress | attention | empty (use default webhook)
+SEVERITY=""
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -23,6 +25,10 @@ while [ "$#" -gt 0 ]; do
       ;;
     --project)
       REQUESTED_PROJECT_NAME="${2:-}"
+      shift 2
+      ;;
+    --severity)
+      SEVERITY="${2:-}"
       shift 2
       ;;
     *)
@@ -60,8 +66,108 @@ fi
 # shellcheck disable=SC1090
 source "$CONFIG_FILE"
 
-WEBHOOK_URL="${FEISHU_WEBHOOK_URL:-}"
-SIGN_SECRET="${FEISHU_SIGN_SECRET:-}"
+# Optional project-profile override of env var *names* (never secrets).
+PROFILE_FILE="$(git rev-parse --show-toplevel 2>/dev/null || pwd)/0c-workflow/project-profile.yml"
+PROGRESS_WEBHOOK_ENV="FEISHU_WEBHOOK_PROGRESS"
+PROGRESS_SECRET_ENV="FEISHU_SIGN_SECRET_PROGRESS"
+ATTENTION_WEBHOOK_ENV="FEISHU_WEBHOOK_ATTENTION"
+ATTENTION_SECRET_ENV="FEISHU_SIGN_SECRET_ATTENTION"
+if [ -f "$PROFILE_FILE" ]; then
+  # shellcheck disable=SC2034
+  eval "$(
+    PROFILE_FILE="$PROFILE_FILE" python3 - <<'PY'
+import os
+import re
+from pathlib import Path
+
+text = Path(os.environ["PROFILE_FILE"]).read_text(encoding="utf-8")
+# Minimal YAML key scrape (no dependency on PyYAML).
+patterns = {
+    "progress_webhook_env": r"progress_webhook_env:\s*[\"']?([A-Za-z_][A-Za-z0-9_]*)",
+    "attention_webhook_env": r"attention_webhook_env:\s*[\"']?([A-Za-z_][A-Za-z0-9_]*)",
+    "progress_secret_env": r"progress_secret_env:\s*[\"']?([A-Za-z_][A-Za-z0-9_]*)",
+    "attention_secret_env": r"attention_secret_env:\s*[\"']?([A-Za-z_][A-Za-z0-9_]*)",
+}
+out = {}
+for key, pat in patterns.items():
+    m = re.search(pat, text)
+    if m:
+        out[key] = m.group(1)
+
+# Derive secret env names from webhook env names when only webhook keys are set.
+if "progress_webhook_env" in out and "progress_secret_env" not in out:
+    wh = out["progress_webhook_env"]
+    if wh.endswith("_WEBHOOK_PROGRESS") or "WEBHOOK_PROGRESS" in wh:
+        out["progress_secret_env"] = wh.replace("WEBHOOK", "SIGN_SECRET", 1)
+    elif wh.startswith("FEISHU_WEBHOOK_"):
+        out["progress_secret_env"] = "FEISHU_SIGN_SECRET_PROGRESS"
+if "attention_webhook_env" in out and "attention_secret_env" not in out:
+    wh = out["attention_webhook_env"]
+    if wh.endswith("_WEBHOOK_ATTENTION") or "WEBHOOK_ATTENTION" in wh:
+        out["attention_secret_env"] = wh.replace("WEBHOOK", "SIGN_SECRET", 1)
+    elif wh.startswith("FEISHU_WEBHOOK_"):
+        out["attention_secret_env"] = "FEISHU_SIGN_SECRET_ATTENTION"
+
+mapping = {
+    "progress_webhook_env": "PROGRESS_WEBHOOK_ENV",
+    "progress_secret_env": "PROGRESS_SECRET_ENV",
+    "attention_webhook_env": "ATTENTION_WEBHOOK_ENV",
+    "attention_secret_env": "ATTENTION_SECRET_ENV",
+}
+for src, dst in mapping.items():
+    if src in out:
+        print(f'{dst}="{out[src]}"')
+PY
+  )"
+fi
+
+# Infer severity from level when caller only passed --level (legacy path).
+if [ -z "$SEVERITY" ]; then
+  LEVEL_LC="$(printf '%s' "$LEVEL" | tr '[:upper:]' '[:lower:]')"
+  case "$LEVEL_LC" in
+    error|failed|failure|blocked|action_required|needs_human|needs_replan)
+      SEVERITY="attention"
+      ;;
+    *)
+      SEVERITY="progress"
+      ;;
+  esac
+fi
+
+case "$SEVERITY" in
+  progress|attention) ;;
+  *)
+    fail "--severity must be progress|attention (got: $SEVERITY)"
+    ;;
+esac
+
+resolve_channel() {
+  local severity="$1"
+  local webhook_env secret_env webhook secret
+  case "$severity" in
+    progress)
+      webhook_env="$PROGRESS_WEBHOOK_ENV"
+      secret_env="$PROGRESS_SECRET_ENV"
+      ;;
+    attention)
+      webhook_env="$ATTENTION_WEBHOOK_ENV"
+      secret_env="$ATTENTION_SECRET_ENV"
+      ;;
+  esac
+  webhook="${!webhook_env:-}"
+  secret="${!secret_env:-}"
+  if [ -z "$webhook" ]; then
+    webhook="${FEISHU_WEBHOOK_URL:-}"
+    secret="${FEISHU_SIGN_SECRET:-}"
+  elif [ -z "$secret" ]; then
+    secret="${FEISHU_SIGN_SECRET:-}"
+  fi
+  printf '%s\n%s\n' "$webhook" "$secret"
+}
+
+CHANNEL_LINES="$(resolve_channel "$SEVERITY")"
+WEBHOOK_URL="$(printf '%s\n' "$CHANNEL_LINES" | sed -n '1p')"
+SIGN_SECRET="$(printf '%s\n' "$CHANNEL_LINES" | sed -n '2p')"
 PROJECT_NAME="${REQUESTED_PROJECT_NAME:-${FEISHU_PROJECT_NAME:-${PROJECT_NAME:-}}}"
 
 if [ -z "$PROJECT_NAME" ]; then
@@ -70,7 +176,7 @@ if [ -z "$PROJECT_NAME" ]; then
 fi
 
 if [ -z "$WEBHOOK_URL" ]; then
-  fail "missing FEISHU_WEBHOOK_URL in $CONFIG_FILE"
+  fail "missing webhook for severity=$SEVERITY (set ${PROGRESS_WEBHOOK_ENV}/${ATTENTION_WEBHOOK_ENV} or FEISHU_WEBHOOK_URL) in $CONFIG_FILE"
 fi
 
 if ! command -v curl >/dev/null 2>&1; then
@@ -198,4 +304,4 @@ if [ "$CODE" != "0" ]; then
   fail "Feishu rejected notification: ${FEISHU_MESSAGE:-unknown error} (code: $CODE)"
 fi
 
-echo "Project Feishu notification sent: [$LEVEL] $TITLE"
+echo "Project Feishu notification sent: [$LEVEL] severity=$SEVERITY $TITLE"

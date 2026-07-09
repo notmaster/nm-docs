@@ -81,6 +81,9 @@ Stop, set blocked state, and send an `attention` notification when:
 
 - Emit workflow **events** via `./0d-scripts/notify-event.sh` (not free-form only).
 - Channels are pluggable; Feishu is the first adapter. Progress vs attention routing is configuration.
+- Feishu secrets: `~/.config/nm-docs/nm-notify-feishu.env` (mode `600`). Do not commit webhooks or secrets.
+- Dual channel: `FEISHU_WEBHOOK_PROGRESS` / `FEISHU_WEBHOOK_ATTENTION` (+ matching `FEISHU_SIGN_SECRET_*`); fallback `FEISHU_WEBHOOK_URL`.
+- `0c-workflow/project-profile.yml` declares env **names** only. Setup and signature details: `0c-workflow/NOTIFY_EVENTS.md`.
 - Event catalog: `0c-workflow/NOTIFY_EVENTS.md`.
 - Notification failure must not be silently treated as success.
 

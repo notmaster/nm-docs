@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "templateVersion": "5.0.0",
+  "templateVersion": "5.0.1",
   "repository": "https://github.com/notmaster/nm-docs.git",
   "rawBase": "https://raw.githubusercontent.com/notmaster/nm-docs",
   "defaultRef": "main",
@@ -211,7 +211,7 @@
     {
       "target": "0d-scripts/nm-notify-feishu.sh",
       "source": "template/v5/0d-scripts/nm-notify-feishu.sh",
-      "policy": "create-only"
+      "policy": "managed"
     }
   ],
   "github": {
