@@ -1,0 +1,19 @@
+{
+  "name": "{{PACKAGE_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "fm": "prettier \"**/*.md\" --write",
+    "lm": "markdownlint \"**/*.md\"",
+    "workflow:check": "bash 0d-scripts/check-workflow.sh",
+    "verify": "bash 0d-scripts/verify.sh",
+    "notify:admin": "bash 0d-scripts/notify-admin.sh",
+    "notify:event": "bash 0d-scripts/notify-event.sh",
+    "workflow:auto": "python3 0d-scripts/run-workflow.py"
+  },
+  "devDependencies": {
+    "markdownlint-cli": "^0.49.0",
+    "prettier": "^3.9.0"
+  }
+}

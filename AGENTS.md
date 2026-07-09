@@ -32,9 +32,9 @@ For the Simplified Chinese administrator review copy, see `AGENTS.zh-CN.md`.
 
 ## Template Rules
 
-- Treat `template/v4/manifest.json` as the source of truth for V4 template files, and `template/v3/manifest.json` for V3.
-- When adding or renaming V3 or V4 template files, update that version's `manifest.json` and `PROJECT_STRUCTURE.md`, plus the repository `README.md`.
-- Keep V3 and V4 files self-contained; generated projects should pass `npm run workflow:check` and `npm run verify`.
+- Treat `template/v5/manifest.json` as the source of truth for V5 template files, `template/v4/manifest.json` for V4, and `template/v3/manifest.json` for V3.
+- When adding or renaming V3, V4, or V5 template files, update that version's `manifest.json` and `PROJECT_STRUCTURE.md`, plus the repository `README.md`.
+- Keep V3, V4, and V5 files self-contained; generated projects should pass `npm run workflow:check` and `npm run verify`.
 - Do not remove old template versions unless the user explicitly asks.
 
 ## Skill Rules
@@ -61,6 +61,7 @@ For the Simplified Chinese administrator review copy, see `AGENTS.zh-CN.md`.
 ## Validation
 
 - Run `npm run lm` after Markdown changes.
+- Run `python3 tools/nm-v5/nm_v5.py check --target template/v5 --source-dir .` after V5 template or tool changes.
 - Run `python3 tools/nm-v4/nm_v4.py check --target template/v4 --source-dir .` after V4 template or tool changes.
 - Run `python3 tools/nm-v3/nm_v3.py check --target template/v3 --source-dir .` after V3 template or tool changes.
 - Run the skill validator after editing skills:
