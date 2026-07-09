@@ -274,10 +274,21 @@ print(json.dumps(payload, ensure_ascii=False))
 PY
 )"
 
-RESPONSE="$(curl --silent --show-error -X POST \
+CURL_CONNECT_TIMEOUT_SECONDS=10
+CURL_MAX_TIME_SECONDS=30
+CURL_CONFIG_URL="${WEBHOOK_URL//\\/\\\\}"
+CURL_CONFIG_URL="${CURL_CONFIG_URL//\"/\\\"}"
+CURL_URL_CONFIG="url = \"$CURL_CONFIG_URL\""
+
+RESPONSE="$(curl --disable --silent --show-error \
+  --connect-timeout "$CURL_CONNECT_TIMEOUT_SECONDS" \
+  --max-time "$CURL_MAX_TIME_SECONDS" \
+  -X POST \
   -H "Content-Type: application/json" \
-  -d "$PAYLOAD" \
-  "$WEBHOOK_URL" 2>&1)" || {
+  --config /dev/fd/3 \
+  --data-binary @- \
+  3<<<"$CURL_URL_CONFIG" \
+  2>&1 <<<"$PAYLOAD")" || {
   fail "curl failed: $RESPONSE"
 }
 

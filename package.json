@@ -6,6 +6,8 @@
   "scripts": {
     "fm": "prettier \"**/*.md\" --write",
     "lm": "markdownlint \"**/*.md\"",
+    "notify:check": "bash tools/notifications/test-repository-notify.sh",
+    "notify:event": "bash 0d-scripts/notify-event.sh",
     "v3:check": "python3 tools/nm-v3/nm_v3.py check --target template/v3 --source-dir .",
     "v4:check": "python3 tools/nm-v4/nm_v4.py check --target template/v4 --source-dir .",
     "v5:check": "python3 tools/nm-v5/nm_v5.py check --target template/v5 --source-dir .",

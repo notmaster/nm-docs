@@ -130,6 +130,7 @@ npm run verify
 
 ## More Documentation
 
+- [Repository work notifications](docs/repository-notifications.md) / [Simplified Chinese](docs/repository-notifications.zh-CN.md)
 - [Chinese README](docs/README.zh-CN.md)
 - [V6 workflow implementation Spec](docs/nm-v6-workflow-spec.md)
 - [V6 workflow Spec (Simplified Chinese)](docs/nm-v6-workflow-spec.zh-CN.md)

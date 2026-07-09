@@ -132,6 +132,14 @@ sign = base64(HMAC-SHA256(key=string_to_sign, message=""))
 JSON body includes top-level `timestamp` and `sign`. Enable **签名校验** on the
 custom bot and put the same secret in the env file. Common failure: `sign match fail`.
 
+### Delivery safety and bounds
+
+The sender disables user `curl` configuration, passes the card payload through
+standard input and the webhook URL through a dedicated file descriptor instead
+of process arguments, and limits each attempt to a 10-second connection timeout
+and 30-second total timeout. It makes one delivery attempt; notification failure
+is reported to the calling workflow without an automatic retry.
+
 ### Project profile (`0c-workflow/project-profile.yml`)
 
 Declares channel type and **env variable names** (not values):

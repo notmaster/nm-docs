@@ -30,6 +30,15 @@ This repository maintains reusable NotMaster workflow templates, skills, and det
 - Prefer the simplest implementation that satisfies the request. Do not add unrequested features, abstractions, configuration, refactors, formatting, or cleanup.
 - Keep changes surgical. Every changed line must trace to the current administrator request. Fix a validation failure only when the in-scope change caused it and the fix is necessary to validate that change; report pre-existing or unrelated failures without fixing them unless separately authorized.
 
+## Repository Work Notifications
+
+- For non-trivial change or build tasks, delivery through `./0d-scripts/notify-event.sh` to the configured project Feishu channels is a standing administrator-authorized external effect unless the administrator opts out for that task. This authorizes only status notifications, not any other external action.
+- Emit `progress` only on material state changes: work start after preflight, completion of a meaningful stage, and final verified completion. Do not send routine heartbeats, one notification per command, or repeats for unchanged state.
+- Emit `attention` before stopping for an administrator decision or authorization, a safety or secret risk, an unsafe Git condition or conflict, an exhausted repair or verification path, or another blocker that prevents safe progress.
+- Messages must identify the task or branch and briefly state completed work, current status, next action, and material risk. Never include secrets, credentials, production data, raw webhook values, or unnecessarily detailed logs.
+- Notifications communicate status only; they do not authorize, accept, merge, release, or deploy. Delivery failure does not invalidate completed work, but it must be reported and must not be hidden or rerouted through a system-level notifier without explicit administrator authorization.
+- The root scripts deliberately reuse only the V5 notification adapter. This does not adopt the V5 runner or authority model and does not change V5's experimental status. See [Repository Work Notifications](docs/repository-notifications.md) for the event catalog, commands, and limitations.
+
 ## Git And Branching
 
 - `dev` is the integration branch. The configured stable branch is `main` or `master` (`main` in this repository). Stable and `dev` are protected.

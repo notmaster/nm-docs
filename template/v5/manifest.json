@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "templateVersion": "5.0.2",
+  "templateVersion": "5.0.3",
   "maturity": "experimental",
   "highImpactAutomation": "not-authorized",
   "repository": "https://github.com/notmaster/nm-docs.git",

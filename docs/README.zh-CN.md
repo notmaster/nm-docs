@@ -102,6 +102,7 @@ npm run verify
 
 ## 更多文档
 
+- [仓库工作通知（英文）](repository-notifications.md) / [中文](repository-notifications.zh-CN.md)
 - [模板版本说明](template-versions.md) / [中文](template-versions.zh-CN.md)
 - [V6 工作流实现 Spec（英文执行源）](nm-v6-workflow-spec.md)
 - [V6 工作流 Spec（中文管理员对照）](nm-v6-workflow-spec.zh-CN.md)
