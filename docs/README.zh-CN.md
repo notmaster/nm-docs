@@ -4,91 +4,89 @@
 
 `nm-docs` 用于维护 NotMaster 的工作流模板、Agent skills 和确定性工具。
 
-当前推荐使用 **NM V4**。V4 是一个轻量的 Spec 驱动工作流：
+当前推荐使用 **NM V5**。V5 是混合编排的 Spec 驱动工作流：
 
 ```text
 SPEC（已确认）
--> ROADMAP（阶段表）
--> 每阶段一个全新 Agent 会话
--> 本地验证
--> staged 停等验收 或 auto 无人值守 runner
--> 合并 dev
+-> 运行时 INDEX + Task 卡（磁盘为真相）
+-> runner + 短命编排会话 + Worker
+-> staged（阶段验收）或 auto（硬停 / 授权 skip）
+-> 按工作单元合并到 dev
 ```
 
 ## 推荐版本
 
-新项目和工作流更新推荐使用 [template/v4](../template/v4)。
+新项目和工作流更新推荐使用 [template/v5](../template/v5)。
 
-V4 的重点：
+V5 的重点：
 
-- 用单一 Spec 合约取代需求、验收、设计三份文档。
-- 用单一运行时状态文件 `0b-goals/ROADMAP.md` 取代 Plan/Goal 双层。
-- 每阶段一个全新会话、靠文件交接，避免长任务上下文退化。
-- 两种执行模式：`staged` 每阶段停等管理员验收；`auto` 无人值守 runner，验证通过即合并 `dev`。
-- Agent 中立规则（`AGENTS.md`）+ Claude Code / Grok 指针文件 + 各家启动配方。
-- 本地确定性验证与飞书通知脚本。
+- 磁盘状态机：瘦索引 `0b-runtime/INDEX.yaml` + 每任务卡。
+- 混合编排：确定性 runner、短命编排会话、带最小上下文包的 Worker。
+- 两种模式：`staged` / `auto`；未指定则强制选择；恢复时可切换并提示冲突。
+- 自修默认 **10** 轮；仅显式 `skip_on_fail` 可在 auto 下跳过。
+- 事件化通知（可插拔渠道，首期飞书）。
+- **Agent 文档英文**；管理员中文对照；设计决议 v1 保存在模板内。
+- CLI + Skill 双入口。
+
+设计决议（v1）：[RESOLUTION-V5-DESIGN-v1.md](../template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md)  
+中文对照：[RESOLUTION-V5-DESIGN-v1.zh-CN.md](../template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.zh-CN.md)
 
 ## 快速开始
 
-从本地仓库初始化新项目：
-
 ```bash
-python3 tools/nm-v4/nm_v4.py init \
+python3 tools/nm-v5/nm_v5.py init \
   --target /absolute/path/to/project \
   --project-name "My Project" \
   --package-name "my-project" \
   --source-dir .
 ```
 
-更新已有 Git 项目（包括 NM V3 项目）：
+更新已有 Git 项目：
 
 ```bash
-python3 tools/nm-v4/nm_v4.py update \
+python3 tools/nm-v5/nm_v5.py update \
   --target /absolute/path/to/project \
   --source-dir . \
   --dry-run
 ```
 
-确认 dry-run 输出后，去掉 `--dry-run` 正式执行。
-
-安装 V4 skill：
+安装 V5 skill：
 
 ```bash
-bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.agents/skills"
+bash tools/nm-v5/install-skill.sh --target-dir "$HOME/.agents/skills"
 ```
 
-安装后，在新的 Agent 线程中使用：
+开放 skills 生态（可用时）：
+
+```bash
+npx skills add notmaster/nm-docs --skill nm-init-project-v5
+```
+
+安装后，在新的 Agent 线程中：
 
 ```text
-Use $nm-init-project-v4 to initialize or update this project.
+Use $nm-init-project-v5 to initialize or update this project.
 ```
 
 ## 仓库结构
 
 ```text
-template/v4/                  # 当前推荐的 NM V4 Spec 驱动工作流模板
-skills/nm-init-project-v4/    # V4 初始化/更新的 Agent skill
-tools/nm-v4/                  # V4 确定性工具
-template/v3/                  # 上一代 V3 Goal 驱动工作流
-skills/nm-init-project-v3/    # V3 skill，供存量项目使用
-tools/nm-v3/                  # V3 确定性工具
-template/v2/                  # 旧版 V2 协同工作流
-template/v1/                  # V1 基础模板，仅保留作参考
-docs/                         # 用户文档和国际化文档
+template/v5/                  # 当前推荐的 NM V5 模板
+skills/nm-init-project-v5/    # V5 skill
+tools/nm-v5/                  # V5 工具
+template/v4/ … template/v1/   # 历史版本保留
+docs/                         # 用户文档与翻译
 ```
 
 ## 验证
 
-仓库检查：
-
 ```bash
 npm install
 npm run lm
-python3 tools/nm-v4/nm_v4.py check --target template/v4 --source-dir .
-python3 tools/nm-v3/nm_v3.py check --target template/v3 --source-dir .
+python3 tools/nm-v5/nm_v5.py check --target template/v5 --source-dir .
 ```
 
-生成的 V4 项目中运行：
+生成的 V5 项目内：
 
 ```bash
 npm install
@@ -98,9 +96,6 @@ npm run verify
 
 ## 更多文档
 
-- [模板版本](template-versions.zh-CN.md)
-- [Skill and tool installation](installation.md)
-- [V4 设计定稿决议](nm-v4-design-decisions.zh-CN.md)
-- [V4 template README](../template/v4/README.md)
-- [V4 manifest](../template/v4/manifest.json)
-- [V3 template README](../template/v3/README.md)
+- [模板版本说明](template-versions.md) / [中文](template-versions.zh-CN.md)
+- [安装说明](installation.md)
+- [V4 设计决策（中文）](nm-v4-design-decisions.zh-CN.md)

@@ -1,0 +1,14 @@
+# V5 Lifecycle (skill reference)
+
+1. **Spec confirmed** under `0a-docs/0a-spec/` (`status: confirmed`).
+2. **Bootstrap** `0b-runtime/INDEX.yaml` + `tasks/TASK-*.md`.
+3. **Mode**: if unspecified, admin chooses `staged` or `auto`.
+4. **Execute** Phase → Task with runner/orchestrator/workers.
+5. **Task**: branch from `dev` → implement → accept (repair ≤10) → merge to `dev`.
+6. **Phase gate**: full `verify.sh`. staged waits; auto continues.
+7. **Stop**: hard risk, acceptance, Spec conflict, repair exhausted without `skip_on_fail`.
+8. **Skip**: only `skip_on_fail: true` after 10 repairs (auto), ledger entry.
+9. **Notify**: events via `notify-event.sh` (Feishu first).
+10. **Docs**: English agent source; Chinese admin mirrors.
+
+Ratified design: project file `0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md`.

@@ -1,0 +1,12 @@
+project_name: "{{PROJECT_NAME}}"
+package_name: "{{PACKAGE_NAME}}"
+workflow: v5
+integration_branch: dev
+stable_branch: main
+default_timezone: UTC+8
+notify:
+  channels:
+    - type: feishu
+      # progress_webhook_env: FEISHU_WEBHOOK_PROGRESS
+      # attention_webhook_env: FEISHU_WEBHOOK_ATTENTION
+repair_max_attempts: 10

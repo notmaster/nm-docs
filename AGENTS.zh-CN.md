@@ -31,9 +31,9 @@
 
 ## 模板规则
 
-- 将 `template/v4/manifest.json` 视为 V4 模板文件的事实来源，`template/v3/manifest.json` 视为 V3 的事实来源。
-- 添加或重命名 V3 或 V4 模板文件时，更新对应版本的 `manifest.json`、`PROJECT_STRUCTURE.md`，以及仓库 `README.md`。
-- 保持 V3 和 V4 文件自包含；生成的项目应通过 `npm run workflow:check` 和 `npm run verify`。
+- 将 `template/v5/manifest.json` 视为 V5 模板文件的事实来源，`template/v4/manifest.json` 视为 V4，`template/v3/manifest.json` 视为 V3。
+- 添加或重命名 V3、V4 或 V5 模板文件时，更新对应版本的 `manifest.json`、`PROJECT_STRUCTURE.md`，以及仓库 `README.md`。
+- 保持 V3、V4 和 V5 文件自包含；生成的项目应通过 `npm run workflow:check` 和 `npm run verify`。
 - 除非用户明确要求，否则不要删除旧模板版本。
 
 ## Skill 规则
@@ -60,6 +60,7 @@
 ## 验证
 
 - Markdown 变更后运行 `npm run lm`。
+- V5 模板或工具变更后运行 `python3 tools/nm-v5/nm_v5.py check --target template/v5 --source-dir .`。
 - V4 模板或工具变更后运行 `python3 tools/nm-v4/nm_v4.py check --target template/v4 --source-dir .`。
 - V3 模板或工具变更后运行 `python3 tools/nm-v3/nm_v3.py check --target template/v3 --source-dir .`。
 - 编辑 skills 后运行 skill validator：

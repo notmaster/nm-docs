@@ -1,0 +1,39 @@
+# NM V5 runtime index (thin). Agents and runner read/write this file.
+# Full design: 0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md
+
+schema_version: 1
+workflow: v5
+
+# unspecified | staged | auto
+mode: unspecified
+
+# idle | planning | running | awaiting_acceptance | blocked | stopped | completed
+status: idle
+
+spec: ""
+project_name: "{{PROJECT_NAME}}"
+
+repair_max_attempts: 10
+
+current_phase_id: ""
+current_task_id: ""
+
+# Lock prevents concurrent runners (optional use)
+lock:
+  holder: ""
+  since: ""
+
+phases: []
+# Example phase entry:
+# - id: P01
+#   name: "Bootstrap"
+#   status: pending   # pending | in_progress | awaiting_acceptance | done | skipped | blocked
+#   tasks:
+#     - TASK-P01-01
+
+# Pointers only — task bodies live under tasks/
+task_dir: 0b-runtime/tasks
+issues_ledger: 0b-runtime/issues-ledger.md
+
+updated_at: ""
+notes: ""
