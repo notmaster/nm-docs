@@ -1,17 +1,25 @@
 # {{PROJECT_NAME}}
 
-NM **V5** workflow project.
+> **Status: Experimental (V5).** V5 is retained for supervised evaluation and
+> existing trials only. Do not use it for unattended `auto`, automatic merge,
+> release, deployment, production changes, production credentials, or
+> production data. Runner exit success and built-in checks are diagnostic
+> signals, not independent acceptance evidence. V6 is the planned replacement
+> and is not implemented yet.
+
+NM **V5** experimental workflow project.
 
 - Agent rules (English): `AGENTS.md`
 - Admin rules mirror: `AGENTS.zh-CN.md`
 - Workflow: `0c-workflow/WORKFLOW_V5.md`
 - Design resolution v1: `0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md`
 
-## Quick start
+## Supervised trial
 
 1. Write and confirm a Spec under `0a-docs/0a-spec/` (`status: confirmed`).
 2. Ask an agent to bootstrap `0b-runtime/INDEX.yaml` and task cards.
-3. If mode is unspecified, choose **staged** or **auto**.
+3. Use **staged** for a supervised trial. Test **auto** only in a disposable,
+   non-production environment with no high-impact capability.
 4. Run tasks (manual sessions or `python3 0d-scripts/run-workflow.py --agent <cli>`).
 
 ## Scripts

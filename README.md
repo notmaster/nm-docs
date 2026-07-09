@@ -4,24 +4,30 @@ English | [中文](docs/README.zh-CN.md)
 
 `nm-docs` maintains NotMaster workflow templates, skills, and deterministic tooling for AI-assisted project delivery.
 
-The recommended workflow is currently **NM V5**, a hybrid spec-driven workflow:
+NM **V5** is retained as an **experimental trial workflow** while V6 is being
+specified. V5 is not approved for unattended high-impact automation:
 
 ```text
 SPEC (confirmed)
 -> runtime INDEX + Task cards (disk truth)
 -> runner + short orchestrator + workers
 -> staged (phase acceptance) or auto (hard-stop only / authorized skip)
--> merge to dev per task unit
+-> candidate per task unit; administrator-controlled merge to dev
 ```
 
-## Recommended Version
+## Current Workflow Status
 
-Use [template/v5](template/v5) for new projects and workflow updates.
+- **V6**: implementation has not started. The review-ready implementation Spec is
+  [docs/nm-v6-workflow-spec.md](docs/nm-v6-workflow-spec.md), with a
+  [Simplified Chinese administrator copy](docs/nm-v6-workflow-spec.zh-CN.md).
+- **V5**: experimental trial only. Do not use its current runner for unattended
+  merge, release, deployment, production credentials, or production data.
+- **V4 and earlier**: retained for existing projects and historical reference.
 
-V5 focuses on:
+V5 explored:
 
 - Disk state machine: thin `0b-runtime/INDEX.yaml` + per-task cards (not conversation memory).
-- Hybrid orchestration: deterministic runner, short orchestrator sessions, worker sessions with minimum context packs.
+- Hybrid orchestration experiment: runner, short orchestrator sessions, and worker sessions with minimum context packs.
 - Two modes: `staged` and `auto`, with forced admin choice when mode is unspecified; mode can switch on resume with conflict explanation.
 - Self-repair default **10**; `skip_on_fail` only when explicitly set (auto).
 - Event-based notifications (pluggable channels; Feishu first).
@@ -30,7 +36,10 @@ V5 focuses on:
 
 Design resolution (v1): [template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md](template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md)
 
-## Quick Start
+## V5 Trial Commands
+
+> V5 remains available for supervised experiments and repository maintenance.
+> Its documented `auto` mode is not an authorization for high-impact operations.
 
 Initialize a new project from a local checkout:
 
@@ -81,9 +90,9 @@ Use $nm-init-project-v5 to initialize or update this project.
 ## Repository Layout
 
 ```text
-template/v5/                  # Recommended NM V5 hybrid workflow template
+template/v5/                  # Experimental NM V5 trial workflow
 skills/nm-init-project-v5/    # Agent skill wrapper for V5 init/update
-tools/nm-v5/                  # Deterministic V5 CLI-style tooling
+tools/nm-v5/                  # V5 CLI-style maintenance tooling
 template/v4/                  # Previous V4 spec-driven workflow
 skills/nm-init-project-v4/    # V4 skill
 tools/nm-v4/                  # V4 tooling
@@ -118,8 +127,10 @@ npm run verify
 ## More Documentation
 
 - [Chinese README](docs/README.zh-CN.md)
+- [V6 workflow implementation Spec](docs/nm-v6-workflow-spec.md)
+- [V6 workflow Spec (Simplified Chinese)](docs/nm-v6-workflow-spec.zh-CN.md)
 - [Template versions](docs/template-versions.md)
-- [Skill and tool installation](docs/installation.md)
+- [Skill and tool installation](docs/installation.md) / [Simplified Chinese](docs/installation.zh-CN.md)
 - [V5 template README](template/v5/README.md)
 - [V5 design resolution v1](template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md)
 - [V5 manifest](template/v5/manifest.json)

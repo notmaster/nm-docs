@@ -1,11 +1,19 @@
 ---
 name: nm-init-project-v5
-description: Initialize, update, check, status, notify-test, or install the NotMaster NM V5 hybrid workflow (disk state machine, runner + orchestrator + workers, staged/auto). Use when an agent needs to create a project from template/v5, migrate or sync V5 workflow files, install the skill, or operate nm_v5.py.
+description: Initialize, update, check, status, notify-test, or install the experimental NotMaster NM V5 hybrid workflow for supervised trials. Use when an agent needs to maintain template/v5 projects, sync V5 workflow files, install the skill, or operate nm_v5.py without treating its checks as production acceptance.
 ---
 
 # NM Init Project V5
 
-Use the deterministic NM V5 tool. Do not manually copy template files.
+Use the NM V5 maintenance tool. Do not manually copy template files.
+
+## Maturity guard
+
+V5 is experimental and limited to supervised evaluation or existing trials. Do
+not use it for unattended `auto`, automatic merge, release, deployment,
+production changes, production credentials, or production data. Tool, runner,
+`workflow:check`, and `verify` success are diagnostic signals, not independent
+acceptance evidence.
 
 ## Core Commands
 
@@ -43,7 +51,9 @@ npm run verify
 1. Tell the administrator:
    - Confirm Spec under `0a-docs/0a-spec/` with `status: confirmed` (English Spec body).
    - Bootstrap `0b-runtime/INDEX.yaml` + task cards.
-   - If mode is `unspecified`, choose **staged** or **auto**.
+   - If mode is `unspecified`, use **staged** for supervised work. `auto` is
+     limited to disposable non-production worker trials and must stop before
+     protected-ref changes.
    - Design resolution: `0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md`.
 
 ## Existing Project Update

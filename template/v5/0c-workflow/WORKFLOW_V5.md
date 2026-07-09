@@ -3,10 +3,19 @@
 Ratified design: `resolutions/RESOLUTION-V5-DESIGN-v1.md`.  
 Admin Chinese mirror of this file: `WORKFLOW_V5.zh-CN.md`.
 
+## Maturity status
+
+> **Experimental.** V5 is retained for supervised evaluation and existing
+> trials only. Do not use it for unattended `auto`, automatic merge, release,
+> deployment, production changes, production credentials, or production data.
+> Runner success and built-in checks are diagnostic signals, not independent
+> acceptance evidence. The ratified resolution records historical design intent;
+> it does not establish that the current implementation meets that intent.
+
 ## Core idea
 
 After a **confirmed Spec**, the system implements via **Phase → Task**, with
-**disk state** as truth, a **deterministic runner**, short **orchestrator**
+**disk state** as truth, an experimental **runner**, short **orchestrator**
 sessions, and **worker** sessions. Two modes: **staged** and **auto**.
 
 ## Directory products
@@ -28,15 +37,19 @@ sessions, and **worker** sessions. Two modes: **staged** and **auto**.
 | Mode | Gate | Merge | Notify |
 | --- | --- | --- | --- |
 | `staged` | Admin acceptance per Phase | After acceptance → `dev` | Phase done (attention), blockers, all done |
-| `auto` | Continuous until hard-stop / authorized skip | After verify → merge per branching rules | Progress + attention on stop/skip |
+| `auto` | Non-production sandbox trial until hard-stop / authorized skip | No unattended high-impact merge | Progress + attention on stop/skip |
 
 If mode is unspecified at start, the agent/runner **must** present:
 
 1. `staged` — human reviews each Phase before continue  
-2. `auto` — unattended until hard-stop or `skip_on_fail` path  
+2. `auto` — trial automation in a disposable, non-production sandbox only
 
 On resume after admin stop, mode may be switched; explain conflicts with
 in-flight tasks or unmerged branches first.
+
+Under the current experimental restriction, both modes stop for administrator
+control before changing `dev` or another protected ref. The historical auto
+design does not grant the current runner that capability.
 
 ## Lifecycle
 
@@ -63,17 +76,25 @@ For each Phase in order:
    - Create work branch from latest `dev` (never commit implementation on `dev`).
    - Orchestrator builds a **minimum context pack** into the task card / worker prompt (`CONTEXT_PACKING.md`).
    - Worker implements, runs task acceptance, self-repairs up to **10** times.
-   - On success: update task card, compact report, merge to `dev`, sync, optional branch cleanup, next task.
+   - On success: update task card and compact report; prepare a candidate and
+     stop for administrator-controlled integration to `dev`; after integration,
+     sync and evaluate branch cleanup.
    - On repair exhausted without `skip_on_fail`: block + attention.
    - On repair exhausted with `skip_on_fail: true` (auto): ledger + skip + continue.
 3. Phase gate: run full `./0d-scripts/verify.sh` (+ phase verify commands).
 4. `staged`: notify `phase_awaiting_acceptance`, stop. After accept: ensure merged, mark phase done, next phase.
-5. `auto`: mark phase done, progress notify, next phase.
+5. Current experimental `auto`: stop for administrator-controlled integration.
+   The historical design would otherwise mark the Phase done and continue.
+
+The remaining lifecycle describes historical design intent; it does not expand
+the current V5 runner's authority.
 
 ### 3) Complete
 
 - All phases done → `workflow_completed` attention/progress per config.
 - Leftover manual items and skips remain in `issues-ledger.md`.
+- `workflow_completed` does not authorize or prove release, deployment, or
+  production readiness.
 
 ## Runner
 
@@ -83,7 +104,8 @@ python3 0d-scripts/run-workflow.py --agent codex --mode auto
 ```
 
 The runner launches short sessions, checks `INDEX.yaml` + task statuses, and
-stops on attention conditions. It does not replace git or invent Spec content.
+stops on attention conditions. It does not independently revalidate state,
+evidence, or Git operations; it does not replace git or invent Spec content.
 
 ## Notifications
 

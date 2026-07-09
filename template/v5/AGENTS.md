@@ -8,6 +8,17 @@ Launch recipes: `0c-workflow/AGENT_RECIPES.md`.
 mirror is `AGENTS.zh-CN.md`. Do not load Chinese mirrors for execution unless
 the administrator explicitly asks for a translation.
 
+## Maturity And Safety Override
+
+- **V5 is experimental.** It is retained for supervised evaluation and existing
+  trials only.
+- Do not use V5 for unattended `auto`, automatic merge, release, deployment,
+  production changes, production credentials, or production data.
+- Runner exit success, `workflow:check`, and `verify` are diagnostic signals,
+  not independent acceptance evidence or production-readiness gates.
+- This current operational restriction governs V5 use. It does not rewrite the
+  ratified resolution, which remains a record of historical design intent.
+
 ## Language And Environment
 
 - Communicate with the administrator in the language they use (default: Simplified Chinese is fine for chat).
@@ -27,7 +38,7 @@ the administrator explicitly asks for a translation.
 
 ## Roles
 
-- **Runner** (`0d-scripts/run-workflow.py`): advances phases, gates, notifications, resume checks. Deterministic.
+- **Runner** (`0d-scripts/run-workflow.py`): experimentally advances phases, gates, notifications, and resume checks.
 - **Orchestrator session** (short-lived): splits Phase/Task, builds minimum context packs, dispatches workers, updates index.
 - **Worker session**: implements one Task, runs acceptance, self-repairs, updates the task card, returns a compact report.
 - Do not keep a long-lived “main brain” conversation as the project memory. Persist decisions to disk.
@@ -36,9 +47,12 @@ the administrator explicitly asks for a translation.
 
 - If `mode` in the index is `unspecified` or empty, stop and ask the administrator to choose:
   1. `staged` — human acceptance after each Phase before merge-continue
-  2. `auto` — continue until hard-stop or authorized skip
+  2. `auto` — non-production worker trial inside a disposable sandbox
 - `staged`: one Phase per orchestrated cycle; after Phase verify, notify `phase_awaiting_acceptance`, stop; merge to `dev` only after acceptance.
-- `auto`: after task/phase verify, merge as required, notify progress, continue. Stop only on hard-stop conditions.
+- `auto`: only for disposable, non-production trials without high-impact
+  capability. After task/phase verify, it may continue within that sandbox. It
+  is not authorization to merge, release, deploy, or use production access; it
+  must stop before changing `dev` or any other protected ref.
 - On resume after admin stop, the administrator may request a mode switch. Update `INDEX.yaml`, explain file/state conflicts first (in-flight tasks, unmerged branches, half-finished phase).
 
 ## Stop Conditions (hard)
@@ -61,7 +75,10 @@ Stop, set blocked state, and send an `attention` notification when:
 
 - `dev` is the integration branch. Never develop day-to-day work from `main`/`master` (hotfix only from `main`).
 - Do not commit implementation directly on `dev`. Create a work branch from latest `dev`.
-- Before the next work unit: merge into `dev` and sync (merge / squash / ff — agent judges). Then decide whether the work branch can be deleted (merged only). Then create a new branch for the next unit.
+- Before the next work unit: request administrator-controlled integration into
+  `dev` and sync (merge / squash / ff — agent proposes, administrator controls).
+  Then decide whether the safely integrated work branch can be deleted. Then
+  create a new branch for the next unit.
 - Never auto-delete `main`, `dev`, `release/*`, `hotfix/*`, unmerged branches, or branches still under review/acceptance.
 - Details: `0c-workflow/BRANCHING.md`.
 

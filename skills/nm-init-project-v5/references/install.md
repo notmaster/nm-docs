@@ -1,5 +1,9 @@
 # Install nm-init-project-v5
 
+> **Experimental.** Installation does not authorize unattended `auto`, merge,
+> release, deployment, production access, or use of production credentials.
+> Built-in check success is diagnostic, not independent acceptance evidence.
+
 ## From nm-docs checkout
 
 ```bash

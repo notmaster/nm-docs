@@ -1,46 +1,42 @@
-# Installation
+# 安装说明
 
-English | [中文](installation.zh-CN.md)
+[English](installation.md) | 中文
 
-## Install The V5 Skill (experimental)
+## 安装实验性 V5 Skill
 
-> V5 is retained for supervised trials and maintenance only. Installing the
-> Skill does not authorize unattended merge, release, deployment, access to
-> production credentials, or access to production data. A successful Skill,
-> runner, `workflow:check`, or `verify` result is a diagnostic signal, not
-> independent acceptance evidence.
+> V5 仅保留用于受监督试用和维护。安装 Skill 不代表已授权无人值守合并、发布、部署，也不允许访问生产凭据或生产数据。Skill、runner、`workflow:check` 或 `verify` 成功只是一项诊断信号，不是独立验收证据。
 
-Default target:
+默认目标目录：
 
 ```text
 ~/.agents/skills
 ```
 
-Install from this repository:
+从本仓库安装：
 
 ```bash
 bash tools/nm-v5/install-skill.sh --target-dir "$HOME/.agents/skills"
 ```
 
-Install for a Codex-specific skill directory:
+安装到 Codex 专用 Skill 目录：
 
 ```bash
 bash tools/nm-v5/install-skill.sh --target-dir "$HOME/.codex/skills"
 ```
 
-Open skills ecosystem (when available):
+开放 skills 生态可用时：
 
 ```bash
 npx skills add notmaster/nm-docs --skill nm-init-project-v5
 ```
 
-After installation, start a new agent thread and invoke:
+安装完成后，启动新的 Agent 线程并调用：
 
 ```text
 Use $nm-init-project-v5 to initialize or update this project.
 ```
 
-## Use The V5 Tool Without A Skill
+## 不通过 Skill 使用 V5 工具
 
 ```bash
 python3 tools/nm-v5/nm_v5.py init --target /absolute/project --source-dir .
@@ -51,24 +47,23 @@ python3 tools/nm-v5/nm_v5.py status --target /absolute/project
 python3 tools/nm-v5/nm_v5.py notify-test --target /absolute/project
 ```
 
-## Update Safety (V5)
+## V5 更新安全规则
 
-`update` requires:
+`update` 要求：
 
-- target is a Git repository root;
-- working tree is clean unless `--allow-dirty` is used;
-- a new branch can be created.
+- 目标是 Git 仓库根目录；
+- 工作树保持干净，除非使用 `--allow-dirty`；
+- 能够创建新分支。
 
-Default update branch:
+默认更新分支：
 
 ```text
 chore/sync-nm-workflow-v5-YYYYMMDD
 ```
 
-Only `managed` framework files are overwritten; `create-only` project content
-(e.g. `README.md`, `0b-runtime/INDEX.yaml`, `DECISIONS.md`) is preserved.
+工具只覆盖 `managed` 框架文件；`create-only` 项目内容（例如 `README.md`、`0b-runtime/INDEX.yaml` 和 `DECISIONS.md`）会被保留。
 
-## V4 Equivalents
+## V4 对应命令
 
 ```bash
 bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.agents/skills"
@@ -76,7 +71,7 @@ python3 tools/nm-v4/nm_v4.py init --target /absolute/project --source-dir .
 python3 tools/nm-v4/nm_v4.py update --target /absolute/project --source-dir . --dry-run
 ```
 
-## V3 Equivalents
+## V3 对应命令
 
 ```bash
 bash tools/nm-v3/install-skill.sh --target-dir "$HOME/.agents/skills"
