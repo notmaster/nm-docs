@@ -1,6 +1,6 @@
 # Installation
 
-## Install The V4 Skill
+## Install The V5 Skill (recommended)
 
 Default target:
 
@@ -11,43 +11,39 @@ Default target:
 Install from this repository:
 
 ```bash
-bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.agents/skills"
+bash tools/nm-v5/install-skill.sh --target-dir "$HOME/.agents/skills"
 ```
 
 Install for a Codex-specific skill directory:
 
 ```bash
-bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.codex/skills"
+bash tools/nm-v5/install-skill.sh --target-dir "$HOME/.codex/skills"
+```
+
+Open skills ecosystem (when available):
+
+```bash
+npx skills add notmaster/nm-docs --skill nm-init-project-v5
 ```
 
 After installation, start a new agent thread and invoke:
 
 ```text
-Use $nm-init-project-v4 to initialize or update this project.
+Use $nm-init-project-v5 to initialize or update this project.
 ```
 
-## Use The Tool Without A Skill
-
-Initialize a new project:
+## Use The V5 Tool Without A Skill
 
 ```bash
-python3 tools/nm-v4/nm_v4.py init --target /absolute/project --source-dir .
+python3 tools/nm-v5/nm_v5.py init --target /absolute/project --source-dir .
+python3 tools/nm-v5/nm_v5.py update --target /absolute/project --source-dir . --dry-run
+python3 tools/nm-v5/nm_v5.py update --target /absolute/project --source-dir .
+python3 tools/nm-v5/nm_v5.py check --target /absolute/project --source-dir .
+python3 tools/nm-v5/nm_v5.py status --target /absolute/project
+python3 tools/nm-v5/nm_v5.py notify-test --target /absolute/project
 ```
 
-Update an existing Git project:
-
-```bash
-python3 tools/nm-v4/nm_v4.py update --target /absolute/project --source-dir . --dry-run
-python3 tools/nm-v4/nm_v4.py update --target /absolute/project --source-dir .
-```
-
-Check a project:
-
-```bash
-python3 tools/nm-v4/nm_v4.py check --target /absolute/project --source-dir .
-```
-
-## Update Safety
+## Update Safety (V5)
 
 `update` requires:
 
@@ -55,23 +51,24 @@ python3 tools/nm-v4/nm_v4.py check --target /absolute/project --source-dir .
 - working tree is clean unless `--allow-dirty` is used;
 - a new branch can be created.
 
-The default update branch is:
+Default update branch:
 
 ```text
-chore/sync-nm-workflow-v4-YYYYMMDD
+chore/sync-nm-workflow-v5-YYYYMMDD
 ```
 
-Only `managed` framework files are overwritten on that branch; `create-only`
-files such as `README.md`, `0b-goals/ROADMAP.md`, and `0a-docs/DECISIONS.md`
-are never overwritten. The administrator inspects changes with Git.
+Only `managed` framework files are overwritten; `create-only` project content
+(e.g. `README.md`, `0b-runtime/INDEX.yaml`, `DECISIONS.md`) is preserved.
 
-When updating an NM V3 project, superseded V3 framework files are moved to
-`.delete-pending/v3-superseded/` and old requirement documents stay in place
-as Spec input material.
+## V4 Equivalents
+
+```bash
+bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.agents/skills"
+python3 tools/nm-v4/nm_v4.py init --target /absolute/project --source-dir .
+python3 tools/nm-v4/nm_v4.py update --target /absolute/project --source-dir . --dry-run
+```
 
 ## V3 Equivalents
-
-Existing V3 projects that are not migrating yet can keep using:
 
 ```bash
 bash tools/nm-v3/install-skill.sh --target-dir "$HOME/.agents/skills"
