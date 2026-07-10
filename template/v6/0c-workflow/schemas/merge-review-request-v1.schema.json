@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/merge-review-request-v1.schema.json",
+  "title": "NM V6 provider-neutral merge review request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "run_id",
+    "spec_hash",
+    "config_hash",
+    "route",
+    "source_kind",
+    "target_kind",
+    "source_ref",
+    "source_commit",
+    "source_tree",
+    "target_ref",
+    "target_commit",
+    "target_tree",
+    "purpose",
+    "sharing_status",
+    "topology",
+    "commit_quality",
+    "audit_boundary_required",
+    "rollback_boundary_required",
+    "rollback_ref",
+    "allowed_strategies",
+    "strategy_results",
+    "exact_source_tree_required",
+    "future_gate_id",
+    "authorization_id",
+    "request_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "nm-v6/merge-review-request-v1"},
+    "review_id": {"pattern": "^REVIEW-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "run_id": {"type": "string", "minLength": 1},
+    "spec_hash": {"$ref": "#/$defs/sha256"},
+    "config_hash": {"$ref": "#/$defs/sha256"},
+    "route": {"enum": ["work_to_dev", "dev_to_stable", "hotfix_to_stable", "hotfix_to_dev"]},
+    "source_kind": {"enum": ["work_branch", "dev", "hotfix"]},
+    "target_kind": {"enum": ["dev", "stable"]},
+    "source_ref": {"pattern": "^refs/heads/[A-Za-z0-9._/-]+$"},
+    "source_commit": {"$ref": "#/$defs/objectId"},
+    "source_tree": {"$ref": "#/$defs/objectId"},
+    "target_ref": {"pattern": "^refs/heads/[A-Za-z0-9._/-]+$"},
+    "target_commit": {"$ref": "#/$defs/objectId"},
+    "target_tree": {"$ref": "#/$defs/objectId"},
+    "purpose": {"type": "string", "minLength": 1},
+    "sharing_status": {"type": "string", "minLength": 1},
+    "topology": {"$ref": "#/$defs/topology"},
+    "commit_quality": {"$ref": "#/$defs/commitQuality"},
+    "audit_boundary_required": {"type": "boolean"},
+    "rollback_boundary_required": {"type": "boolean"},
+    "rollback_ref": {"type": "string", "minLength": 1},
+    "allowed_strategies": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/strategy"}
+    },
+    "strategy_results": {
+      "type": "object",
+      "required": ["fast_forward", "squash", "merge_commit"],
+      "properties": {
+        "fast_forward": {"$ref": "#/$defs/strategyResult"},
+        "squash": {"$ref": "#/$defs/strategyResult"},
+        "merge_commit": {"$ref": "#/$defs/strategyResult"}
+      },
+      "additionalProperties": false
+    },
+    "exact_source_tree_required": {"type": "boolean"},
+    "future_gate_id": {"type": "string", "minLength": 1},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "request_digest": {"$ref": "#/$defs/sha256"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "objectId": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "strategy": {"enum": ["fast_forward", "squash", "merge_commit"]},
+    "topology": {
+      "type": "object",
+      "required": ["merge_base", "target_is_ancestor", "source_is_ancestor", "source_only_commits", "target_only_commits"],
+      "properties": {
+        "merge_base": {"$ref": "#/$defs/objectId"},
+        "target_is_ancestor": {"type": "boolean"},
+        "source_is_ancestor": {"type": "boolean"},
+        "source_only_commits": {"type": "integer", "minimum": 0},
+        "target_only_commits": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "commitQuality": {
+      "type": "object",
+      "required": ["commit_count", "merge_commit_count", "fixup_commit_count", "commits_suitable", "single_logical_change", "disposable"],
+      "properties": {
+        "commit_count": {"type": "integer", "minimum": 0},
+        "merge_commit_count": {"type": "integer", "minimum": 0},
+        "fixup_commit_count": {"type": "integer", "minimum": 0},
+        "commits_suitable": {"type": "boolean"},
+        "single_logical_change": {"type": "boolean"},
+        "disposable": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "strategyResult": {
+      "type": "object",
+      "required": ["valid", "conflict", "expected_result_tree"],
+      "properties": {
+        "valid": {"type": "boolean"},
+        "conflict": {"type": "boolean"},
+        "expected_result_tree": {
+          "anyOf": [
+            {"$ref": "#/$defs/objectId"},
+            {"type": "null"}
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"valid": {"const": true}}, "required": ["valid"]},
+          "then": {
+            "properties": {
+              "conflict": {"const": false},
+              "expected_result_tree": {"$ref": "#/$defs/objectId"}
+            }
+          },
+          "else": {"properties": {"expected_result_tree": {"type": "null"}}}
+        }
+      ]
+    }
+  }
+}

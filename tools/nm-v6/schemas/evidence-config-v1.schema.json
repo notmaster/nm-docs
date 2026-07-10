@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/evidence-config-v1.schema.json",
+  "title": "NM V6 evidence storage configuration",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/evidence-config-v1"},
+    "root": {"type": "string", "minLength": 1},
+    "max_blob_bytes": {"type": "integer", "minimum": 1},
+    "orphan_grace_seconds": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/context-addition-proposal-v1.schema.json",
+  "title": "NM V6 audited context addition proposal",
+  "type": "object",
+  "required": ["schema_version", "proposal_id", "attempt_id", "entry_id", "reason", "requested_by", "requested_at", "manifest_digest_before", "manifest_digest_after", "new_totals", "audit_event", "updated_manifest"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/context-addition-proposal-v1"},
+    "proposal_id": {"pattern": "^sha256:[0-9a-f]{64}$"},
+    "attempt_id": {"type": "string"},
+    "entry_id": {"type": "string"},
+    "reason": {"type": "string", "minLength": 1},
+    "requested_by": {"type": "string", "minLength": 1},
+    "requested_at": {"type": "string", "format": "date-time"},
+    "manifest_digest_before": {"pattern": "^sha256:[0-9a-f]{64}$"},
+    "manifest_digest_after": {"pattern": "^sha256:[0-9a-f]{64}$"},
+    "new_totals": {"type": "object"},
+    "audit_event": {"type": "object"},
+    "updated_manifest": {"$ref": "context-manifest-v1.schema.json"}
+  },
+  "additionalProperties": false
+}

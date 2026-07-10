@@ -1,0 +1,2 @@
+# Codex-specific convenience only. NM V6 correctness lives in the core.
+project_doc_fallback_filenames = ["AGENTS.md"]

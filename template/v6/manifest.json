@@ -1,0 +1,843 @@
+{
+  "schemaVersion": 2,
+  "templateVersion": "6.0.0-rc.1",
+  "maturity": "accepted",
+  "recommended": false,
+  "productionReady": false,
+  "specId": "SPEC-NM-WORKFLOW-V6-V1",
+  "specVersion": 1,
+  "specHash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+  "python": ">=3.11,<4",
+  "stateFile": ".nm-template-state.json",
+  "runtimeAuthority": ".nm/runtime/v6/state.sqlite3",
+  "directories": [
+    ".codex",
+    ".codex/hooks",
+    ".delete-pending",
+    "0a-docs",
+    "0a-docs/0a-spec",
+    "0a-docs/0b-design",
+    "0a-docs/0b-design/prototype",
+    "0a-docs/0c-prompts",
+    "0c-workflow",
+    "0c-workflow/adapters",
+    "0c-workflow/fixtures",
+    "0c-workflow/recovery",
+    "0c-workflow/schemas",
+    "0d-scripts",
+    "0d-scripts/nmv6",
+    "0d-scripts/nmv6/migrations"
+  ],
+  "templates": [
+    {
+      "target": ".codex/config.toml",
+      "source": "template/v6/.codex/config.toml",
+      "sourceSha256": "15160b824bab30ce321b35a4e54bee34327b834cf2afa33a04e7612c84ded9a4",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": ".codex/hooks/stop-status.sh",
+      "source": "template/v6/.codex/hooks/stop-status.sh",
+      "sourceSha256": "ade4ada0e80400fe532c85346665e96201f8bc74d7730978c9f6a70464bf10bc",
+      "policy": "managed",
+      "mode": "0755"
+    },
+    {
+      "target": ".delete-pending/.gitkeep",
+      "source": "template/v6/.delete-pending/.gitkeep",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": ".gitignore",
+      "source": "template/v6/.gitignore",
+      "sourceSha256": "5b5b9770bc7636b36b06b4c7d1a2b405ced0f55db511a3359d94b7869391f0bd",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": ".markdownlint.json",
+      "source": "template/v6/.markdownlint.json",
+      "sourceSha256": "51ce11df85229625dc429fdf0af8741cc8509e052914db8a151a063f00239ec8",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": ".markdownlintignore",
+      "source": "template/v6/.markdownlintignore",
+      "sourceSha256": "d91df22a43a8961df54a5eb6d735e910717af4835a16684d9f1e95abfdfac780",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0a-spec/.gitkeep",
+      "source": "template/v6/0a-docs/0a-spec/.gitkeep",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0a-spec/SPEC.md",
+      "source": "template/v6/0a-docs/0a-spec/SPEC.md",
+      "sourceSha256": "c673c794bd5f638f5d3fabb326135cd5000c8324a41dfda2e5f4c54640ea36d5",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0a-spec/SPEC.zh-CN.md",
+      "source": "template/v6/0a-docs/0a-spec/SPEC.zh-CN.md",
+      "sourceSha256": "9a5933149db2d41a253e7520c175061a47cc37a659fda9a4747f2eab6f6676a3",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0a-spec/spec.example.json",
+      "source": "template/v6/0a-docs/0a-spec/spec.example.json",
+      "sourceSha256": "27878ae0ec884136e6771b918ea8b6f517531ba79f2294eaef7e9a1135957f9e",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0a-spec/traceability.json",
+      "source": "template/v6/0a-docs/0a-spec/traceability.json",
+      "sourceSha256": "e9cbf92fdf23ecd293706c4ef4cc799c60ed49a1711ee986a7ced680f6bb2811",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0b-design/prototype/.gitkeep",
+      "source": "template/v6/0a-docs/0b-design/prototype/.gitkeep",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0c-prompts/review-spec.md",
+      "source": "template/v6/0a-docs/0c-prompts/review-spec.md",
+      "sourceSha256": "1f6338a55897c445c29a6b4ed27fb033003bcfb90112232d2331f72e1a4ae4c3",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0c-prompts/security-review.md",
+      "source": "template/v6/0a-docs/0c-prompts/security-review.md",
+      "sourceSha256": "ddab6377076a684744ae62e993424da01ec4064daf14e63f836785472f6b5198",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/0c-prompts/write-spec.md",
+      "source": "template/v6/0a-docs/0c-prompts/write-spec.md",
+      "sourceSha256": "b673a4ba7b1e8d0d0bb9f340129ca5e61aefc779e2dd44ea90e4947d684018ca",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0a-docs/DECISIONS.md",
+      "source": "template/v6/0a-docs/DECISIONS.md",
+      "sourceSha256": "dfc9187a1bcebd470a444d80e6857a54c9296764598e7d44059a9ff2a9365282",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/PROTOCOLS.md",
+      "source": "template/v6/0c-workflow/PROTOCOLS.md",
+      "sourceSha256": "a8671eed6b88c0acd86d167aba48b712b5f526fca0d04de6bd44f2f951ca38d4",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/PROTOCOLS.zh-CN.md",
+      "source": "template/v6/0c-workflow/PROTOCOLS.zh-CN.md",
+      "sourceSha256": "1ebe4ccaac695a41e146d44787d75034af01984c546558c3cb33ae8ce9ad28e7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/RECOVERY.md",
+      "source": "template/v6/0c-workflow/RECOVERY.md",
+      "sourceSha256": "4be6fb7eb055f7097a04756be0500bacf4c7a77e6729649c77f0dbb7c7df52f8",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/RECOVERY.zh-CN.md",
+      "source": "template/v6/0c-workflow/RECOVERY.zh-CN.md",
+      "sourceSha256": "6877311ac57883cc66e169a606470cdc3cdde14ef9aef7657e274c7ee6c57fe6",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/WORKFLOW_V6.md",
+      "source": "template/v6/0c-workflow/WORKFLOW_V6.md",
+      "sourceSha256": "bc0efba1856203c883d03927bd267755d71d9f2c6e0d9ecaccef0bdd0e5798b3",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/WORKFLOW_V6.zh-CN.md",
+      "source": "template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md",
+      "sourceSha256": "166cc612d380919b345a1cb0ca932726c7c959456a049e2bcc4504e5f3de2d50",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/adapters/claude.md",
+      "source": "template/v6/0c-workflow/adapters/claude.md",
+      "sourceSha256": "e98e6619078d0a230bcf7ca07852c89b045ba07ba72fc8f66d413c1bafd2e3f1",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/adapters/claude.zh-CN.md",
+      "source": "template/v6/0c-workflow/adapters/claude.zh-CN.md",
+      "sourceSha256": "fe4f1a551daf07e107efd8e2f87fd3e17ee277e94c4629aba217c8c0f249246e",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/adapters/codex.md",
+      "source": "template/v6/0c-workflow/adapters/codex.md",
+      "sourceSha256": "31287afe5d4e42a688469b64f582ead8b9d1996dbbc4786204c12a612e4478c1",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/adapters/codex.zh-CN.md",
+      "source": "template/v6/0c-workflow/adapters/codex.zh-CN.md",
+      "sourceSha256": "375686361e3793b7d24718a3cafb84386dce79f61c75b7b10bbedb0cd7aa0fc3",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/adapters/grok.md",
+      "source": "template/v6/0c-workflow/adapters/grok.md",
+      "sourceSha256": "b21e46afefd05f7c705884d1fce59245a97356e4374b768a21b3747abcdf2790",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/adapters/grok.zh-CN.md",
+      "source": "template/v6/0c-workflow/adapters/grok.zh-CN.md",
+      "sourceSha256": "cb768f1fdf81b7f37a90b6c8b7bc315013dffac3f1b3800ec1631870d1dc734e",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/fixtures/fake-admin-public.pem",
+      "source": "template/v6/0c-workflow/fixtures/fake-admin-public.pem",
+      "sourceSha256": "0d6d6308a1190142b1b8de7c282f6e38d0bb1ff7f96541a42cecd5cece112f7a",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/recovery/agent.md",
+      "source": "template/v6/0c-workflow/recovery/agent.md",
+      "sourceSha256": "e880842795a72947384dc88e2fc098efc2dde7cb762638736ccc786d0deaba06",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/recovery/agent.zh-CN.md",
+      "source": "template/v6/0c-workflow/recovery/agent.zh-CN.md",
+      "sourceSha256": "23c1f0b34ac7b796346dbc9bd741d73a4f6ec4d1bd5fb4aeeccf2753fdf30a9b",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/recovery/delivery.md",
+      "source": "template/v6/0c-workflow/recovery/delivery.md",
+      "sourceSha256": "14dce7afef18f41c72746d0634c6592ae8cc8a49c07955575bde8365f24c3e13",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/recovery/delivery.zh-CN.md",
+      "source": "template/v6/0c-workflow/recovery/delivery.zh-CN.md",
+      "sourceSha256": "d3e596f6ceef9bda9bd40d7ebd65d5006ba93bc7efcd55b35d0a558a67460e12",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/recovery/git.md",
+      "source": "template/v6/0c-workflow/recovery/git.md",
+      "sourceSha256": "3cd9aa1bd5d8cae5a2fc94185c3fb8a554e4a6ed6c7c91724d9eedf716087f43",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/recovery/git.zh-CN.md",
+      "source": "template/v6/0c-workflow/recovery/git.zh-CN.md",
+      "sourceSha256": "d3a32c4aefe375c99e0d93baa2bc1da57e1d42ef870d5c62e39de3a3d0499686",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/action-result-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/action-result-v1.schema.json",
+      "sourceSha256": "2e5d372a09acdfaeec5de0bb8d0f095861a99ee6f52f4a239a482a8c9dc6de37",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/action-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/action-v1.schema.json",
+      "sourceSha256": "f2e29368b9d87fa0ddd8b759583e859da5d592f95ea3ea95818f214d49a3ee29",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/adapter-config-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/adapter-config-v1.schema.json",
+      "sourceSha256": "648726bb029a824b42a9b612d4c5242c47632a0f9e903fc7eb6d79e1955d898f",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/adapter-probe-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/adapter-probe-v1.schema.json",
+      "sourceSha256": "26c2e61cd67cb5f7cb881ca7d2e6d6fcbce212d6c56f879bf543f858edbf4d67",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/adapter-request-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/adapter-request-v1.schema.json",
+      "sourceSha256": "3545089d1d47b099231ab5e8ed8b852ff2a45370138aa321c1ccdb533d3973d0",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/adapter-result-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/adapter-result-v1.schema.json",
+      "sourceSha256": "0fcd00cb3983a7384d697d87f3fb36100c7d221a2db2202986d73d056ef9df9d",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/administrator-acceptance-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/administrator-acceptance-v1.schema.json",
+      "sourceSha256": "39557df6966e19df7b1d9221d7602ba9a061905dd6192e16c7b88ccb6b75df02",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/approval-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/approval-v1.schema.json",
+      "sourceSha256": "326011e9cce3a61bc478ad42c4e782f4a98586af4909bd4ceb2eef23fe7c8dcf",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/audit-export-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/audit-export-v1.schema.json",
+      "sourceSha256": "26c591f54d1c4916d6ea310c9b21b29f9844c62cbbffceba788f5d784c785a11",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/authorization-config-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/authorization-config-v1.schema.json",
+      "sourceSha256": "ec491b01d497ce316d43df419250d7903150bb477ac6bd736320451bb74900b7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/authorization-request-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/authorization-request-v1.schema.json",
+      "sourceSha256": "781cbc5f9e8a32a6999954c0bfbc6a168991f10dc41260b7609927ba60023265",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/cleanup-review-observation-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/cleanup-review-observation-v1.schema.json",
+      "sourceSha256": "20b84099626055500540088b3c7d61e275d2b7031db8b3b9fbd10a54c438639b",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/cleanup-review-request-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/cleanup-review-request-v1.schema.json",
+      "sourceSha256": "5b8e11075c17e5c45aa9f0c3a6aa4804435862b42dd251c65d5bee1b010ad269",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/confirmation-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/confirmation-v1.schema.json",
+      "sourceSha256": "e91c0b6c763b2722c6392ebef7c8835e2a5abc77d4e5b68de03445253219e499",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/context-addition-proposal-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/context-addition-proposal-v1.schema.json",
+      "sourceSha256": "6c49208cc8c2c466600fca1990289f12e83558b9e2f4f9444c4938e61ea4979b",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/context-manifest-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/context-manifest-v1.schema.json",
+      "sourceSha256": "1505a8e92289072acc2ee4548e8ba8d77bd76141bc2f6ae47e19a17000f4ea15",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/evidence-config-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/evidence-config-v1.schema.json",
+      "sourceSha256": "99b659a48a236b5362af143e980a5b5271f8f4a35c0b1c1da22bd16bfe83202f",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/evidence-receipt-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/evidence-receipt-v1.schema.json",
+      "sourceSha256": "5c7eb3088834428ba6bbeababd4c0788ef73456c0da01b7f9bb1514869527d36",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/gate-receipt-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/gate-receipt-v1.schema.json",
+      "sourceSha256": "f45cb0dfb4ecd27de1ef67c013276ab742f42934b0dc7b984aacee9e5a527af9",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/grant-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/grant-v1.schema.json",
+      "sourceSha256": "55a9bfd222c76383ed97a87e583d62278fc18d2090d44b021e4662f583b25482",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/implementation-authorization-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/implementation-authorization-v1.schema.json",
+      "sourceSha256": "aaba3a3ca60c3326cdb62b5cdf0db4865d7fc0f212986b86d10b241b61ba32bf",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/merge-proposal-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/merge-proposal-v1.schema.json",
+      "sourceSha256": "ec1d3a459361cb3bccc43ddbf99e844925f91945746b567fe62a8c6450d0adfc",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/merge-review-observation-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/merge-review-observation-v1.schema.json",
+      "sourceSha256": "92c80eec98118e965b03a448871adef09e273aa0f0fd546ac6a048f97a5bf0ab",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/merge-review-request-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/merge-review-request-v1.schema.json",
+      "sourceSha256": "9878465390135e24a8b18cc1e63473655e9102c3cfda2e489961888b50073280",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/project-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/project-v1.schema.json",
+      "sourceSha256": "4fceca54c6caa93bb67b43c9f7c0f9df0e7df2906c89e355456fba9ccb337fec",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/revocation-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/revocation-v1.schema.json",
+      "sourceSha256": "e4ecf0b669885b80e85ffcd29f3c0bf3165532b0f29507330b7ef72e15632e4f",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/spec-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/spec-v1.schema.json",
+      "sourceSha256": "99e30e5dfe9733a3b74e5b8ff742010cfed327c37f5c57638001ba263b8f977d",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/status-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/status-v1.schema.json",
+      "sourceSha256": "7b6042d11d5164ab6c09e4bdf6d6fa30d4b07ae3e0be46637e51a6e29e33f04e",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/supply-chain-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/supply-chain-v1.schema.json",
+      "sourceSha256": "6e7fb6ca6ffac37ce832e58cb3aa1f55c82a6626b34c3fe797ee2ac706dc82a2",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/transition-table-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/transition-table-v1.schema.json",
+      "sourceSha256": "f257e65dc8d02a8bd25f39429eb22159053d567e025ffad0d624b01df500ab30",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0c-workflow/schemas/version-record-v1.schema.json",
+      "source": "template/v6/0c-workflow/schemas/version-record-v1.schema.json",
+      "sourceSha256": "38bf5bba0462c0b80e6ae8f1fe817617ba7c769e4cf00a540fac21ddc52fd95e",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/check-workflow.sh",
+      "source": "template/v6/0d-scripts/check-workflow.sh",
+      "sourceSha256": "a85bc51639dd575796b67f6fde8691b309a04a12f78ceb143eb020b1cb4fbd46",
+      "policy": "managed",
+      "mode": "0755"
+    },
+    {
+      "target": "0d-scripts/fake-action.py",
+      "source": "template/v6/0d-scripts/fake-action.py",
+      "sourceSha256": "d40f216c875057ad10875984cc974c8142a21ad568a45a52d9f7935e8f4d757b",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nm-v6.py",
+      "source": "template/v6/0d-scripts/nm-v6.py",
+      "sourceSha256": "015bb116cede21d43397b1bd421de5ed6b48c1e1e99da3cd3d073dc4c538aeef",
+      "policy": "managed",
+      "mode": "0755"
+    },
+    {
+      "target": "0d-scripts/nmv6/__init__.py",
+      "source": "template/v6/0d-scripts/nmv6/__init__.py",
+      "sourceSha256": "4e37cb6eff6f73d99ee0e9fb2d13bbae089d404f0ad8ad92e56bdf21c3c45a07",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/actions.py",
+      "source": "template/v6/0d-scripts/nmv6/actions.py",
+      "sourceSha256": "6a2dc270d232453df231d1027d0c9b848070d722c5bd77a02b3760594c7142c1",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/adapters.py",
+      "source": "template/v6/0d-scripts/nmv6/adapters.py",
+      "sourceSha256": "7e82b30de0752f19d04a36859b6c17a59da02b238011c01bd9ec54327d4c56cb",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/audit.py",
+      "source": "template/v6/0d-scripts/nmv6/audit.py",
+      "sourceSha256": "e5716a8568002e3af60cd0be5b63b851685f0038c491e7248b522f5f5d96e6d6",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/authorization.py",
+      "source": "template/v6/0d-scripts/nmv6/authorization.py",
+      "sourceSha256": "5ae202ad369b6f50c8eb0a70238335b0e3df26fc4ba4a35a49b31e6d34a08ce5",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/cleanup_review.py",
+      "source": "template/v6/0d-scripts/nmv6/cleanup_review.py",
+      "sourceSha256": "b037ef7437c1f079bfe4cc0c367064b7cd06f78fac0fed892dae4766069a41cc",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/cli.py",
+      "source": "template/v6/0d-scripts/nmv6/cli.py",
+      "sourceSha256": "76cf93eb2d762c7b55f69936d6d59b5b21fe2dffe1dc8b253723b700b41795db",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/context.py",
+      "source": "template/v6/0d-scripts/nmv6/context.py",
+      "sourceSha256": "7f681a4c2b44006501ee5a04315a3369905c63af9750dcb88941dc4dd8069d89",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/contracts.py",
+      "source": "template/v6/0d-scripts/nmv6/contracts.py",
+      "sourceSha256": "45973b55b47fb478352301176ce23002efe14d5ac1a75e164cd7dbc7ace81260",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/controller.py",
+      "source": "template/v6/0d-scripts/nmv6/controller.py",
+      "sourceSha256": "9e0e4762880c0dd882f8de1697a1b72b46047a42706b3d2334d80655aa8478f7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/delivery.py",
+      "source": "template/v6/0d-scripts/nmv6/delivery.py",
+      "sourceSha256": "ef0ff015c0e76c177ecffdee7f5cbc2be214341c2da57e11ed0c09ef116b1276",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/errors.py",
+      "source": "template/v6/0d-scripts/nmv6/errors.py",
+      "sourceSha256": "1beb0248e2fc53486030313fdcb428feb34f28a42c6c323f2be531736846d8c7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/evidence.py",
+      "source": "template/v6/0d-scripts/nmv6/evidence.py",
+      "sourceSha256": "ed622f5ab63fdc57a8c4d29f6daa351d57130a91357f5ba4cf08536213ff7d89",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/failpoints.py",
+      "source": "template/v6/0d-scripts/nmv6/failpoints.py",
+      "sourceSha256": "29c24a1462c664a710548045bb84f5416ec916333b54fc7919a8dab583da84ea",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/gates.py",
+      "source": "template/v6/0d-scripts/nmv6/gates.py",
+      "sourceSha256": "736e32aa46696c938e618fb804078548036bc4d2aef2964c06d39237fed630d7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/git_controller.py",
+      "source": "template/v6/0d-scripts/nmv6/git_controller.py",
+      "sourceSha256": "916b74a090cb1881237264548087358bd7f81e8872a697aefb73dc21630aca44",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/merge_review.py",
+      "source": "template/v6/0d-scripts/nmv6/merge_review.py",
+      "sourceSha256": "d8606732cbe90f8aeb203adcff77e188801dc845570bb60dee1e35a2c4129dea",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/migrations/0001_initial.sql",
+      "source": "template/v6/0d-scripts/nmv6/migrations/0001_initial.sql",
+      "sourceSha256": "396e8d0aea56af7b8e0426f58d0892542b680e64a2df27da672ec05a998e0ba3",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/migrations/0002_lease_fencing_and_write_sets.sql",
+      "source": "template/v6/0d-scripts/nmv6/migrations/0002_lease_fencing_and_write_sets.sql",
+      "sourceSha256": "29234e04fb2d77a6b8ad25916769bda0481a49150fefd3605269e6b9ca922f71",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/models.py",
+      "source": "template/v6/0d-scripts/nmv6/models.py",
+      "sourceSha256": "09e83aed3eba1f655dff8669e4d892b653029da2e3a97a1b67c27b243edf6de9",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/outbox.py",
+      "source": "template/v6/0d-scripts/nmv6/outbox.py",
+      "sourceSha256": "573cbfb5e679b88a98e81ef9f172f64e6f67d61555cc7833a4d54462986b4555",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/recovery.py",
+      "source": "template/v6/0d-scripts/nmv6/recovery.py",
+      "sourceSha256": "083b732bc4b5a6bcce59717a03d0ef8d5ee682d95d54d42bb5200008277c7bd7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/reducer.py",
+      "source": "template/v6/0d-scripts/nmv6/reducer.py",
+      "sourceSha256": "149de73e8d55b5a78bd9f47b36a0298a86a996c67a28a15f1abdd71d94f5053f",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/repository_check.py",
+      "source": "template/v6/0d-scripts/nmv6/repository_check.py",
+      "sourceSha256": "b3450b0c6e9aebc1e5d18c6ec508cec86bfdc16467a5dc43b64337d1026b769b",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/runtime.py",
+      "source": "template/v6/0d-scripts/nmv6/runtime.py",
+      "sourceSha256": "6161a17a963c79a2135a275a7a3653194ded728e9fd4fdc291b076f78ec478ef",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/scheduler.py",
+      "source": "template/v6/0d-scripts/nmv6/scheduler.py",
+      "sourceSha256": "0935778377e4d1556c19b840ab4c999b2aede917a9b5ce7e401f6071d6f8905b",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/specs.py",
+      "source": "template/v6/0d-scripts/nmv6/specs.py",
+      "sourceSha256": "b946feea42ba769a32b5ee345dfed5e2fed5acd1f85ec578abb65bb1fba0a7c7",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/store.py",
+      "source": "template/v6/0d-scripts/nmv6/store.py",
+      "sourceSha256": "a4947026c68ea8b6f0528f207558d0e2cc3b4ba48f6ba9426bd5c10839d815df",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/supply_chain.py",
+      "source": "template/v6/0d-scripts/nmv6/supply_chain.py",
+      "sourceSha256": "a8b54fa944392e765e9699ef93456da30643277c9f606ca0fa8e6ed681efa697",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/template_sync.py",
+      "source": "template/v6/0d-scripts/nmv6/template_sync.py",
+      "sourceSha256": "346cfaebebfa76c086e817574bfbee3d1d06c54175b161655dcc8750eb0d8ef6",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/traceability.py",
+      "source": "template/v6/0d-scripts/nmv6/traceability.py",
+      "sourceSha256": "9e564ddd21fab06d67ef325ff67e5688a6ecb34a63b6f53e1d58168aac2450cc",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/transitions.py",
+      "source": "template/v6/0d-scripts/nmv6/transitions.py",
+      "sourceSha256": "f6e605a546e089f7bc62b19f1f4304260c4a980adec054f6e4ea4238acb69ef5",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/util.py",
+      "source": "template/v6/0d-scripts/nmv6/util.py",
+      "sourceSha256": "1d1d752f84ec02bf521a545a371953be6a762408a7ba9f3c5c8a97a92ee6b072",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/nmv6/workspace.py",
+      "source": "template/v6/0d-scripts/nmv6/workspace.py",
+      "sourceSha256": "a18599e14f75226917bf9d828ed057d26db86016ac2ab32d1b694c9a0decbf01",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "0d-scripts/python311.sh",
+      "source": "template/v6/0d-scripts/python311.sh",
+      "sourceSha256": "cbb9f555ad88256c0655e9ad11ddbe089d38978f380c4e2fdeffd3ef132144a9",
+      "policy": "managed",
+      "mode": "0755"
+    },
+    {
+      "target": "0d-scripts/test-workflow.sh",
+      "source": "template/v6/0d-scripts/test-workflow.sh",
+      "sourceSha256": "bcbd609a89c64573145cca55072ece40b47a87f329825489345d03fb2605df12",
+      "policy": "managed",
+      "mode": "0755"
+    },
+    {
+      "target": "0d-scripts/verify.sh",
+      "source": "template/v6/0d-scripts/verify.sh",
+      "sourceSha256": "ad6cd9f82014c68935f8666890767453940f1ce8c003976cf2cbaa6dc992d52f",
+      "policy": "managed",
+      "mode": "0755"
+    },
+    {
+      "target": "AGENTS.md",
+      "source": "template/v6/AGENTS.md",
+      "sourceSha256": "57a8e5d30efd3baf8211e5923bd96ab7f7fdfe46f061c14532404e33e84c5c11",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "AGENTS.zh-CN.md",
+      "source": "template/v6/AGENTS.zh-CN.md",
+      "sourceSha256": "bd2a3bf917be9dcd93cadaf98f8a84faf6c22c068d58652fbc8641efa1d6acb2",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "CLAUDE.md",
+      "source": "template/v6/CLAUDE.md",
+      "sourceSha256": "56a9a2461b3781bfb4ecf1dedf2e546fee0641795febeb06edd18e9e8df591eb",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "GROK.md",
+      "source": "template/v6/GROK.md",
+      "sourceSha256": "310c98d8a5232bc40ced52f7e26b720a26c3cda54dfe07799f8f8a1cbba86868",
+      "policy": "managed",
+      "mode": "0644"
+    },
+    {
+      "target": "PROJECT_STRUCTURE.md",
+      "source": "template/v6/PROJECT_STRUCTURE.md",
+      "sourceSha256": "bfe9ae182dd7edfeed3e94263ca60a6d384b0b1d5f2e5a2f04abef4c0a3f71cd",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "README.md",
+      "source": "template/v6/README.md",
+      "sourceSha256": "c2d7757edb660ccde7afe429d922408df06211832377cba01d5cca9d6b565001",
+      "policy": "create-only",
+      "mode": "0644"
+    },
+    {
+      "target": "package.json",
+      "source": "template/v6/package.json",
+      "sourceSha256": "735223c81787104a2c7ccbfd069c60318a687c0200e7d4d4d9b9025280436fd5",
+      "policy": "json-merge",
+      "mode": "0644",
+      "mergeRoots": [
+        "scripts",
+        "devDependencies"
+      ]
+    },
+    {
+      "target": "project.json",
+      "source": "template/v6/project.example.json",
+      "sourceSha256": "2ee7a04ebe4891f9f0216baf3d981e1cfe07a36712884f4b391768e301ec433e",
+      "policy": "create-only",
+      "mode": "0644"
+    }
+  ],
+  "git": {
+    "integrationBranch": "dev",
+    "stableBranch": "main",
+    "protectedBranches": [
+      "main",
+      "dev"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/adapter-result-v1.schema.json",
+  "title": "NM V6 adapter result",
+  "type": "object",
+  "required": ["protocol_version", "operation_id", "attempt_id", "status", "session_id", "candidate_commit", "changed_paths", "observations", "requested_followups", "usage", "adapter_diagnostics"],
+  "properties": {
+    "protocol_version": {"const": "nm-v6/adapter-result-v1"},
+    "operation_id": {"pattern": "^OP-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "attempt_id": {"pattern": "^ATTEMPT-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "status": {"enum": ["succeeded", "failed", "cancelled", "partial", "unknown"]},
+    "session_id": {"type": ["string", "null"]},
+    "candidate_commit": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40,64}$"},
+    "changed_paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "observations": {"type": "array", "items": {"type": "object"}},
+    "requested_followups": {"type": "array", "items": {"type": "object"}},
+    "usage": {"type": "object"},
+    "adapter_diagnostics": {"type": "object"}
+  },
+  "additionalProperties": false
+}

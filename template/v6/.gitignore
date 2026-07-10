@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+.nm/runtime/
+.nm/workspaces/
+.nm/update/
+.nm/evidence/
+*.pyc
+__pycache__/

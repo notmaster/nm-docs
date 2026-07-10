@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/adapter-probe-v1.schema.json",
+  "title": "NM V6 adapter capability probe",
+  "type": "object",
+  "required": ["protocol_version", "adapter_id", "adapter_version", "cli_version", "available", "authentication_ready", "capabilities", "instruction_sources", "size_limits", "diagnostics"],
+  "properties": {
+    "protocol_version": {"const": "nm-v6/adapter-probe-v1"},
+    "adapter_id": {"enum": ["codex", "grok", "claude", "fake"]},
+    "adapter_version": {"type": "string", "minLength": 1},
+    "cli_version": {"type": ["string", "null"]},
+    "available": {"type": "boolean"},
+    "authentication_ready": {"type": ["boolean", "null"]},
+    "capabilities": {"type": "object", "required": ["headless", "structured_output", "resume", "cancellation", "native_subagents", "background_tasks", "sandbox_modes"], "properties": {"headless": {"type": "boolean"}, "structured_output": {"type": "boolean"}, "resume": {"type": "boolean"}, "cancellation": {"type": "boolean"}, "native_subagents": {"type": "boolean"}, "background_tasks": {"type": "boolean"}, "sandbox_modes": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false},
+    "instruction_sources": {"type": "array", "items": {"type": "string"}},
+    "size_limits": {"type": "object", "additionalProperties": {"type": ["integer", "null"]}},
+    "diagnostics": {"type": "object"}
+  },
+  "additionalProperties": false
+}

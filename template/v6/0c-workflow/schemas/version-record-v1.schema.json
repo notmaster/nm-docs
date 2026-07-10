@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/version-record-v1.schema.json",
+  "title": "NM V6 evidence version binding",
+  "type": "object",
+  "required": ["schema_version", "python", "sqlite", "git", "core_cli", "schemas", "evaluator", "adapters"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/version-record-v1"},
+    "python": {"type": "string", "minLength": 1},
+    "sqlite": {"type": "string", "minLength": 1},
+    "git": {"type": "string", "minLength": 1},
+    "core_cli": {"type": "string", "minLength": 1},
+    "schemas": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "minLength": 1}},
+    "evaluator": {"type": "string", "minLength": 1},
+    "adapters": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}

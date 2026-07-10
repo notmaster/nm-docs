@@ -1,0 +1,457 @@
+{
+  "schema_version": "nm-v6/project-v1",
+  "project": {
+    "name": "{{PROJECT_NAME}}"
+  },
+  "spec": {
+    "directory": "0a-docs/0a-spec",
+    "document": "0a-docs/0a-spec/SPEC.md",
+    "traceability": "0a-docs/0a-spec/traceability.json",
+    "required_schema_version": "nm-v6/spec-v1"
+  },
+  "git": {
+    "remote": "origin",
+    "stable_branch": "main",
+    "integration_branch": "dev",
+    "protected_branches": ["main", "dev"],
+    "work_branch_prefixes": ["feature/", "fix/", "docs/", "refactor/", "chore/", "task/"],
+    "hotfix_prefix": "hotfix/",
+    "other_branch_push": "administrator_grant_only",
+    "remote_branch_delete": "administrator_grant_only",
+    "force_push": "forbidden",
+    "integration_unit": "phase",
+    "merge_strategies": ["fast_forward", "squash", "merge_commit"]
+  },
+  "scheduler": {
+    "max_workers": 2,
+    "lease_seconds": 120,
+    "heartbeat_seconds": 30,
+    "retry_budget": 3
+  },
+  "context": {
+    "max_manifest_bytes": 131072,
+    "max_estimated_tokens": 24000
+  },
+  "actions": {
+    "task_verify": "task_verify",
+    "phase_verify": "phase_verify",
+    "full_verify": "full_verify",
+    "build": "build",
+    "release_metadata": "release_metadata",
+    "release": "release",
+    "publish": "publish"
+  },
+  "delivery": {
+    "artifact_digest_result_field": "artifact_digest",
+    "environments": {
+      "production": {
+        "expected_identity": "project-production",
+        "identity_probe": "identity_probe",
+        "preflight": "preflight",
+        "deploy": "deploy",
+        "health": "health",
+        "rollback": "rollback",
+        "post_rollback_verify": "post_rollback_verify"
+      }
+    }
+  },
+  "action_definitions": {
+    "task_verify": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "task_verify",
+      "kind": "pure",
+      "argv": ["python3", "0d-scripts/fake-action.py", "task_verify"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "not_applicable",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "phase_verify": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "phase_verify",
+      "kind": "pure",
+      "argv": ["python3", "0d-scripts/fake-action.py", "phase_verify"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "not_applicable",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "full_verify": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "full_verify",
+      "kind": "pure",
+      "argv": ["python3", "0d-scripts/fake-action.py", "full_verify"],
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "not_applicable",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "build": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "build",
+      "kind": "pure",
+      "argv": ["python3", "0d-scripts/fake-action.py", "build"],
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_SOURCE_COMMIT"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "not_applicable",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "release_metadata": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "release_metadata",
+      "kind": "pure",
+      "argv": ["python3", "0d-scripts/fake-action.py", "release_metadata"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [
+        "NM_V6_SPEC_HASH",
+        "NM_V6_CONFIG_HASH",
+        "NM_V6_RELEASE_SOURCE_KIND",
+        "NM_V6_RELEASE_SOURCE_COMMIT",
+        "NM_V6_RELEASE_SOURCE_TREE"
+      ],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "not_applicable",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "release": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "release",
+      "kind": "external_mutation",
+      "argv": ["python3", "0d-scripts/fake-action.py", "release"],
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [
+        "NM_V6_OPERATION_ID",
+        "NM_V6_SPEC_HASH",
+        "NM_V6_CONFIG_HASH",
+        "NM_V6_RELEASE_SOURCE_KIND",
+        "NM_V6_RELEASE_SOURCE_COMMIT",
+        "NM_V6_RELEASE_SOURCE_TREE",
+        "NM_V6_RELEASE_TAG",
+        "NM_V6_RELEASE_VERSION",
+        "NM_V6_RELEASE_METADATA_DIGEST",
+        "NM_V6_ARTIFACT_DIGEST",
+        "NM_V6_STABLE_COMMIT",
+        "NM_V6_STABLE_TREE"
+      ],
+      "secret_refs": ["release_token"],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "required",
+      "observe_action_id": "observe_release",
+      "reconcile_action_id": "reconcile_release"
+    },
+    "publish": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "publish",
+      "kind": "external_mutation",
+      "argv": ["python3", "0d-scripts/fake-action.py", "publish"],
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [
+        "NM_V6_OPERATION_ID",
+        "NM_V6_SPEC_HASH",
+        "NM_V6_CONFIG_HASH",
+        "NM_V6_RELEASE_SOURCE_KIND",
+        "NM_V6_RELEASE_SOURCE_COMMIT",
+        "NM_V6_RELEASE_SOURCE_TREE",
+        "NM_V6_RELEASE_TAG",
+        "NM_V6_RELEASE_VERSION",
+        "NM_V6_RELEASE_METADATA_DIGEST",
+        "NM_V6_ARTIFACT_DIGEST",
+        "NM_V6_STABLE_COMMIT",
+        "NM_V6_STABLE_TREE"
+      ],
+      "secret_refs": ["release_token"],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "required",
+      "observe_action_id": "observe_publish",
+      "reconcile_action_id": "reconcile_publish"
+    },
+    "observe_release": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "observe_release",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "observe_release"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_OPERATION_ID"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "reconcile_release": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "reconcile_release",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "reconcile_release"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_OPERATION_ID"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "observe_publish": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "observe_publish",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "observe_publish"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_OPERATION_ID"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "reconcile_publish": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "reconcile_publish",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "reconcile_publish"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_OPERATION_ID"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "identity_probe": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "identity_probe",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "identity_probe"],
+      "cwd": ".",
+      "timeout_seconds": 30,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "preflight": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "preflight",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "preflight"],
+      "cwd": ".",
+      "timeout_seconds": 30,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "deploy": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "deploy",
+      "kind": "external_mutation",
+      "argv": ["python3", "0d-scripts/fake-action.py", "deploy"],
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [
+        "NM_V6_OPERATION_ID",
+        "NM_V6_ARTIFACT_DIGEST",
+        "NM_V6_ENVIRONMENT_ID",
+        "NM_V6_ENVIRONMENT_FINGERPRINT"
+      ],
+      "secret_refs": ["deploy_token"],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "required",
+      "observe_action_id": "observe_deploy",
+      "reconcile_action_id": "reconcile_deploy"
+    },
+    "health": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "health",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "health"],
+      "cwd": ".",
+      "timeout_seconds": 30,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "rollback": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "rollback",
+      "kind": "external_mutation",
+      "argv": ["python3", "0d-scripts/fake-action.py", "rollback"],
+      "cwd": ".",
+      "timeout_seconds": 120,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [
+        "NM_V6_OPERATION_ID",
+        "NM_V6_ROLLBACK_TARGET",
+        "NM_V6_ENVIRONMENT_ID",
+        "NM_V6_ENVIRONMENT_FINGERPRINT"
+      ],
+      "secret_refs": ["deploy_token"],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "required",
+      "observe_action_id": "observe_deploy",
+      "reconcile_action_id": "reconcile_deploy"
+    },
+    "post_rollback_verify": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "post_rollback_verify",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "post_rollback_verify"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": [],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "observe_deploy": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "observe_deploy",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "observe_deploy"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_OPERATION_ID"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    },
+    "reconcile_deploy": {
+      "schema_version": "nm-v6/action-v1",
+      "action_id": "reconcile_deploy",
+      "kind": "external_observe",
+      "argv": ["python3", "0d-scripts/fake-action.py", "reconcile_deploy"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "accepted_exit_codes": [0],
+      "env_allowlist": [],
+      "core_injected_env": ["NM_V6_OPERATION_ID"],
+      "secret_refs": [],
+      "result_schema": "nm-v6/action-result-v1",
+      "idempotency": "read_only",
+      "observe_action_id": null,
+      "reconcile_action_id": null
+    }
+  },
+  "secret_references": {
+    "release_token": {
+      "provider": "fake",
+      "reference": "fixture-release-token"
+    },
+    "deploy_token": {
+      "provider": "fake",
+      "reference": "fixture-deploy-token"
+    }
+  },
+  "notifications": {
+    "routes": [
+      {
+        "route_id": "fixture-notification-sink",
+        "action_id": "observe_publish",
+        "idempotency": "notification_id"
+      }
+    ]
+  },
+  "adapters": {
+    "protocol_version": "nm-v6/adapter-request-v1",
+    "configured": ["codex", "grok", "claude", "fake"],
+    "real_cli_smoke_tests": "opt_in_only"
+  },
+  "authorization": {
+    "schema_version": "nm-v6/authorization-config-v1",
+    "trusted_authenticators": [
+      {
+        "authenticator_id": "fixture-admin",
+        "public_key": "0c-workflow/fixtures/fake-admin-public.pem"
+      }
+    ]
+  },
+  "evidence": {
+    "schema_version": "nm-v6/evidence-config-v1",
+    "retention_days": 30,
+    "orphan_grace_seconds": 3600,
+    "redaction_version": "nm-v6/redaction-v1"
+  },
+  "supply_chain": {
+    "schema_version": "nm-v6/supply-chain-v1",
+    "allowed_download_origins": ["https://github.com/notmaster/nm-docs"],
+    "require_download_digest_or_signature": true,
+    "disable_provider_auto_update": true,
+    "mandatory_ci_credentials": "forbidden"
+  },
+  "version_constraints": {
+    "python": ">=3.11,<4",
+    "sqlite": ">=3.35",
+    "git": ">=2.30"
+  }
+}

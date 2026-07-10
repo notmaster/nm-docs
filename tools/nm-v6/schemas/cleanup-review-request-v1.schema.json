@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/cleanup-review-request-v1.schema.json",
+  "title": "NM V6 provider-neutral branch-cleanup review request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "run_id",
+    "spec_hash",
+    "config_hash",
+    "input_revision",
+    "branch",
+    "branch_head",
+    "integration_receipt",
+    "integration_proof",
+    "cleanup_facts",
+    "request_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "nm-v6/cleanup-review-request-v1"},
+    "review_id": {"type": "string", "pattern": "^CLEANUP-REVIEW-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "run_id": {"type": "string", "minLength": 1},
+    "spec_hash": {"$ref": "#/$defs/sha256"},
+    "config_hash": {"$ref": "#/$defs/sha256"},
+    "input_revision": {"type": "integer", "minimum": 0},
+    "branch": {"$ref": "#/$defs/branch"},
+    "branch_head": {"$ref": "#/$defs/objectId"},
+    "integration_receipt": {"$ref": "#/$defs/integrationReceipt"},
+    "integration_proof": {"$ref": "#/$defs/integrationProof"},
+    "cleanup_facts": {"$ref": "#/$defs/cleanupFacts"},
+    "request_digest": {"$ref": "#/$defs/sha256"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "objectId": {"type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"},
+    "branch": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:\\.\\.|//|@\\{|\\\\|\\s))(?!.*\\.$)[A-Za-z0-9._/-]+$"
+    },
+    "strategy": {"enum": ["fast_forward", "squash", "merge_commit"]},
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "integrationReceipt": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "receipt_id",
+        "strategy",
+        "source_commit",
+        "target_ref",
+        "target_before",
+        "target_after",
+        "result_tree",
+        "rollback_ref",
+        "authorization_id",
+        "executed_at",
+        "receipt_digest"
+      ],
+      "properties": {
+        "schema_version": {"const": "nm-v6/cleanup-integration-receipt-v1"},
+        "receipt_id": {"type": "string", "minLength": 1},
+        "strategy": {"$ref": "#/$defs/strategy"},
+        "source_commit": {"$ref": "#/$defs/objectId"},
+        "target_ref": {
+          "type": "string",
+          "pattern": "^refs/heads/(?!/)(?!.*(?:\\.\\.|//|@\\{|\\\\|\\s))(?!.*\\.$)[A-Za-z0-9._/-]+$"
+        },
+        "target_before": {"$ref": "#/$defs/objectId"},
+        "target_after": {"$ref": "#/$defs/objectId"},
+        "result_tree": {"$ref": "#/$defs/objectId"},
+        "rollback_ref": {"type": "string", "minLength": 1},
+        "authorization_id": {"type": "string", "minLength": 1},
+        "executed_at": {"type": "string", "format": "date-time"},
+        "receipt_digest": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "integrationProof": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "proof_kind",
+        "strategy",
+        "source_head",
+        "target_commit",
+        "current_target_head",
+        "target_tree",
+        "target_contains_integration_result",
+        "ancestry_proven",
+        "patch_equivalent",
+        "tree_equivalent",
+        "proof_digest"
+      ],
+      "properties": {
+        "schema_version": {"const": "nm-v6/cleanup-integration-proof-v1"},
+        "proof_kind": {"enum": ["graph_ancestry", "patch_tree_equivalence"]},
+        "strategy": {"$ref": "#/$defs/strategy"},
+        "source_head": {"$ref": "#/$defs/objectId"},
+        "target_commit": {"$ref": "#/$defs/objectId"},
+        "current_target_head": {"$ref": "#/$defs/objectId"},
+        "target_tree": {"$ref": "#/$defs/objectId"},
+        "target_contains_integration_result": {"type": "boolean"},
+        "ancestry_proven": {"type": "boolean"},
+        "patch_equivalent": {"type": "boolean"},
+        "tree_equivalent": {"type": "boolean"},
+        "proof_digest": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"strategy": {"const": "squash"}}, "required": ["strategy"]},
+          "then": {"properties": {"proof_kind": {"const": "patch_tree_equivalence"}}},
+          "else": {"properties": {"proof_kind": {"const": "graph_ancestry"}}}
+        }
+      ]
+    },
+    "responsibilities": {
+      "type": "object",
+      "required": [
+        "review_responsibility_closed",
+        "backup_retention_absent",
+        "dependent_work_closed",
+        "release_responsibility_closed",
+        "rollback_responsibility_closed",
+        "audit_retention_absent",
+        "explicit_retention_absent"
+      ],
+      "properties": {
+        "review_responsibility_closed": {"type": "boolean"},
+        "backup_retention_absent": {"type": "boolean"},
+        "dependent_work_closed": {"type": "boolean"},
+        "release_responsibility_closed": {"type": "boolean"},
+        "rollback_responsibility_closed": {"type": "boolean"},
+        "audit_retention_absent": {"type": "boolean"},
+        "explicit_retention_absent": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "blockers": {
+      "type": "object",
+      "required": ["live_lease_ids", "live_session_ids", "dependent_workspace_paths"],
+      "properties": {
+        "live_lease_ids": {"$ref": "#/$defs/stringSet"},
+        "live_session_ids": {"$ref": "#/$defs/stringSet"},
+        "dependent_workspace_paths": {"$ref": "#/$defs/stringSet"}
+      },
+      "additionalProperties": false
+    },
+    "cleanupFacts": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "run_id",
+        "input_revision",
+        "branch",
+        "expected_head",
+        "observed_head",
+        "authority_available",
+        "responsibility_evidence_id",
+        "is_protected",
+        "retained_pattern",
+        "remote_branch_status",
+        "remote_head",
+        "checked_out",
+        "linked_worktree_paths",
+        "responsibilities",
+        "blockers",
+        "facts_digest"
+      ],
+      "properties": {
+        "schema_version": {"const": "nm-v6/cleanup-facts-v1"},
+        "run_id": {"type": "string", "minLength": 1},
+        "input_revision": {"type": "integer", "minimum": 0},
+        "branch": {"$ref": "#/$defs/branch"},
+        "expected_head": {"$ref": "#/$defs/objectId"},
+        "observed_head": {
+          "anyOf": [{"$ref": "#/$defs/objectId"}, {"type": "null"}]
+        },
+        "authority_available": {"type": "boolean"},
+        "responsibility_evidence_id": {
+          "anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]
+        },
+        "is_protected": {"type": "boolean"},
+        "retained_pattern": {"type": "boolean"},
+        "remote_branch_status": {"enum": ["absent", "present", "unknown"]},
+        "remote_head": {
+          "anyOf": [{"$ref": "#/$defs/objectId"}, {"type": "null"}]
+        },
+        "checked_out": {"type": "boolean"},
+        "linked_worktree_paths": {"$ref": "#/$defs/stringSet"},
+        "responsibilities": {"$ref": "#/$defs/responsibilities"},
+        "blockers": {"$ref": "#/$defs/blockers"},
+        "facts_digest": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {"remote_branch_status": {"const": "present"}},
+            "required": ["remote_branch_status"]
+          },
+          "then": {"properties": {"remote_head": {"$ref": "#/$defs/objectId"}}},
+          "else": {"properties": {"remote_head": {"type": "null"}}}
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/merge-proposal-v1.schema.json",
+  "title": "NM V6 merge strategy proposal",
+  "type": "object",
+  "required": ["schema_version", "proposal_id", "source_branch", "source_sha", "target_branch", "expected_target_sha", "strategy", "rationale", "expected_tree", "verification_evidence_ids", "proposed_at", "proposed_by"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/merge-proposal-v1"},
+    "proposal_id": {"type": "string", "minLength": 1},
+    "source_branch": {"type": "string", "minLength": 1},
+    "source_sha": {"pattern": "^[0-9a-f]{40,64}$"},
+    "target_branch": {"type": "string", "minLength": 1},
+    "expected_target_sha": {"pattern": "^[0-9a-f]{40,64}$"},
+    "strategy": {"enum": ["fast_forward", "squash", "merge_commit"]},
+    "rationale": {"type": "string", "minLength": 1},
+    "expected_tree": {"pattern": "^[0-9a-f]{40,64}$"},
+    "verification_evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "proposed_at": {"type": "string", "format": "date-time"},
+    "proposed_by": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "nm-v6/spec-v1",
+  "spec_id": "SPEC-EXAMPLE-V1",
+  "version": 1,
+  "status": "draft",
+  "requested_outcome": "Replace with the confirmed project outcome.",
+  "constraints": ["No production actions in the example fixture."],
+  "assumptions": ["Project action definitions are complete before confirmation."],
+  "open_questions": [],
+  "risks": ["A project-specific rollback action must be verified before deployment."],
+  "success_conditions": ["Every mandatory Acceptance criterion has valid stage-bound evidence."],
+  "failure_conditions": ["A protected or external mutation starts without a gate and authorization."],
+  "goals": [
+    {
+      "goal_id": "GOAL-001",
+      "statement": "Deliver one independently verified project change."
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "REQ-001",
+      "goal_ids": ["GOAL-001"],
+      "statement": "The example change must pass project verification."
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "acceptance_id": "AC-001",
+      "requirement_ids": ["REQ-001"],
+      "statement": "The full_verify action succeeds in an isolated candidate.",
+      "mandatory": true,
+      "required_by_stage": "dev_integration",
+      "action_id": "full_verify"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "DEC-001",
+      "statement": "Release and deployment remain required in this complete fake fixture."
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "PHASE-001",
+      "title": "Example phase",
+      "acceptance_ids": ["AC-001"]
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "TASK-001",
+      "phase_id": "PHASE-001",
+      "acceptance_ids": ["AC-001"],
+      "enabling_requirement_ids": [],
+      "dependencies": [],
+      "write_set": ["src/**"],
+      "optional": false
+    }
+  ],
+  "required_delivery_stages": {
+    "release": "required",
+    "deploy": "required",
+    "environments": ["production"]
+  },
+  "safety_constraints": [
+    "Workers cannot write protected refs, runtime state, or credentialed delivery actions."
+  ],
+  "non_goals": ["The fixture does not contact a real provider or environment."],
+  "acceptance_actions": {
+    "AC-001": "full_verify"
+  }
+}

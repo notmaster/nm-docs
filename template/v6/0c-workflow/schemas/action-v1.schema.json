@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/action-v1.schema.json",
+  "title": "NM V6 action definition",
+  "type": "object",
+  "required": ["schema_version", "action_id", "kind", "argv", "cwd", "timeout_seconds", "accepted_exit_codes", "env_allowlist", "core_injected_env", "secret_refs", "result_schema", "idempotency", "observe_action_id", "reconcile_action_id"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/action-v1"},
+    "action_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "kind": {"enum": ["pure", "external_observe", "external_mutation"]},
+    "argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "cwd": {"type": "string", "minLength": 1},
+    "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 86400},
+    "accepted_exit_codes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer"}},
+    "env_allowlist": {"$ref": "#/$defs/inheritedEnvNames"},
+    "core_injected_env": {"$ref": "#/$defs/envNames"},
+    "secret_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "result_schema": {"const": "nm-v6/action-result-v1"},
+    "idempotency": {"enum": ["not_applicable", "read_only", "required"]},
+    "observe_action_id": {"type": ["string", "null"]},
+    "reconcile_action_id": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"kind": {"const": "external_mutation"}}},
+      "then": {
+        "required": ["observe_action_id", "reconcile_action_id"],
+        "properties": {
+          "idempotency": {"const": "required"},
+          "observe_action_id": {"type": "string", "minLength": 1},
+          "reconcile_action_id": {"type": "string", "minLength": 1},
+          "core_injected_env": {"contains": {"const": "NM_V6_OPERATION_ID"}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"kind": {"const": "external_observe"}}},
+      "then": {"properties": {"idempotency": {"const": "read_only"}}}
+    },
+    {
+      "if": {"properties": {"kind": {"const": "pure"}}},
+      "then": {"properties": {"idempotency": {"const": "not_applicable"}}}
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "inheritedEnvNames": {"type": "array", "uniqueItems": true, "items": {"enum": ["PATH", "LANG", "LC_ALL", "TZ", "TERM", "NO_COLOR", "CI"]}},
+    "envNames": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$"}}
+  }
+}

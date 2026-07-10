@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/gate-receipt-v1.schema.json",
+  "title": "NM V6 gate decision receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "gate_id",
+    "gate_type",
+    "gate_version",
+    "run_id",
+    "subject_ids",
+    "spec_hash",
+    "config_hash",
+    "source_commit",
+    "candidate_commit",
+    "target_commit",
+    "release_source_kind",
+    "release_source_commit",
+    "release_source_tree",
+    "hotfix_reconciliation_gate_id",
+    "artifact_digest",
+    "environment_id",
+    "environment_fingerprint",
+    "prerequisite_decision_ids",
+    "evidence_ids",
+    "prerequisite_evidence",
+    "mandatory_acceptance_ids",
+    "acceptance_evidence",
+    "authorization_id",
+    "evaluator",
+    "evaluator_version",
+    "result",
+    "reason",
+    "timestamp",
+    "run_revision",
+    "evaluated_prerequisites",
+    "decision_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "nm-v6/gate-decision-v1"},
+    "gate_id": {"type": "string", "minLength": 1},
+    "gate_type": {"type": "string", "minLength": 1},
+    "gate_version": {"const": "nm-v6/gates-v1"},
+    "run_id": {"type": ["string", "null"], "minLength": 1},
+    "subject_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "spec_hash": {"pattern": "^[0-9a-f]{64}$"},
+    "config_hash": {"pattern": "^[0-9a-f]{64}$"},
+    "source_commit": {"type": ["string", "null"], "minLength": 1},
+    "candidate_commit": {"type": ["string", "null"], "minLength": 1},
+    "target_commit": {"type": ["string", "null"], "minLength": 1},
+    "release_source_kind": {"type": ["string", "null"], "enum": ["dev", "hotfix_stable", null]},
+    "release_source_commit": {"type": ["string", "null"], "minLength": 1},
+    "release_source_tree": {"type": ["string", "null"], "minLength": 1},
+    "hotfix_reconciliation_gate_id": {"type": ["string", "null"], "minLength": 1},
+    "artifact_digest": {"type": ["string", "null"], "pattern": "^(?:sha256:)?[0-9a-f]{64}$"},
+    "environment_id": {"type": ["string", "null"], "minLength": 1},
+    "environment_fingerprint": {"type": ["string", "null"], "minLength": 1},
+    "prerequisite_decision_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "prerequisite_evidence": {
+      "type": "object",
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string", "minLength": 1}
+      }
+    },
+    "mandatory_acceptance_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^(?:V6-)?AC-[0-9]{3}$"}
+    },
+    "acceptance_evidence": {
+      "type": "object",
+      "propertyNames": {"pattern": "^(?:V6-)?AC-[0-9]{3}$"},
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string", "minLength": 1}
+      }
+    },
+    "authorization_id": {"type": ["string", "null"], "minLength": 1},
+    "evaluator": {"type": "string", "minLength": 1},
+    "evaluator_version": {"type": "string", "minLength": 1},
+    "result": {"enum": ["passed", "failed", "not_applicable"]},
+    "reason": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "run_revision": {"type": "integer", "minimum": 0},
+    "evaluated_prerequisites": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "decision_digest": {"pattern": "^[0-9a-f]{64}$"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "gate_type": {"const": "COMPLETION_GATE"},
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "mandatory_acceptance_ids": {"minItems": 1},
+          "acceptance_evidence": {"minProperties": 1}
+        }
+      },
+      "else": {
+        "properties": {
+          "mandatory_acceptance_ids": {"maxItems": 0},
+          "acceptance_evidence": {"maxProperties": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {
+            "enum": [
+              "HOTFIX_STABLE_RESULT_GATE",
+              "HOTFIX_RECONCILIATION_RESULT_GATE"
+            ]
+          },
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "source_commit": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {"enum": ["TASK_GATE", "PHASE_GATE"]},
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "candidate_commit": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {
+            "enum": [
+              "DEV_INTEGRATION_GATE",
+              "DEV_INTEGRATION_RESULT_GATE",
+              "HOTFIX_STABLE_GATE",
+              "HOTFIX_STABLE_RESULT_GATE",
+              "HOTFIX_RECONCILIATION_GATE",
+              "HOTFIX_RECONCILIATION_RESULT_GATE"
+            ]
+          },
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "candidate_commit": {"type": "string", "minLength": 1},
+          "target_commit": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"result": {"enum": ["passed", "not_applicable"]}},
+        "required": ["result"]
+      },
+      "then": {
+        "properties": {
+          "run_id": {"type": "string", "minLength": 1},
+          "evidence_ids": {"type": "array", "minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {"const": "RELEASE_GATE"},
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "source_commit": {"type": "string", "minLength": 1},
+          "target_commit": {"type": "string", "minLength": 1},
+          "release_source_kind": {"enum": ["dev", "hotfix_stable"]},
+          "release_source_commit": {"type": "string", "minLength": 1},
+          "release_source_tree": {"type": "string", "minLength": 1},
+          "artifact_digest": {"type": "string", "pattern": "^(?:sha256:)?[0-9a-f]{64}$"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {"const": "RELEASE_RESULT_GATE"},
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "source_commit": {"type": "string", "minLength": 1},
+          "candidate_commit": {"type": "string", "minLength": 1},
+          "release_source_kind": {"enum": ["dev", "hotfix_stable"]},
+          "release_source_commit": {"type": "string", "minLength": 1},
+          "release_source_tree": {"type": "string", "minLength": 1},
+          "artifact_digest": {"type": "string", "pattern": "^(?:sha256:)?[0-9a-f]{64}$"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {"enum": ["DEPLOY_GATE", "POST_DEPLOY_GATE"]},
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "artifact_digest": {"type": "string", "pattern": "^(?:sha256:)?[0-9a-f]{64}$"},
+          "environment_id": {"type": "string", "minLength": 1},
+          "environment_fingerprint": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate_type": {"enum": ["ROLLBACK_GATE", "POST_ROLLBACK_GATE"]},
+          "result": {"const": "passed"}
+        },
+        "required": ["gate_type", "result"]
+      },
+      "then": {
+        "properties": {
+          "artifact_digest": {"type": "string", "pattern": "^(?:sha256:)?[0-9a-f]{64}$"},
+          "environment_id": {"type": "string", "minLength": 1},
+          "environment_fingerprint": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

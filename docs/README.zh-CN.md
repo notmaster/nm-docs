@@ -2,109 +2,90 @@
 
 [English](../README.md) | 中文
 
-`nm-docs` 用于维护 NotMaster 的工作流模板、Agent skills 和确定性工具。
-
-NM **V5** 目前保留为**实验性试用工作流**，同时开始设计 V6。V5 未获准用于无人值守的高影响自动化：
-
-```text
-SPEC（已确认）
--> 运行时 INDEX + Task 卡（磁盘为真相）
--> runner + 短命编排会话 + Worker
--> staged（阶段验收）或 auto（硬停 / 授权 skip）
--> 按工作单元生成 candidate；由管理员控制合并到 dev
-```
+`nm-docs` 维护用于 AI 辅助项目交付的 NotMaster 工作流模板、Skills 和确定性工具。
 
 ## 当前工作流状态
 
-- **V6**：尚未开始实现。待评审的实现 Spec 见
-  [nm-v6-workflow-spec.md](nm-v6-workflow-spec.md)，完整中文管理员对照见
-  [nm-v6-workflow-spec.zh-CN.md](nm-v6-workflow-spec.zh-CN.md)。
-- **V5**：仅限实验性试用。当前 runner 不得用于无人值守合并、发布、部署，也不得接触生产凭据或生产数据。
-- **V4 及更早版本**：仅供存量项目和历史参考继续保留。
+- **V6**：有效的 `tools/nm-v6/administrator-acceptance.json` 记录所标识的精确源码快照，在完成独立证据审阅后已获管理员接受。接受状态不能转移到已修改或未被记录的快照。V6 仍为 `recommended=false`、`production_ready=false`。
+- **V5**：继续保留为有人监督的实验性试用工作流。其 runner 与检查不授权、也不能独立证明无人值守合并、发布、部署、生产访问或生产就绪性。
+- **V4 及更早版本**：为存量项目和历史参考继续保留。
 
-V5 曾探索：
+V6 使用单一 SQLite 运行时权威、确定性 reducer 与 gate engine、带签名的受信控制面记录、独立 candidate workspace、Codex/GrokBuild/Claude 薄 adapter、内容寻址的脱敏证据、受保护 Git 集成、可恢复交付 action、审计链和持久通知 outbox。Staged 与 auto 模式共用同一状态图和技术门禁。
 
-- 磁盘状态机：瘦索引 `0b-runtime/INDEX.yaml` + 每任务卡。
-- 混合编排试验：runner、短命编排会话、带最小上下文包的 Worker。
-- 两种模式：`staged` / `auto`；未指定则强制选择；恢复时可切换并提示冲突。
-- 自修默认 **10** 轮；仅显式 `skip_on_fail` 可在 auto 下跳过。
-- 事件化通知（可插拔渠道，首期飞书）。
-- **Agent 文档英文**；管理员中文对照；设计决议 v1 保存在模板内。
-- CLI + Skill 双入口。
+V6 不导入或恢复 V5 的可变 `INDEX.yaml` 或 Task-card 运行时。
+仓库级接受只覆盖记录所绑定的 V6 实现快照。每个生成项目仍须定义并确认自己的 Spec、通过自身门禁，并在执行受保护或外部影响前提供有效且范围明确的 grant。
 
-设计决议（v1）：[RESOLUTION-V5-DESIGN-v1.md](../template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.md)  
-中文对照：[RESOLUTION-V5-DESIGN-v1.zh-CN.md](../template/v5/0c-workflow/resolutions/RESOLUTION-V5-DESIGN-v1.zh-CN.md)
+## V6 仓库命令
 
-## V5 试用命令
-
-> V5 仅保留用于有人监督的实验和仓库维护；文档中的 `auto` 模式不构成高影响操作授权。
+V6 核心需要 Python 3.11 或更高版本。仓库 wrapper 会查找符合要求的运行时，也可使用 `NM_V6_PYTHON` 指定。
 
 ```bash
-python3 tools/nm-v5/nm_v5.py init \
+npm run lm
+npm run v6:check
+npm run v6:test
+npm run skill:v6:check
+```
+
+从当前 checkout 初始化一次性或新项目：
+
+```bash
+bash tools/nm-v6/python311.sh tools/nm-v6/nm_v6.py init \
   --target /absolute/path/to/project \
   --project-name "My Project" \
   --package-name "my-project" \
   --source-dir .
 ```
 
-更新已有 Git 项目：
+预览安全的已有项目更新：
 
 ```bash
-python3 tools/nm-v5/nm_v5.py update \
+bash tools/nm-v6/python311.sh tools/nm-v6/nm_v6.py update \
   --target /absolute/path/to/project \
   --source-dir . \
   --dry-run
 ```
 
-安装 V5 skill：
+Updater 要求目标是干净 Git 根目录、fetch 成功、精确匹配远端跟踪 `dev`、创建允许的新分支、在目标外 staging、应用前验证，并在注入或真实失败后支持确定性 resume 或 abort。
+
+从当前 checkout 安装薄 Skill：
 
 ```bash
-bash tools/nm-v5/install-skill.sh --target-dir "$HOME/.agents/skills"
+bash tools/nm-v6/install-skill.sh --target-dir "$HOME/.agents/skills"
 ```
 
-开放 skills 生态（可用时）：
+安装器会将 Skill 绑定到已审查 checkout 及其 V6 可执行源码。审查 core 更新后需重新安装；摘要漂移会失败关闭。
 
-```bash
-npx skills add notmaster/nm-docs --skill nm-init-project-v5
-```
+## 生成的 V6 项目
 
-安装后，在新的 Agent 线程中：
-
-```text
-Use $nm-init-project-v5 to initialize or update this project.
-```
-
-## 仓库结构
-
-```text
-template/v5/                  # 实验性 NM V5 试用模板
-skills/nm-init-project-v5/    # V5 skill
-tools/nm-v5/                  # V5 工具
-template/v4/ … template/v1/   # 历史版本保留
-docs/                         # 用户文档与翻译
-```
-
-## 验证
-
-```bash
-npm install
-npm run lm
-python3 tools/nm-v5/nm_v5.py check --target template/v5 --source-dir .
-```
-
-生成的 V5 项目内：
+在生成项目内：
 
 ```bash
 npm install
 npm run workflow:check
+npm run workflow:test
 npm run verify
 ```
 
-## 更多文档
+这些命令产生技术证据；它们不会确认项目 Spec、签署批准、授予受保护或外部权限，也不会把上游仓库快照的管理员接受状态转移到生成项目。
 
-- [仓库工作通知（英文）](repository-notifications.md) / [中文](repository-notifications.zh-CN.md)
-- [模板版本说明](template-versions.md) / [中文](template-versions.zh-CN.md)
-- [V6 工作流实现 Spec（英文执行源）](nm-v6-workflow-spec.md)
-- [V6 工作流 Spec（中文管理员对照）](nm-v6-workflow-spec.zh-CN.md)
+## 仓库结构
+
+```text
+template/v6/                  # 自包含 V6 实现
+tools/nm-v6/                  # 确定性 CLI/core、schema 与验收测试
+skills/nm-init-project-v6/    # 委托同一 CLI 的薄 Agent 入口
+template/v5/                  # 实验性 V5 试用工作流
+skills/nm-init-project-v5/    # V5 维护 Skill
+tools/nm-v5/                  # V5 维护工具
+template/v4/ … template/v1/  # 保留的早期版本
+docs/                         # 用户文档与管理员镜像
+```
+
+## 文档
+
+- [V6 规范工作流 Spec（英文执行源）](nm-v6-workflow-spec.md) / [中文管理员镜像](nm-v6-workflow-spec.zh-CN.md)
+- [V6 实现追踪报告（英文）](nm-v6-implementation-traceability.md)
+- [模板版本（英文）](template-versions.md) / [中文](template-versions.zh-CN.md)
 - [安装说明（英文）](installation.md) / [中文](installation.zh-CN.md)
-- [V4 设计决策（中文）](nm-v4-design-decisions.zh-CN.md)
+- [仓库工作通知（英文）](repository-notifications.md) / [中文](repository-notifications.zh-CN.md)
+- [V6 模板工作流（英文）](../template/v6/0c-workflow/WORKFLOW_V6.md) / [中文](../template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md)

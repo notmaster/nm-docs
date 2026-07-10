@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/context-manifest-v1.schema.json",
+  "title": "NM V6 content-addressed context manifest",
+  "type": "object",
+  "required": ["schema_version", "attempt_id", "entries", "on_demand", "allowed_paths", "prohibited_paths", "expected_result_schema", "totals", "manifest_digest"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/context-manifest-v1"},
+    "attempt_id": {"pattern": "^ATTEMPT-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "entries": {"type": "array", "items": {"$ref": "#/$defs/includedEntry"}},
+    "on_demand": {"type": "array", "items": {"$ref": "#/$defs/referenceEntry"}},
+    "allowed_paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "prohibited_paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "expected_result_schema": {"const": "nm-v6/adapter-result-v1"},
+    "totals": {"type": "object", "required": ["byte_size", "estimated_tokens"], "properties": {"byte_size": {"type": "integer", "minimum": 0}, "estimated_tokens": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "manifest_digest": {"pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "baseEntry": {"type": "object", "required": ["entry_id", "kind", "source", "digest", "byte_size", "estimated_tokens"], "properties": {"entry_id": {"type": "string", "minLength": 1}, "kind": {"enum": ["invariant", "goal", "requirement", "acceptance", "phase", "task", "dependency", "interface", "decision", "acceptance_action", "reference"]}, "source": {"type": "string", "minLength": 1}, "digest": {"pattern": "^sha256:[0-9a-f]{64}$"}, "byte_size": {"type": "integer", "minimum": 0}, "estimated_tokens": {"type": "integer", "minimum": 0}}},
+    "includedEntry": {"allOf": [{"$ref": "#/$defs/baseEntry"}, {"type": "object", "required": ["content"], "properties": {"content": {"type": "string", "minLength": 1}}}], "unevaluatedProperties": false},
+    "referenceEntry": {"allOf": [{"$ref": "#/$defs/baseEntry"}], "unevaluatedProperties": false}
+  }
+}

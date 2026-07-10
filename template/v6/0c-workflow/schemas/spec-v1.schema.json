@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/spec-v1.schema.json",
+  "title": "NM V6 project Spec graph",
+  "type": "object",
+  "required": ["schema_version", "spec_id", "version", "status", "goals", "requirements", "acceptance_criteria", "phases", "tasks", "required_delivery_stages"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/spec-v1"},
+    "spec_id": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["draft", "review-ready", "confirmed", "retired"]},
+    "goals": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/goal"}},
+    "requirements": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/requirement"}},
+    "acceptance_criteria": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/acceptance"}},
+    "phases": {"type": "array", "items": {"$ref": "#/$defs/phase"}},
+    "tasks": {"type": "array", "items": {"$ref": "#/$defs/task"}},
+    "acceptance_actions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "required_delivery_stages": {
+      "type": "object",
+      "required": ["release", "deploy", "environments"],
+      "properties": {
+        "task": {"enum": ["required", "not_applicable"]},
+        "phase": {"enum": ["required", "not_applicable"]},
+        "dev_integration": {"enum": ["required", "not_applicable"]},
+        "release": {"enum": ["required", "not_applicable"]},
+        "deploy": {"enum": ["required", "not_applicable"]},
+        "completion": {"enum": ["required", "not_applicable"]},
+        "environments": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"deploy": {"const": "required"}}},
+          "then": {"properties": {"environments": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"deploy": {"const": "not_applicable"}}},
+          "then": {"properties": {"environments": {"maxItems": 0}}}
+        },
+        {
+          "if": {"properties": {"release": {"const": "not_applicable"}}},
+          "then": {"properties": {"deploy": {"const": "not_applicable"}}}
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "idList": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "goal": {"type": "object", "required": ["goal_id"], "properties": {"goal_id": {"pattern": "^GOAL-[0-9]{3}$"}, "statement": {"type": "string"}, "status": {"type": "string"}}, "additionalProperties": true},
+    "requirement": {"type": "object", "required": ["requirement_id", "goal_ids"], "properties": {"requirement_id": {"pattern": "^REQ-[0-9]{3}$"}, "goal_ids": {"$ref": "#/$defs/idList"}, "status": {"type": "string"}}, "additionalProperties": true},
+    "acceptance": {"type": "object", "required": ["acceptance_id", "requirement_ids", "mandatory", "required_by_stage"], "properties": {"acceptance_id": {"pattern": "^AC-[0-9]{3}$"}, "requirement_ids": {"$ref": "#/$defs/idList"}, "mandatory": {"type": "boolean"}, "required_by_stage": {"enum": ["task", "phase", "dev_integration", "release", "deploy", "completion"]}, "action_id": {"type": "string"}}, "additionalProperties": true},
+    "phase": {"type": "object", "required": ["phase_id"], "properties": {"phase_id": {"pattern": "^PHASE-[0-9]{3}$"}, "depends_on": {"$ref": "#/$defs/idList"}}, "additionalProperties": true},
+    "task": {"type": "object", "required": ["task_id", "phase_id", "dependencies", "optional"], "properties": {"task_id": {"pattern": "^TASK-[0-9]{3}$"}, "phase_id": {"pattern": "^PHASE-[0-9]{3}$"}, "dependencies": {"$ref": "#/$defs/idList"}, "acceptance_ids": {"$ref": "#/$defs/idList"}, "enabling_requirement_ids": {"$ref": "#/$defs/idList"}, "optional": {"type": "boolean"}}, "additionalProperties": true}
+  }
+}

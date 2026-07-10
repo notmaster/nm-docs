@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/action-result-v1.schema.json",
+  "title": "NM V6 structured action result",
+  "type": "object",
+  "required": ["protocol_version", "action_id", "operation_id", "status", "effect_id", "artifact_digest", "environment_id", "environment_fingerprint", "observed_state", "started_at", "finished_at", "diagnostics", "redactions"],
+  "properties": {
+    "protocol_version": {"const": "nm-v6/action-result-v1"},
+    "action_id": {"type": "string", "minLength": 1},
+    "operation_id": {"type": ["string", "null"], "pattern": "^OP-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "status": {"enum": ["succeeded", "failed", "partial", "unknown"]},
+    "effect_id": {"type": ["string", "null"]},
+    "artifact_digest": {"type": ["string", "null"], "pattern": "^(?:sha256:)?[0-9a-f]{64}$"},
+    "environment_id": {"type": ["string", "null"]},
+    "environment_fingerprint": {"type": ["string", "null"]},
+    "observed_state": {"type": "object"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "finished_at": {"type": "string", "format": "date-time"},
+    "diagnostics": {"type": "object"},
+    "redactions": {"type": "array", "items": {"type": ["string", "object"]}}
+  },
+  "additionalProperties": false
+}

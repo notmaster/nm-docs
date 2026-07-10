@@ -1,0 +1,4 @@
+interface:
+  display_name: "NM V6 Project Workflow"
+  short_description: "Initialize and operate NM V6 projects safely"
+  default_prompt: "Use $nm-init-project-v6 to initialize, update, check, or operate this project with the NM V6 workflow."

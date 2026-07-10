@@ -1,0 +1,109 @@
+{
+  "schema_version": "nm-v6/implementation-plan-v1",
+  "spec_id": "SPEC-NM-WORKFLOW-V6-V1",
+  "spec_version": 1,
+  "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+  "status": "accepted",
+  "administrator_acceptance": "accepted",
+  "administrator_acceptance_record": "tools/nm-v6/administrator-acceptance.json",
+  "recommended": false,
+  "production_ready": false,
+  "requirements": {
+    "V6-REQ-001": {
+      "files": ["tools/nm-v6/nmv6/specs.py", "tools/nm-v6/nmv6/contracts.py", "tools/nm-v6/schemas/spec-v1.schema.json"],
+      "tests": ["spec_hash", "spec_traceability", "stage_coverage", "canonical_delivery_stage_decisions"]
+    },
+    "V6-REQ-002": {
+      "files": ["tools/nm-v6/nmv6/store.py", "tools/nm-v6/nmv6/reducer.py", "tools/nm-v6/nmv6/migrations/0001_initial.sql", "tools/nm-v6/nmv6/migrations/0002_lease_fencing_and_write_sets.sql"],
+      "tests": ["store_rebuild", "cas_idempotency", "v1_v2_migration_backup", "migration_transaction_rollback_retry", "monotonic_fencing", "persisted_write_set_conflicts", "crash_matrix"]
+    },
+    "V6-REQ-003": {
+      "files": ["tools/nm-v6/nmv6/transitions.py", "tools/nm-v6/nmv6/reducer.py", "tools/nm-v6/schemas/transition-table-v1.schema.json"],
+      "tests": ["transition_table", "lifecycle_pause_cancel"]
+    },
+    "V6-REQ-004": {
+      "files": ["tools/nm-v6/nmv6/evidence.py", "tools/nm-v6/nmv6/gates.py", "tools/nm-v6/schemas/evidence-receipt-v1.schema.json", "tools/nm-v6/schemas/gate-receipt-v1.schema.json"],
+      "tests": ["evidence_atomicity", "evidence_redaction", "gate_independence", "structured_core_assertions", "mandatory_acceptance_coverage", "persisted_prerequisite_recheck"]
+    },
+    "V6-REQ-005": {
+      "files": ["tools/nm-v6/nmv6/gates.py", "tools/nm-v6/nmv6/transitions.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/schemas/gate-receipt-v1.schema.json"],
+      "tests": ["gate_prerequisite_matrix", "normal_hotfix_delivery_gates", "release_artifact_binding", "post_rollback_terminal_cleanup_gate"]
+    },
+    "V6-REQ-006": {
+      "files": ["tools/nm-v6/nmv6/authorization.py", "tools/nm-v6/nmv6/reducer.py", "tools/nm-v6/schemas/grant-v1.schema.json"],
+      "tests": ["trusted_confirmation", "grant_attack_matrix", "revoke_start_race", "stage_bound_mutation", "one_time_mode_authorization"]
+    },
+    "V6-REQ-007": {
+      "files": ["tools/nm-v6/nmv6/adapters.py", "tools/nm-v6/nmv6/merge_review.py", "tools/nm-v6/nmv6/cleanup_review.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/schemas/adapter-request-v1.schema.json", "tools/nm-v6/schemas/adapter-result-v1.schema.json", "tools/nm-v6/schemas/merge-review-request-v1.schema.json", "tools/nm-v6/schemas/merge-review-observation-v1.schema.json", "tools/nm-v6/schemas/cleanup-review-request-v1.schema.json", "tools/nm-v6/schemas/cleanup-review-observation-v1.schema.json", "tools/nm-v6/tests/test_contracts_adapters_context.py", "tools/nm-v6/tests/test_cleanup_review_contract.py", "tools/nm-v6/tests/test_normal_runtime_generated.py", "tools/nm-v6/tests/test_hotfix_runtime_generated.py"],
+      "tests": ["adapter_conformance", "adapter_fallback", "durable_adapter_restart", "ordinary_adapter_mid_attempt_recovery", "network_capability_scope", "zero_capability_merge_reviewer", "zero_capability_cleanup_reviewer", "durable_reviewer_restart", "four_route_merge_reviewer_sessions", "runtime_cleanup_reviewer_lifecycle"]
+    },
+    "V6-REQ-008": {
+      "files": ["tools/nm-v6/nmv6/workspace.py", "tools/nm-v6/nmv6/actions.py", "tools/nm-v6/nmv6/git_controller.py", "tools/nm-v6/schemas/action-v1.schema.json"],
+      "tests": ["worker_isolation", "malicious_verify", "safe_inherited_environment"]
+    },
+    "V6-REQ-009": {
+      "files": ["tools/nm-v6/nmv6/scheduler.py", "tools/nm-v6/nmv6/controller.py", "tools/nm-v6/nmv6/reducer.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/tests/test_normal_runtime_generated.py"],
+      "tests": ["single_multi_equivalence", "real_multi_worker_task_batch", "single_multi_task_batch_tree_equivalence", "detached_recovery", "configured_dispatcher", "ordinary_configured_run_reentry", "ordinary_adapter_mid_attempt_recovery"]
+    },
+    "V6-REQ-010": {
+      "files": ["tools/nm-v6/nmv6/scheduler.py", "tools/nm-v6/nmv6/store.py", "tools/nm-v6/nmv6/reducer.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/tests/test_normal_runtime_generated.py"],
+      "tests": ["lease_fencing", "write_set_conflicts", "stale_result", "real_nonoverlapping_task_concurrency", "declared_overlap_serial_batches", "actual_overlap_pre_integration_block", "task_batch_gate_recovery_without_redispatch", "expired_batch_result_fencing"]
+    },
+    "V6-REQ-011": {
+      "files": ["tools/nm-v6/nmv6/recovery.py", "tools/nm-v6/nmv6/delivery.py", "tools/nm-v6/nmv6/evidence.py", "tools/nm-v6/nmv6/adapters.py", "tools/nm-v6/nmv6/git_controller.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/tests/test_cleanup_review_contract.py", "tools/nm-v6/tests/test_normal_runtime_generated.py", "tools/nm-v6/tests/test_hotfix_runtime_generated.py"],
+      "tests": ["crash_matrix", "operation_reconciliation", "durable_controller_journal", "durable_adapter_restart", "ordinary_configured_run_reentry", "ordinary_adapter_mid_attempt_recovery", "merge_reviewer_result_and_proposal_restart", "cleanup_reviewer_durable_restart", "cleanup_reviewer_core_provenance_recovery", "reviewed_proposal_operation_reconciliation"]
+    },
+    "V6-REQ-012": {
+      "files": ["tools/nm-v6/nmv6/context.py", "tools/nm-v6/schemas/context-manifest-v1.schema.json"],
+      "tests": ["context_budget", "ondemand_audit"]
+    },
+    "V6-REQ-013": {
+      "files": ["tools/nm-v6/nmv6/git_controller.py", "tools/nm-v6/nmv6/template_sync.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/tests/test_operations.py", "tools/nm-v6/tests/test_cleanup_review_contract.py", "tools/nm-v6/tests/test_normal_runtime_generated.py", "tools/nm-v6/tests/test_hotfix_runtime_generated.py"],
+      "tests": ["git_policy", "remote_cas", "hotfix_flow", "canonical_protected_authority", "generated_hotfix_cli_crash_recovery", "merge_review_current_git_facts", "moved_target_review_fail_closed", "cleanup_review_current_git_facts", "cleanup_review_remote_preservation"]
+    },
+    "V6-REQ-014": {
+      "files": ["tools/nm-v6/nmv6/git_controller.py", "tools/nm-v6/nmv6/merge_review.py", "tools/nm-v6/nmv6/cleanup_review.py", "tools/nm-v6/nmv6/adapters.py", "tools/nm-v6/nmv6/gates.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/schemas/merge-proposal-v1.schema.json", "tools/nm-v6/schemas/merge-review-request-v1.schema.json", "tools/nm-v6/schemas/merge-review-observation-v1.schema.json", "tools/nm-v6/schemas/cleanup-review-request-v1.schema.json", "tools/nm-v6/schemas/cleanup-review-observation-v1.schema.json", "tools/nm-v6/tests/test_contracts_adapters_context.py", "tools/nm-v6/tests/test_operations.py", "tools/nm-v6/tests/test_cleanup_review_contract.py", "tools/nm-v6/tests/test_normal_runtime_generated.py", "tools/nm-v6/tests/test_hotfix_runtime_generated.py"],
+      "tests": ["merge_strategies", "merge_review_contract", "deterministic_fake_merge_review", "merge_review_fail_closed", "four_route_merge_reviewer_runtime", "reviewed_proposal_digest_binding", "canonical_branch_cleanup_facts", "cleanup_review_contract", "cleanup_reviewer_adapter", "cleanup_review_fail_closed", "cleanup_responsibility_evidence", "fresh_cleanup_execution_receipt", "four_route_cleanup_reviewer_runtime", "terminal_cleanup_resource_fencing"]
+    },
+    "V6-REQ-015": {
+      "files": ["tools/nm-v6/nmv6/delivery.py", "tools/nm-v6/nmv6/recovery.py", "tools/nm-v6/nmv6/actions.py", "tools/nm-v6/nmv6/gates.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/nmv6/specs.py", "tools/nm-v6/nmv6/contracts.py", "tools/nm-v6/schemas/spec-v1.schema.json", "tools/nm-v6/schemas/project-v1.schema.json", "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py", "tools/nm-v6/tests/test_normal_runtime_generated.py", "tools/nm-v6/tests/test_hotfix_runtime_generated.py"],
+      "tests": ["release_binding", "release_metadata_contract", "spec_owned_delivery_stage_decisions", "delivery_not_applicable_gates", "ordered_multi_environment_delivery", "deployment_idempotency", "environment_mismatch_attention", "verified_rollback", "rollback_failure_attention", "successful_rollback_terminal_cleanup", "partial_unknown_reconciliation", "release_publish_partial_unknown_reconciliation", "ordinary_configured_run_reentry", "generated_hotfix_release_binding"]
+    },
+    "V6-REQ-016": {
+      "files": ["tools/nm-v6/nmv6/contracts.py", "tools/nm-v6/nmv6/actions.py", "tools/nm-v6/schemas/project-v1.schema.json", "tools/nm-v6/schemas/action-v1.schema.json", "tools/nm-v6/schemas/action-result-v1.schema.json"],
+      "tests": ["project_contract", "action_contract", "release_metadata_action_contract", "complete_example"]
+    },
+    "V6-REQ-017": {
+      "files": ["tools/nm-v6/nmv6/actions.py", "tools/nm-v6/nmv6/evidence.py", "tools/nm-v6/nmv6/delivery.py"],
+      "tests": ["secret_absence", "environment_identity", "redaction_failure"]
+    },
+    "V6-REQ-018": {
+      "files": ["tools/nm-v6/nmv6/controller.py", "tools/nm-v6/nmv6/scheduler.py", "tools/nm-v6/nmv6/reducer.py", "tools/nm-v6/nmv6/runtime.py"],
+      "tests": ["retry_classification", "optional_skip", "cancellation", "runtime_safe_wait", "ordinary_configured_run_reentry", "ordinary_adapter_mid_attempt_recovery", "cleanup_reviewer_revision_conflict_attention"]
+    },
+    "V6-REQ-019": {
+      "files": ["tools/nm-v6/nmv6/audit.py", "tools/nm-v6/nmv6/outbox.py", "tools/nm-v6/nmv6/store.py"],
+      "tests": ["audit_chain", "outbox_idempotency"]
+    },
+    "V6-REQ-020": {
+      "files": ["tools/nm-v6/nmv6/cli.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/nmv6/template_sync.py", "tools/nm-v6/tests/test_hotfix_runtime_generated.py", "skills/nm-init-project-v6/SKILL.md", "skills/nm-init-project-v6/references/install.md", "skills/nm-init-project-v6/scripts/run_nm_v6.py"],
+      "tests": ["cli_surface", "safe_init", "transactional_update", "durable_update_resume_abort", "update_journal_tamper", "generated_project", "generated_runtime_self_test", "ordinary_configured_run_reentry", "generated_hotfix_cli", "trusted_skill_source_binding"]
+    },
+    "V6-REQ-021": {
+      "files": ["tools/nm-v6/nmv6/repository_check.py", "tools/nm-v6/nmv6/supply_chain.py", "template/v6/AGENTS.md", "template/v6/AGENTS.zh-CN.md", "template/v6/0c-workflow/WORKFLOW_V6.md", "template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md"],
+      "tests": ["instruction_contract", "bilingual_structure", "workflow_pair_discovery", "bilingual_fail_closed", "independent_semantic_review"]
+    },
+    "V6-REQ-022": {
+      "files": ["tools/nm-v6/nmv6/template_sync.py", "docs/template-versions.md", "docs/template-versions.zh-CN.md"],
+      "tests": ["legacy_preservation", "v5_runtime_refusal"]
+    },
+    "V6-REQ-023": {
+      "files": ["tools/nm-v6/nmv6/supply_chain.py", "tools/nm-v6/nmv6/contracts.py", "tools/nm-v6/nmv6/repository_check.py", "tools/nm-v6/nmv6/template_sync.py", "tools/nm-v6/nmv6/cli.py", "tools/nm-v6/nmv6/runtime.py", "tools/nm-v6/schemas/supply-chain-v1.schema.json", "skills/nm-init-project-v6/scripts/run_nm_v6.py", "template/v6/project.example.json", "template/v6/manifest.json", "tools/nm-v6/acceptance-manifest.json"],
+      "tests": ["real_manifest_v2_hash_and_mode_validation", "strict_project_supply_chain_policy", "dependency_and_schema_catalog_checks", "credential_free_acceptance_and_self_test", "persisted_version_baseline", "project_runtime_version_baseline", "provider_version_drift", "runtime_version_drift_fail_closed", "trusted_skill_source_binding", "credential_free_ci"]
+    },
+    "V6-REQ-024": {
+      "files": ["tools/nm-v6/implementation-plan.json", "tools/nm-v6/acceptance-manifest.json", "docs/nm-v6-implementation-traceability.md"],
+      "tests": ["decision_invariant_coverage", "requirement_file_evidence_traceability"]
+    }
+  }
+}

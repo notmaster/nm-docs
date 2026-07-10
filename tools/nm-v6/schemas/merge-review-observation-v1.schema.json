@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/merge-review-observation-v1.schema.json",
+  "title": "NM V6 provider-neutral merge reviewer observation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "request_digest",
+    "route",
+    "source_commit",
+    "target_commit",
+    "candidate_tree",
+    "decision",
+    "strategy",
+    "rationale",
+    "expected_result_tree",
+    "risk_flags",
+    "observation_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "nm-v6/merge-review-observation-v1"},
+    "review_id": {"pattern": "^REVIEW-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "request_digest": {"$ref": "#/$defs/sha256"},
+    "route": {"enum": ["work_to_dev", "dev_to_stable", "hotfix_to_stable", "hotfix_to_dev"]},
+    "source_commit": {"$ref": "#/$defs/objectId"},
+    "target_commit": {"$ref": "#/$defs/objectId"},
+    "candidate_tree": {"$ref": "#/$defs/objectId"},
+    "decision": {"enum": ["propose", "cannot_propose"]},
+    "strategy": {
+      "anyOf": [
+        {"enum": ["fast_forward", "squash", "merge_commit"]},
+        {"type": "null"}
+      ]
+    },
+    "rationale": {"type": "string", "minLength": 1},
+    "expected_result_tree": {
+      "anyOf": [
+        {"$ref": "#/$defs/objectId"},
+        {"type": "null"}
+      ]
+    },
+    "risk_flags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+    },
+    "observation_digest": {"$ref": "#/$defs/sha256"}
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {"properties": {"decision": {"const": "propose"}}, "required": ["decision"]},
+      "then": {
+        "properties": {
+          "strategy": {"enum": ["fast_forward", "squash", "merge_commit"]},
+          "expected_result_tree": {"$ref": "#/$defs/objectId"}
+        }
+      },
+      "else": {
+        "properties": {
+          "strategy": {"type": "null"},
+          "expected_result_tree": {"type": "null"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "objectId": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"}
+  }
+}

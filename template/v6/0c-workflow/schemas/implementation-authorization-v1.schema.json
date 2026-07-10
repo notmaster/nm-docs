@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/implementation-authorization-v1.schema.json",
+  "title": "NM V6 trusted implementation authorization",
+  "type": "object",
+  "required": [
+    "record_type",
+    "authorization_id",
+    "spec_id",
+    "version",
+    "spec_hash",
+    "implementation_scope",
+    "administrator_identity",
+    "issued_at",
+    "expires_at",
+    "nonce",
+    "authenticator_id",
+    "authenticator_signature"
+  ],
+  "properties": {
+    "record_type": {"const": "implementation_authorization"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "spec_id": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "spec_hash": {"pattern": "^[0-9a-f]{64}$"},
+    "implementation_scope": {"type": "object", "minProperties": 1},
+    "administrator_identity": {"type": "string", "minLength": 1},
+    "issued_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "nonce": {"type": "string", "minLength": 1},
+    "authenticator_id": {"type": "string", "minLength": 1},
+    "authenticator_signature": {"type": "string", "minLength": 1, "contentEncoding": "base64"}
+  },
+  "additionalProperties": false
+}

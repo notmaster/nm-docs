@@ -1,0 +1,58 @@
+{
+  "schema_version": "nm-v6/spec-traceability-v1",
+  "goals": [
+    {
+      "id": "GOAL-001",
+      "statement": "Deliver one independently verified project change."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "goal_ids": ["GOAL-001"],
+      "statement": "The example change must pass project verification."
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AC-001",
+      "requirement_ids": ["REQ-001"],
+      "statement": "The full_verify action succeeds in an isolated candidate.",
+      "mandatory": true,
+      "required_by_stage": "dev_integration",
+      "action_id": "full_verify"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "statement": "Release and deployment remain required in the complete fake fixture."
+    }
+  ],
+  "phases": [
+    {
+      "id": "PHASE-001",
+      "title": "Example phase",
+      "depends_on": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "phase_id": "PHASE-001",
+      "acceptance_ids": ["AC-001"],
+      "enabling_requirement_ids": [],
+      "depends_on": [],
+      "write_set": ["src/**"],
+      "optional": false
+    }
+  ],
+  "acceptance_actions": {
+    "AC-001": "full_verify"
+  },
+  "required_delivery_stages": {
+    "release": "required",
+    "deploy": "required",
+    "environments": ["production"]
+  }
+}

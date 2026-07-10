@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/cleanup-review-observation-v1.schema.json",
+  "title": "NM V6 provider-neutral branch-cleanup reviewer observation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "request_digest",
+    "run_id",
+    "spec_hash",
+    "config_hash",
+    "input_revision",
+    "branch",
+    "branch_head",
+    "integration_receipt_digest",
+    "facts_digest",
+    "decision",
+    "rationale",
+    "risk_flags",
+    "observation_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "nm-v6/cleanup-review-observation-v1"},
+    "review_id": {"type": "string", "pattern": "^CLEANUP-REVIEW-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "request_digest": {"$ref": "#/$defs/sha256"},
+    "run_id": {"type": "string", "minLength": 1},
+    "spec_hash": {"$ref": "#/$defs/sha256"},
+    "config_hash": {"$ref": "#/$defs/sha256"},
+    "input_revision": {"type": "integer", "minimum": 0},
+    "branch": {"$ref": "#/$defs/branch"},
+    "branch_head": {"$ref": "#/$defs/objectId"},
+    "integration_receipt_digest": {"$ref": "#/$defs/sha256"},
+    "facts_digest": {"$ref": "#/$defs/sha256"},
+    "decision": {"enum": ["delete_local", "retain", "request_administrator"]},
+    "rationale": {"type": "string", "minLength": 1},
+    "risk_flags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "audit_retention",
+          "backup_retention",
+          "branch_checked_out",
+          "branch_missing",
+          "branch_moved",
+          "cleanup_authority_unavailable",
+          "dependent_work",
+          "dependent_workspace",
+          "explicit_retention",
+          "integration_proof_incomplete",
+          "integration_source_mismatch",
+          "linked_worktree",
+          "live_lease",
+          "live_session",
+          "protected_branch",
+          "release_responsibility",
+          "remote_branch_present",
+          "remote_status_unknown",
+          "responsibility_evidence_missing",
+          "retained_pattern",
+          "review_open",
+          "rollback_responsibility"
+        ]
+      }
+    },
+    "observation_digest": {"$ref": "#/$defs/sha256"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "objectId": {"type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"},
+    "branch": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:\\.\\.|//|@\\{|\\\\|\\s))(?!.*\\.$)[A-Za-z0-9._/-]+$"
+    }
+  }
+}

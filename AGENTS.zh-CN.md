@@ -7,9 +7,9 @@
 ## 工作流状态与授权
 
 - V5 是实验性版本，仅保留用于受监督试用。其当前 runner 和内建检查不能授权或独立证明无人值守合并、发布、部署、生产访问或生产就绪性。
-- `docs/nm-v6-workflow-spec.md` 是 V6 的规范性设计与验收源；中文文件是管理员镜像。V6 当前为 `review-ready`，且 `implementation_authorized: false`。
-- Spec 的存在、阅读或审查不构成实现授权。管理员明确确认 Spec 并授权实现，或在实现任务中给出等价明确指令前，不得实现 V6。
-- 在具备对应验收证据且管理员接受前，不得把 V5 或 V6 描述为推荐生产工作流。
+- `docs/nm-v6-workflow-spec.md` 是 V6 的规范性设计与验收源；中文文件是管理员镜像。`template/v6`、`tools/nm-v6` 和 `skills/nm-init-project-v6` 构成 V6 实现。只有有效的 `tools/nm-v6/administrator-acceptance.json` 记录把经过独立审阅的证据和管理员明确接受绑定到某个精确 V6 源码快照时，该快照才是已接受状态。记录所绑定的快照已获管理员接受，但 `recommended=false`、`production_ready=false`；任何源码漂移都会使该状态失效。
+- Spec 的存在、阅读、审查或既有实现不授权新的实现变更，也不授权任何受保护或外部动作。精确范围必须具备管理员明确指令，或未来有效的 V6 grant。
+- V5 不是推荐版本。虽然记录所绑定的 V6 快照已获接受，但除非后续另行授权的指定改变这些标志，否则不得把 V6 描述为推荐或生产就绪版本。
 - 除非管理员明确授权删除，否则保留 V1-V5。不得仅为使新版本通过而修改旧版本。
 
 ## 语言、文档与上下文
@@ -47,7 +47,7 @@
 - 工作树含无法解释的变更、fetch 失败、远端状态未知或本地 `dev` 已分叉时，在写入前停止。不得仅为切换分支而携带、stash、覆盖或提交用户变更。
 - hotfix 需要管理员明确分类。fetch 远端稳定分支，在其精确 SHA 创建 `hotfix/*` 并在该分支实现；通过当前工作流要求的适用验证并取得明确授权后，集成到稳定分支。然后把相同修复对账到 `dev` 并复验。在发布和回滚责任关闭前保留 hotfix 分支。
 - 普通工作只能集成到 `dev`。只有明确授权发布或稳定更新时，才把已验证 `dev` 晋升到稳定分支。后续普通工作前，必须把只存在于稳定分支或 hotfix 中的变更对账回 `dev`。
-- 集成前必须通过必要本地检查；当前仓库还需要管理员明确验收。未来通过验收的 V6 控制器可以改用有效 staged approval 或范围明确的 auto grant；规则文本、prompt、Agent 报告和进程退出码均不能替代门禁或授权。
+- 集成前必须通过必要本地检查；当前仓库还需要管理员明确验收。运行已接受且由记录绑定的源码快照的 V6 控制器，可以改用有效 staged approval 或范围明确的 auto grant；规则文本、prompt、Agent 报告和进程退出码均不能替代门禁或授权。
 - 集成或推送受保护 ref 前一刻，再次 fetch 其远端目标，并与记录的 expected SHA 比较。目标移动时停止，重新同步 candidate，并重跑受影响的检查与验收；旧证据或批准不得继续授权已变化的目标。
 - AI 必须根据分支用途、共享状态、拓扑、提交质量、可审计性、冲突风险和回滚需要，从 fast-forward、squash 或 merge commit 中选择合并策略。记录 source/target SHA、理由、预期结果树和验证。rebase 仅限未发布的一次性源分支；没有明确授权时不得重写共享历史。
 - 只有对应集成已获授权并通过验证后，才可推送稳定分支或 `dev`，并报告前后 SHA。其他分支默认保留本地；只有管理员明确指定分支、远端和备份/评审目的时才能推送。禁止 force-push 受保护 ref。删除远端分支始终需要与推送授权分离的新明确授权。
@@ -58,7 +58,7 @@
 - `AGENTS.md`、Skill、prompt、模型记忆和 Agent 自报只是上下文，不是技术强制机制或验收证据。生成工作流中的分支保护、状态转换、权限、门禁、发布和部署限制必须由确定性代码及可执行测试强制执行。
 - 初始化、更新、审计、安装、同步和验证优先使用确定性脚本。不要依赖说明文字执行脆弱的文件操作。
 - 对每个由 manifest 管理的模板，`template/<version>/manifest.json` 是其生成文件集合的事实来源。添加或重命名模板文件时，更新 manifest、存在时的该版本结构文档，以及仓库级版本文档。
-- 每个模板版本必须自包含。未来 V6 实现受 confirmed V6 Spec 约束；实现获得授权前不得创建 `template/v6`。
+- 每个模板版本必须自包含。`template/v6` 受 V6 Spec 约束；不得弱化 Spec、导入可变 V5 运行时状态，或仅因文件或检查存在就把某个实现快照视为已接受。只有有效的管理员接受记录才能把已接受状态绑定到对应的精确源码快照。
 - 仓库维护的 skills 放在 `skills/<skill-name>/`。每个 skill 都必须包含有效、简洁且面向触发场景的 `SKILL.md`；引用文件保持在下一层并按需加载。不要在 skill 文件夹中添加无关 README、changelog 或 guide。
 - 已有项目更新工具必须要求 Git，验证干净且最新的远端 `dev` 基线，在写入前创建允许的分支，在可行时于目标目录外暂存输出，并在应用前验证。
 - 迁移时不得静默丢弃项目专属指导。将长期有效的信息保存在对应版本且由项目持有的文档中。
@@ -74,8 +74,9 @@
 
 - 每次变更都运行 `git diff --check`；Markdown 变更后运行 `npm run lm`。
 - V3、V4 或 V5 模板/工具变更后，分别运行对应的 `npm run v3:check`、`npm run v4:check` 或 `npm run v5:check`。
+- V6 模板、工具、schema 或运行时变更后，运行 `npm run v6:check` 和 `npm run v6:test`。
 - 修改仓库 Skill 后，在命令存在时运行对应的 `npm run skill:<version>:check`。不要把用户专属 validator 绝对路径复制到 Agent 规则中。
 - 对修改的脚本或工具运行语法检查和最小完整相关测试套件。对生成项目运行其声明的 `workflow:check`、存在时的 workflow test，以及 `verify`。
 - 对双语文档同时验证结构和语义，包括适用时的稳定 ID、status、requirement 与 acceptance mapping；只有 Markdown lint 不足以证明同步。
-- V6 实现必须新增并通过 confirmed Spec 要求的命令；实现前不得声称不存在的 V6 命令可用。
+- V6 变更必须保持 Spec 要求的命令通过：`npm run lm`、`npm run v6:check`、`npm run v6:test` 和 `npm run skill:v6:check`。
 - 报告实际执行的验证命令和结果。未运行的必要检查标为 `not run`；Agent 声明和单独退出码不能作为独立验收证据。

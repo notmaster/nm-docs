@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/adapter-request-v1.schema.json",
+  "title": "NM V6 adapter request",
+  "type": "object",
+  "required": ["protocol_version", "operation_id", "run_id", "attempt_id", "role", "workspace", "context_manifest", "expected_output_schema", "deadline", "fencing_token", "allowed_capabilities"],
+  "properties": {
+    "protocol_version": {"const": "nm-v6/adapter-request-v1"},
+    "operation_id": {"pattern": "^OP-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "run_id": {"type": "string", "minLength": 1},
+    "attempt_id": {"pattern": "^ATTEMPT-[A-Za-z0-9._-]+-[0-9]{3}$"},
+    "role": {"type": "string", "minLength": 1},
+    "workspace": {"type": "string", "minLength": 1},
+    "context_manifest": {"$ref": "context-manifest-v1.schema.json"},
+    "expected_output_schema": {"const": "nm-v6/adapter-result-v1"},
+    "deadline": {"type": "string", "format": "date-time"},
+    "fencing_token": {"type": "integer", "minimum": 0},
+    "allowed_capabilities": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}

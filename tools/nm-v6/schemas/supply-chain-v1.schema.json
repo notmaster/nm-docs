@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/supply-chain-v1.schema.json",
+  "title": "NM V6 supply-chain policy",
+  "type": "object",
+  "required": ["schema_version", "allowed_download_origins", "require_download_digest_or_signature", "disable_provider_auto_update", "mandatory_ci_credentials"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/supply-chain-v1"},
+    "allowed_download_origins": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "format": "uri", "pattern": "^https://"}},
+    "require_download_digest_or_signature": {"const": true},
+    "disable_provider_auto_update": {"const": true},
+    "mandatory_ci_credentials": {"const": "forbidden"}
+  },
+  "additionalProperties": false
+}

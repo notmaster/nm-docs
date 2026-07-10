@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/transition-table-v1.schema.json",
+  "title": "NM V6 versioned transition table",
+  "type": "object",
+  "required": ["schema_version", "rows"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/transitions-v1"},
+    "rows": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/transition"}}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "transition": {
+      "type": "object",
+      "required": [
+        "machine",
+        "from_state",
+        "event",
+        "guard",
+        "required_gate",
+        "required_authorization",
+        "to_state"
+      ],
+      "properties": {
+        "machine": {"enum": ["run", "phase", "task", "attempt"]},
+        "from_state": {"type": "string", "minLength": 1},
+        "event": {"type": "string", "minLength": 1},
+        "guard": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "required_gate": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "required_authorization": {"type": ["string", "null"]},
+        "to_state": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  }
+}

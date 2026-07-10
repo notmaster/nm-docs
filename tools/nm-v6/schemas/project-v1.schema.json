@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/project-v1.schema.json",
+  "title": "NM V6 project configuration",
+  "type": "object",
+  "required": ["schema_version", "project", "git", "scheduler", "context", "actions", "delivery", "action_definitions", "secret_references", "notifications"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/project-v1"},
+    "project": {"type": "object", "required": ["name"], "properties": {"name": {"type": "string", "minLength": 1}, "id": {"type": "string"}}, "additionalProperties": false},
+    "git": {"$ref": "#/$defs/git"},
+    "scheduler": {"type": "object", "required": ["max_workers", "lease_seconds"], "properties": {"max_workers": {"type": "integer", "minimum": 1, "maximum": 256}, "lease_seconds": {"type": "integer", "minimum": 1, "maximum": 86400}, "heartbeat_seconds": {"type": "integer", "minimum": 1, "maximum": 86400}, "retry_budget": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "context": {"type": "object", "required": ["max_manifest_bytes", "max_estimated_tokens"], "properties": {"max_manifest_bytes": {"type": "integer", "minimum": 1}, "max_estimated_tokens": {"type": "integer", "minimum": 1}}, "additionalProperties": false},
+    "actions": {"type": "object", "required": ["full_verify", "release_metadata"], "additionalProperties": {"type": "string", "minLength": 1}},
+    "delivery": {"$ref": "#/$defs/delivery"},
+    "action_definitions": {"type": "object", "additionalProperties": {"$ref": "action-v1.schema.json"}},
+    "secret_references": {"type": "object", "additionalProperties": {"$ref": "#/$defs/secretReference"}},
+    "notifications": {"$ref": "#/$defs/notifications"},
+    "adapters": {"oneOf": [{"type": "object", "required": ["protocol_version", "configured", "real_cli_smoke_tests"], "properties": {"protocol_version": {"const": "nm-v6/adapter-request-v1"}, "configured": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["codex", "grok", "claude", "fake"]}}, "real_cli_smoke_tests": {"const": "opt_in_only"}}, "additionalProperties": false}, {"type": "object", "additionalProperties": {"$ref": "adapter-config-v1.schema.json"}}]},
+    "spec": {"type": "object"},
+    "version_constraints": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+    "authorization": {"$ref": "#/$defs/versionedExtension"},
+    "evidence": {"$ref": "#/$defs/versionedExtension"},
+    "supply_chain": {"$ref": "supply-chain-v1.schema.json"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "git": {
+      "type": "object",
+      "required": ["remote", "stable_branch", "integration_branch", "protected_branches", "work_branch_prefixes", "hotfix_prefix", "other_branch_push", "remote_branch_delete", "force_push", "integration_unit", "merge_strategies"],
+      "properties": {
+        "remote": {"type": "string", "minLength": 1},
+        "stable_branch": {"enum": ["main", "master"]},
+        "integration_branch": {"const": "dev"},
+        "protected_branches": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+        "work_branch_prefixes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "/$"}},
+        "hotfix_prefix": {"const": "hotfix/"},
+        "other_branch_push": {"const": "administrator_grant_only"},
+        "remote_branch_delete": {"const": "administrator_grant_only"},
+        "force_push": {"const": "forbidden"},
+        "integration_unit": {"enum": ["phase", "task"]},
+        "merge_strategies": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["fast_forward", "squash", "merge_commit"]}}
+      },
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "required": ["expected_identity", "identity_probe", "preflight", "deploy", "health", "rollback", "post_rollback_verify"],
+      "properties": {"expected_identity": {"type": "string", "minLength": 1}, "identity_probe": {"type": "string"}, "preflight": {"type": "string"}, "deploy": {"type": "string"}, "health": {"type": "string"}, "rollback": {"type": "string"}, "post_rollback_verify": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "delivery": {"type": "object", "required": ["artifact_digest_result_field", "environments"], "properties": {"artifact_digest_result_field": {"const": "artifact_digest"}, "environments": {"type": "object", "additionalProperties": {"$ref": "#/$defs/environment"}}}, "additionalProperties": false},
+    "secretReference": {"type": "object", "required": ["provider"], "properties": {"provider": {"enum": ["environment", "keychain", "file", "fake"]}, "reference": {"type": "string"}, "env": {"type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$"}, "name": {"type": "string"}, "fake_id": {"type": "string"}, "description": {"type": "string"}}, "additionalProperties": false},
+    "notifications": {"type": "object", "required": ["routes"], "properties": {"routes": {"type": "array", "items": {"type": "object", "required": ["action_id"], "properties": {"route_id": {"type": "string"}, "event_types": {"type": "array", "minItems": 1, "items": {"type": "string"}}, "action_id": {"type": "string"}, "severity": {"enum": ["progress", "attention"]}, "idempotency": {"const": "notification_id"}}, "additionalProperties": false}}}, "additionalProperties": false},
+    "versionedExtension": {"type": "object", "required": ["schema_version"], "properties": {"schema_version": {"type": "string", "pattern": "^nm-v6/"}}, "additionalProperties": true}
+  }
+}

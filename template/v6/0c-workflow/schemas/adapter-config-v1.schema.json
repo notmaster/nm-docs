@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/adapter-config-v1.schema.json",
+  "title": "NM V6 adapter configuration",
+  "type": "object",
+  "required": ["protocol_version", "provider"],
+  "properties": {
+    "protocol_version": {"const": "nm-v6/adapter-config-v1"},
+    "provider": {"enum": ["codex", "grok", "claude", "fake"]},
+    "executable": {"type": "string", "minLength": 1},
+    "required_version": {"type": "string", "minLength": 1},
+    "auto_update": {"const": false}
+  },
+  "additionalProperties": true
+}

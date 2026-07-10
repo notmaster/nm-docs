@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://notmaster.dev/nm-v6/schemas/authorization-config-v1.schema.json",
+  "title": "NM V6 trusted control-plane configuration",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": {"const": "nm-v6/authorization-config-v1"},
+    "authenticator_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "max_grant_seconds": {"type": "integer", "minimum": 1},
+    "trusted_interface": {"enum": ["tty", "os_helper", "signed_grant", "fake"]}
+  },
+  "additionalProperties": true
+}
