@@ -6,6 +6,7 @@
 
 ## 当前工作流状态
 
+- **V7**：rev9 决议清单已基本定稿，但管理员侧的任务与控制流程对于本仓库的“简单工作流”目标仍然过于复杂。因此 V7 暂时封存；该清单不授权任何实施工作，除非管理员明确重新启动，否则不进入实施阶段。本仓库尚无 V7 实现、模板、工具、已接受快照或活动控制器；V7 继续保持 `experimental=true`、`recommended=false`、`production_ready=false`。
 - **V6**：有效的 `tools/nm-v6/administrator-acceptance.json` 记录所标识的精确源码快照，在完成独立证据审阅后已获管理员接受。接受状态不能转移到已修改或未被记录的快照。V6 仍为 `recommended=false`、`production_ready=false`。
 - **V5**：继续保留为有人监督的实验性试用工作流。其 runner 与检查不授权、也不能独立证明无人值守合并、发布、部署、生产访问或生产就绪性。
 - **V4 及更早版本**：为存量项目和历史参考继续保留。
@@ -83,6 +84,7 @@ docs/                         # 用户文档与管理员镜像
 
 ## 文档
 
+- [V7 工作流决议清单（英文执行源）](nm-v7-workflow-decisions.md) / [中文管理员镜像](nm-v7-workflow-decisions.zh-CN.md)
 - [V6 规范工作流 Spec（英文执行源）](nm-v6-workflow-spec.md) / [中文管理员镜像](nm-v6-workflow-spec.zh-CN.md)
 - [V6 实现追踪报告（英文）](nm-v6-implementation-traceability.md)
 - [模板版本（英文）](template-versions.md) / [中文](template-versions.zh-CN.md)

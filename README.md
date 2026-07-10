@@ -7,6 +7,14 @@ tooling for AI-assisted project delivery.
 
 ## Current workflow status
 
+- **V7**: the decision register at rev9 is substantially finalized, but its
+  administrator-side task and control workflow remains too complex for this
+  repository's simple-workflow goal. V7 is therefore temporarily shelved; the
+  register authorizes no implementation work, and implementation will not begin
+  unless the administrator explicitly reopens it. This repository has no V7
+  implementation, template, tool, accepted snapshot, or active controller; V7
+  remains `experimental=true`, `recommended=false`, and
+  `production_ready=false`.
 - **V6**: the exact source snapshot identified by a valid
   `tools/nm-v6/administrator-acceptance.json` record is
   administrator-accepted after independent evidence review. Acceptance is not
@@ -105,6 +113,7 @@ docs/                         # User documentation and administrator mirrors
 
 ## Documentation
 
+- [V7 workflow decision register](docs/nm-v7-workflow-decisions.md) / [中文管理员镜像](docs/nm-v7-workflow-decisions.zh-CN.md)
 - [V6 normative workflow Spec](docs/nm-v6-workflow-spec.md) / [中文管理员镜像](docs/nm-v6-workflow-spec.zh-CN.md)
 - [V6 implementation traceability](docs/nm-v6-implementation-traceability.md)
 - [Template versions](docs/template-versions.md) / [中文](docs/template-versions.zh-CN.md)
