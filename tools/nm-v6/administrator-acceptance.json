@@ -1,0 +1,16 @@
+{
+  "acceptance_result_sha256": "29e0b422bb407513fac4df2875e2708e745f2de1593831a12a41b1cd2f02aa41",
+  "authority_basis": "Explicit administrator acceptance of source commit af512a6786863431dde1ade49bfd250d8a05804b in the current Codex task.",
+  "base_sha": "018bd9508231d6de3eceb5a7f49528a37c023dbb",
+  "decision": "accepted",
+  "head_sha": "af512a6786863431dde1ade49bfd250d8a05804b",
+  "independent_review_sha256": "48a8e6560d0697412101a32aa3f9a406ae4be8f015ebaa340a91a33a7d04319b",
+  "production_ready": false,
+  "recommended": false,
+  "recorded_at": "2026-07-10T18:33:45+08:00",
+  "schema_version": "nm-v6/administrator-acceptance-v1",
+  "source_change_digest": "d2f1cdb3ac0709034b20ea56c456106425baceb337618352eaf9c1b429c05d26",
+  "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+  "spec_id": "SPEC-NM-WORKFLOW-V6-V1",
+  "spec_version": 1
+}

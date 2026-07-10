@@ -1,0 +1,3836 @@
+{
+  "acceptance": {
+    "V6-AC-001": {
+      "requirements": [
+        "V6-REQ-001"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_rejects_missing_coverage_invalid_stage_and_cycles",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_requires_canonical_delivery_stage_decisions",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_signature_scope_replay_expiry_and_revocation"
+      ]
+    },
+    "V6-AC-002": {
+      "requirements": [
+        "V6-REQ-001"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_normalizes_line_endings_trailing_lf_and_frontmatter_order",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_redacted_atomic_blobs_receipt_validation_and_orphans",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac002_amendment_invalidates_confirmation_evidence_and_authorization"
+      ]
+    },
+    "V6-AC-003": {
+      "requirements": [
+        "V6-REQ-002"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_v1_to_v2_migration_backup_is_atomic_and_crash_retryable"
+      ]
+    },
+    "V6-AC-004": {
+      "requirements": [
+        "V6-REQ-002"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_lease_fencing_and_two_controller_exclusion",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_persisted_write_conflicts_and_pause_fence_all_child_writes"
+      ]
+    },
+    "V6-AC-005": {
+      "requirements": [
+        "V6-REQ-003"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_adapter_rejects_stale_result_and_supports_capability_fallback",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac005_exit_zero_without_structured_result_cannot_advance"
+      ]
+    },
+    "V6-AC-006": {
+      "requirements": [
+        "V6-REQ-004",
+        "V6-REQ-005"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_every_gate_prerequisite_fails_closed",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac006_worker_success_is_advisory_and_failed_rerun_fails_gate"
+      ]
+    },
+    "V6-AC-007": {
+      "requirements": [
+        "V6-REQ-008"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_workspace_is_standalone_clone_without_remote",
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_detected_os_sandbox_cannot_read_sibling_secret",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac007_ac056_malicious_verify_cannot_touch_authority_or_secrets"
+      ]
+    },
+    "V6-AC-008": {
+      "requirements": [
+        "V6-REQ-003"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_transition_document_is_versioned_and_unique"
+      ]
+    },
+    "V6-AC-009": {
+      "requirements": [
+        "V6-REQ-005",
+        "V6-REQ-006"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_signature_scope_replay_expiry_and_revocation"
+      ]
+    },
+    "V6-AC-010": {
+      "requirements": [
+        "V6-REQ-005",
+        "V6-REQ-006"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_signature_scope_replay_expiry_and_revocation",
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_bound_deploy_and_verified_rollback",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac010_auto_delivery_continues_without_prompt_and_fails_closed",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion"
+      ]
+    },
+    "V6-AC-011": {
+      "requirements": [
+        "V6-REQ-006"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_cancelled_run_invalidates_old_and_pending_grants_but_allows_revocation",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_all_terminal_states_reject_old_grant_operations_and_mode_change"
+      ]
+    },
+    "V6-AC-012": {
+      "requirements": [
+        "V6-REQ-007"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_all_provider_adapters_share_one_conformance_boundary",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_adapter_three_decisions_and_strict_envelope"
+      ]
+    },
+    "V6-AC-013": {
+      "requirements": [
+        "V6-REQ-007"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_adapter_rejects_stale_result_and_supports_capability_fallback",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_adapter_session_survives_backend_restart_and_network_is_scoped",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_fake_adapter_exact_request_is_restart_safe_and_dispatched_once",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_context_and_durable_restart_are_exact"
+      ]
+    },
+    "V6-AC-014": {
+      "requirements": [
+        "V6-REQ-009"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::SchedulerTests.test_dag_lease_fencing_and_write_conflicts",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac041_generated_project_commands_pass_cleanly",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac014_single_and_multi_worker_have_equivalent_logical_results",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_max_workers_two_runs_one_real_overlapping_task_batch",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_single_and_multi_worker_task_batches_have_equivalent_trees"
+      ]
+    },
+    "V6-AC-015": {
+      "requirements": [
+        "V6-REQ-010"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::SchedulerTests.test_dag_lease_fencing_and_write_conflicts",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_persisted_write_conflicts_and_pause_fence_all_child_writes",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_max_workers_two_runs_one_real_overlapping_task_batch",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_declared_overlap_is_split_into_serial_task_batches",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_actual_overlap_blocks_before_candidate_ref_update",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_task_batch_recovers_gate_before_candidate_cas_without_redispatch"
+      ]
+    },
+    "V6-AC-016": {
+      "requirements": [
+        "V6-REQ-010"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_lease_fencing_and_two_controller_exclusion",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_persisted_write_conflicts_and_pause_fence_all_child_writes",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_expired_batch_result_is_fenced_before_new_attempt"
+      ]
+    },
+    "V6-AC-017": {
+      "requirements": [
+        "V6-REQ-002",
+        "V6-REQ-011"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac017_state_sigkill_matrix_has_one_logical_effect",
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_interrupted_mutation_is_persisted_then_reconciled_once",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_state_and_verification_sigkill_resume_once",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_git_integration_sigkill_observes_or_executes_one_cas",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_release_deploy_rollback_sigkill_reconcile_one_effect",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_fake_adapter_exact_request_is_restart_safe_and_dispatched_once",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_cleanup_reviewer_recovers_core_and_provenance_boundaries",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_context_and_durable_restart_are_exact",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_v1_to_v2_migration_backup_is_atomic_and_crash_retryable"
+      ]
+    },
+    "V6-AC-018": {
+      "requirements": [
+        "V6-REQ-003",
+        "V6-REQ-009",
+        "V6-REQ-011"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_retry_and_pause_fail_closed",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac018_detached_restart_and_persistent_pause_resume",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_adapter_session_survives_backend_restart_and_network_is_scoped",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_fake_adapter_exact_request_is_restart_safe_and_dispatched_once",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion"
+      ]
+    },
+    "V6-AC-019": {
+      "requirements": [
+        "V6-REQ-008",
+        "V6-REQ-013"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards"
+      ]
+    },
+    "V6-AC-020": {
+      "requirements": [
+        "V6-REQ-013"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_hotfix_uses_exact_stable_and_reconciles_into_dev",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_legacy_hotfix_action_aliases_do_not_authorize_canonical_actions"
+      ]
+    },
+    "V6-AC-021": {
+      "requirements": [
+        "V6-REQ-008",
+        "V6-REQ-013"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_exact_dev_merge_cas_push_and_cleanup",
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_workspace_is_standalone_clone_without_remote",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes"
+      ]
+    },
+    "V6-AC-022": {
+      "requirements": [
+        "V6-REQ-013"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_exact_dev_merge_cas_push_and_cleanup"
+      ]
+    },
+    "V6-AC-023": {
+      "requirements": [
+        "V6-REQ-014"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_request_derives_routes_and_git_facts",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_executes_all_three_strategy_choices",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_rejects_disabled_moved_and_stale_evidence",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_reports_conflicts_and_rejects_cannot_propose",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_deterministic_fake_reviewer_covers_every_decision",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_request_digest_route_topology_and_exact_tree_fail_closed",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_observation_fail_closed_matrix",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_merge_review_schemas_are_catalogued_and_strict",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_merge_reviewer_adapter_envelope_is_read_only_and_exact",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_merge_reviewer_failures_precede_gate_operation_and_ref_mutation",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes"
+      ]
+    },
+    "V6-AC-024": {
+      "requirements": [
+        "V6-REQ-014"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_cleanup_retention_matrix_and_squash_equivalence",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_ignores_false_caller_live_fact_claims_and_reads_store",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_adapter_three_decisions_and_strict_envelope",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_rechecks_ai_core_and_preserves_remote",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_stale_facts_fail_closed",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_exact_positive_request_allows_only_local_cleanup",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_every_core_blocker_prevents_delete_local"
+      ]
+    },
+    "V6-AC-025": {
+      "requirements": [
+        "V6-REQ-014"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_cleanup_retention_matrix_and_squash_equivalence",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_exact_dev_merge_cas_push_and_cleanup",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_fails_closed_without_responsibility_evidence",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_squash_proof_ignores_caller_boolean",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_integration_source_and_proof_are_core_bound",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_squash_requires_patch_or_tree_equivalence"
+      ]
+    },
+    "V6-AC-026": {
+      "requirements": [
+        "V6-REQ-008",
+        "V6-REQ-017"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_action_contract_rejects_shell_interpolation_and_secret_output",
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_detected_os_sandbox_cannot_read_sibling_secret"
+      ]
+    },
+    "V6-AC-027": {
+      "requirements": [
+        "V6-REQ-016",
+        "V6-REQ-017"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_project_rejects_branch_shell_secret_and_incomplete_delivery",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_external_mutation_requires_idempotency_and_observe_reconcile",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_project_rejects_stage_authority_and_unsafe_release_metadata"
+      ]
+    },
+    "V6-AC-028": {
+      "requirements": [
+        "V6-REQ-015",
+        "V6-REQ-017"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_mismatch_and_unhealthy_deploy_require_attention",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac028_environment_mismatch_persists_evidence_and_requires_attention",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_environment_mismatch_persists_evidence_and_requires_attention"
+      ]
+    },
+    "V6-AC-029": {
+      "requirements": [
+        "V6-REQ-004",
+        "V6-REQ-015"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_interrupted_mutation_is_persisted_then_reconciled_once"
+      ]
+    },
+    "V6-AC-030": {
+      "requirements": [
+        "V6-REQ-004",
+        "V6-REQ-011",
+        "V6-REQ-015"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_partial_unknown_operation_is_observed_and_reconciled"
+      ]
+    },
+    "V6-AC-031": {
+      "requirements": [
+        "V6-REQ-005",
+        "V6-REQ-015"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_mismatch_and_unhealthy_deploy_require_attention",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac031_ac032_authorized_rollback_and_failure_paths_require_attention",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_rollback_authorization_and_verification_failures_require_attention"
+      ]
+    },
+    "V6-AC-032": {
+      "requirements": [
+        "V6-REQ-005",
+        "V6-REQ-015"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_bound_deploy_and_verified_rollback",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac031_ac032_authorized_rollback_and_failure_paths_require_attention",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_rollback_authorization_and_verification_failures_require_attention",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_successful_rollback_closes_resources_and_final_branch_cleanup"
+      ]
+    },
+    "V6-AC-033": {
+      "requirements": [
+        "V6-REQ-012",
+        "V6-REQ-021"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_context_digest_budget_and_tamper_detection",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_on_demand_addition_is_budget_checked_audited_and_stale_safe"
+      ]
+    },
+    "V6-AC-034": {
+      "requirements": [
+        "V6-REQ-018"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_retry_and_pause_fail_closed"
+      ]
+    },
+    "V6-AC-035": {
+      "requirements": [
+        "V6-REQ-001",
+        "V6-REQ-018"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_optional_skip_requires_remaining_mandatory_coverage"
+      ]
+    },
+    "V6-AC-036": {
+      "requirements": [
+        "V6-REQ-019"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild"
+      ]
+    },
+    "V6-AC-037": {
+      "requirements": [
+        "V6-REQ-016",
+        "V6-REQ-020"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac037_init_is_clean_and_protected_refs_are_not_the_commit_branch"
+      ]
+    },
+    "V6-AC-038": {
+      "requirements": [
+        "V6-REQ-016",
+        "V6-REQ-020"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_interrupted_update_can_abort_without_losing_user_file",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_interrupted_update_resumes_from_durable_project_stage",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_missing_stage_or_backup_fails_closed_without_deleting_prior_file",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_journal_traversal_tamper_and_recovery_context_fail_closed"
+      ]
+    },
+    "V6-AC-039": {
+      "requirements": [
+        "V6-REQ-020",
+        "V6-REQ-021"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_and_ac042_installed_check_rejects_v5_runtime",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_repository_check_rejects_tampered_traceability_report",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_manifest_coverage_and_hash_plan"
+      ]
+    },
+    "V6-AC-040": {
+      "requirements": [
+        "V6-REQ-009"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac041_generated_project_commands_pass_cleanly",
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_interrupted_mutation_is_persisted_then_reconciled_once",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac040_representative_end_to_end_scenario_matrix",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_delivery_not_applicable_decisions_use_real_gates_and_complete",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_multiple_delivery_environments_are_ordered_and_scoped",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes"
+      ]
+    },
+    "V6-AC-041": {
+      "requirements": [
+        "V6-REQ-020"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac041_generated_project_commands_pass_cleanly",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes"
+      ]
+    },
+    "V6-AC-042": {
+      "requirements": [
+        "V6-REQ-022"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_and_ac042_installed_check_rejects_v5_runtime",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_legacy_boundary_dependency_and_artifact_controls"
+      ]
+    },
+    "V6-AC-043": {
+      "requirements": [
+        "V6-REQ-023"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_legacy_boundary_dependency_and_artifact_controls",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_real_supply_chain_policy_and_catalog_fail_closed",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_version_drift_credentials_provider_policy_and_schema_catalog",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac043_acceptance_and_self_test_reject_credential_environment",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac043_installed_skill_binds_exact_source_and_ignores_hostile_cwd",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::SchemaRuntimeAlignmentTests.test_schema_required_fields_and_versions_match_runtime_outputs",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_runtime_version_provider_schema_and_core_drift_fail_before_effects"
+      ]
+    },
+    "V6-AC-044": {
+      "independent_review": {
+        "chinese_spec_sha256": "adddb299e0380bf353513e074859c62e549e7257d787a774d518f1fe4fdacddb",
+        "english_spec_sha256": "24137bd389b40e5a017e50f8e271494a41d23641781d49c03d5a7aad098e0e02",
+        "files": {
+          "docs/nm-v6-bilingual-semantic-review.md": "edd3899f0e2e07d146c8378851814e669a20df33bbb47d1d1762e349aca5e1fb",
+          "docs/nm-v6-bilingual-semantic-review.zh-CN.md": "7c3a8e36e2f06834b59a1598000a97f8e84c1627597e273ab57150ad81377490"
+        },
+        "reviewer": "/root/independent_bilingual_review",
+        "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+        "status": "pass"
+      },
+      "requirements": [
+        "V6-REQ-021"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_bilingual_semantic_ids_and_mutable_markdown",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac044_repository_bilingual_check_covers_workflow_and_missing_pairs",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac044_repository_bilingual_check_rejects_id_and_structure_drift"
+      ]
+    },
+    "V6-AC-045": {
+      "requirements": [
+        "V6-REQ-024"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_implementation_plan_maps_every_requirement",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_acceptance_binding_survives_evidence_commit_ref_move_and_clone",
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_acceptance_binding_rejects_source_drift_extra_and_nonancestor"
+      ]
+    },
+    "V6-AC-046": {
+      "requirements": [
+        "V6-REQ-001"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_normalizes_line_endings_trailing_lf_and_frontmatter_order",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_rejects_unknown_missing_duplicate_and_bom_frontmatter"
+      ]
+    },
+    "V6-AC-047": {
+      "requirements": [
+        "V6-REQ-006"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_signature_scope_replay_expiry_and_revocation",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_revoke_start_race_has_one_serial_order",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_mode_change_requires_plan_and_consumes_one_time_approval"
+      ]
+    },
+    "V6-AC-048": {
+      "requirements": [
+        "V6-REQ-001",
+        "V6-REQ-005"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_and_stage_due_semantics",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_every_gate_prerequisite_fails_closed",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_completion_gate_requires_each_mandatory_acceptance_assertion",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion"
+      ]
+    },
+    "V6-AC-049": {
+      "requirements": [
+        "V6-REQ-005"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_every_gate_prerequisite_fails_closed",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_completion_gate_requires_each_mandatory_acceptance_assertion"
+      ]
+    },
+    "V6-AC-050": {
+      "requirements": [
+        "V6-REQ-011",
+        "V6-REQ-015",
+        "V6-REQ-016"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_complete_project_example_validates",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_fake_release_metadata_action_returns_bound_metadata",
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_partial_unknown_operation_is_observed_and_reconciled",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac050_release_publish_partial_unknown_are_observed_and_reconciled"
+      ]
+    },
+    "V6-AC-051": {
+      "requirements": [
+        "V6-REQ-004",
+        "V6-REQ-017"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_redacted_atomic_blobs_receipt_validation_and_orphans"
+      ]
+    },
+    "V6-AC-052": {
+      "requirements": [
+        "V6-REQ-010",
+        "V6-REQ-013"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac052_update_rejects_dirty_authoritative_tree",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac052_git_failure_matrix_and_resync_invalidates_old_proposal"
+      ]
+    },
+    "V6-AC-053": {
+      "requirements": [
+        "V6-REQ-015"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_build_binds_source_and_release_source_kinds",
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_hotfix_uses_exact_stable_and_reconciles_into_dev",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac053_normal_and_hotfix_release_binding_chain_rejects_substitution",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes"
+      ]
+    },
+    "V6-AC-054": {
+      "requirements": [
+        "V6-REQ-003",
+        "V6-REQ-006",
+        "V6-REQ-011",
+        "V6-REQ-018"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac017_state_sigkill_matrix_has_one_logical_effect",
+        "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_interrupted_mutation_is_persisted_then_reconciled_once",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_revoke_start_race_has_one_serial_order",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac054_pause_cancel_and_revoke_fence_every_external_mutation"
+      ]
+    },
+    "V6-AC-055": {
+      "requirements": [
+        "V6-REQ-019"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::SchemaRuntimeAlignmentTests.test_schema_required_fields_and_versions_match_runtime_outputs",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac055_every_audit_class_is_append_only_tamper_evident_and_restart_stable"
+      ]
+    },
+    "V6-AC-056": {
+      "requirements": [
+        "V6-REQ-008"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_detected_os_sandbox_cannot_read_sibling_secret",
+        "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_workspace_is_standalone_clone_without_remote",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac007_ac056_malicious_verify_cannot_touch_authority_or_secrets"
+      ]
+    },
+    "V6-AC-057": {
+      "requirements": [
+        "V6-REQ-013"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_exact_dev_merge_cas_push_and_cleanup",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac057_nonprotected_grants_are_exact_one_time_and_action_separated"
+      ]
+    },
+    "V6-AC-058": {
+      "requirements": [
+        "V6-REQ-002",
+        "V6-REQ-004",
+        "V6-REQ-011"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac058_blob_and_receipt_sigkill_boundaries_are_recoverable",
+        "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_receipt_failpoint_rolls_back_database_reference",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac058_missing_corrupt_blobs_fail_gates_and_db_tamper_fails_integrity"
+      ]
+    },
+    "V6-AC-059": {
+      "requirements": [
+        "V6-REQ-024"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac059_decisions_and_invariants_reach_executable_acceptance"
+      ]
+    },
+    "V6-AC-060": {
+      "requirements": [
+        "V6-REQ-014"
+      ],
+      "status": "pass",
+      "tests": [
+        "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_cleanup_retention_matrix_and_squash_equivalence",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac060_cleanup_rechecks_current_facts_and_records_fresh_receipt",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_ignores_false_caller_live_fact_claims_and_reads_store",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_fails_closed_without_responsibility_evidence",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_persists_fresh_facts_digest_and_execution_receipt",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_cleanup_reviewer_window_allows_only_its_own_lifecycle",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_completion_terminal_snapshot_rejects_live_resources_and_remote_delete_consumption",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_rechecks_ai_core_and_preserves_remote",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_stale_facts_fail_closed",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_stale_tampered_multiple_and_unknown_data_fail_closed"
+      ]
+    }
+  },
+  "administrator_acceptance": "accepted",
+  "evidence": {
+    "administrator_acceptance": {
+      "authority_basis": "Explicit administrator acceptance of source commit af512a6786863431dde1ade49bfd250d8a05804b in the current Codex task.",
+      "production_ready": false,
+      "recommended": false,
+      "record_path": "tools/nm-v6/administrator-acceptance.json",
+      "record_sha256": "81e98ae2d4f1220fcba93de5b3f08b70ef112c007767ab526c6f93d4ec1dedfd",
+      "recorded_at": "2026-07-10T18:33:45+08:00"
+    },
+    "automated": {
+      "digest_binding": {
+        "command_digest": "19ad3c97ce79a22a42e068e4b0a3a730a923332822837201c9f23ccb6867e371",
+        "result_file_sha256": "29e0b422bb407513fac4df2875e2708e745f2de1593831a12a41b1cd2f02aa41",
+        "schema_version": "nm-v6/acceptance-result-digest-v1",
+        "source_change_digest": "d2f1cdb3ac0709034b20ea56c456106425baceb337618352eaf9c1b429c05d26",
+        "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+        "test_inventory_digest": "e452e7d3edf5de322e13268ca14c1e78df81fba4d41fb2850931d7ae3342dd2a"
+      },
+      "result": {
+        "command": {
+          "argv": [
+            "nm-v6",
+            "acceptance-test",
+            "--target",
+            ".",
+            "--pattern",
+            "test*.py"
+          ],
+          "pattern": "test*.py",
+          "target": "."
+        },
+        "command_digest": "19ad3c97ce79a22a42e068e4b0a3a730a923332822837201c9f23ccb6867e371",
+        "finished_at": "2026-07-10T10:23:47.352041Z",
+        "result": "passed",
+        "schema_version": "nm-v6/acceptance-result-v2",
+        "source_change": {
+          "base_ref": "origin/dev",
+          "base_ref_sha": "018bd9508231d6de3eceb5a7f49528a37c023dbb",
+          "digest": "d2f1cdb3ac0709034b20ea56c456106425baceb337618352eaf9c1b429c05d26",
+          "files": {
+            ".gitignore": {
+              "mode": "100644",
+              "sha256": "7a06de75e7c92ff7a14503ca75f9e6d7ecd8fc9ea285a186ec86195b602b7c20",
+              "state": "present"
+            },
+            "AGENTS.md": {
+              "mode": "100644",
+              "sha256": "5264889d5449661e027851d7f36a1cf43e15e1c748349542f96ffff31be78207",
+              "state": "present"
+            },
+            "AGENTS.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "81506c348596b74c0183aabf6263a58057e47ce73db5d4ba7ba7f8baefeea1c3",
+              "state": "present"
+            },
+            "README.md": {
+              "mode": "100644",
+              "sha256": "7ecbd49fd418c59391145443b7f146b662cd9f51586149d60ccf479b4b499fbd",
+              "state": "present"
+            },
+            "docs/README.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "321b60545366f4ae2b80a4294f17dcd55ea18a5b36b86f2f30c16b1bb8e445f7",
+              "state": "present"
+            },
+            "docs/installation.md": {
+              "mode": "100644",
+              "sha256": "0df697d6f14811fecc02299d11d16a12c2456129907c02bf7e5f716727241635",
+              "state": "present"
+            },
+            "docs/installation.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "3d0cf398479483ef0c70ca4e0fb0a027be5ae566254f8262dc361f4972655010",
+              "state": "present"
+            },
+            "docs/nm-v6-bilingual-semantic-review.md": {
+              "mode": "100644",
+              "sha256": "edd3899f0e2e07d146c8378851814e669a20df33bbb47d1d1762e349aca5e1fb",
+              "state": "present"
+            },
+            "docs/nm-v6-bilingual-semantic-review.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "7c3a8e36e2f06834b59a1598000a97f8e84c1627597e273ab57150ad81377490",
+              "state": "present"
+            },
+            "docs/template-versions.md": {
+              "mode": "100644",
+              "sha256": "bcb1891b1cecee94a80d0bf887eed87985ee24ecfee188413c718005044b1a63",
+              "state": "present"
+            },
+            "docs/template-versions.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "8da14f8e6b9d3bd1fc6cbfcd912f131d9d584e4d57d4cf2632bf110467a6e7c7",
+              "state": "present"
+            },
+            "package.json": {
+              "mode": "100644",
+              "sha256": "1ad49cc3a4a087247f6f1063e41720f60f5b838c192399145ea7f69fe0ee40d0",
+              "state": "present"
+            },
+            "skills/nm-init-project-v6/SKILL.md": {
+              "mode": "100644",
+              "sha256": "f6d6c04d31669daf2cd0cb0b315e6a200d826ce0166d106994edafa9cde7be34",
+              "state": "present"
+            },
+            "skills/nm-init-project-v6/agents/openai.yaml": {
+              "mode": "100644",
+              "sha256": "3ef38c19b04c3f9aba305b4f86195d7e0df0e0c1e1303c20c9d4bd39309415b5",
+              "state": "present"
+            },
+            "skills/nm-init-project-v6/references/install.md": {
+              "mode": "100644",
+              "sha256": "74e71ca91a0a5c0f77d20319161d5be2e5cba5fd40d75c727aa3e5d67d428c6c",
+              "state": "present"
+            },
+            "skills/nm-init-project-v6/references/trusted-control-plane.md": {
+              "mode": "100644",
+              "sha256": "348a53f7827cc241e4f9d3d88ea2676b8b72865ec46e481cf6eda95bf9e16c6b",
+              "state": "present"
+            },
+            "skills/nm-init-project-v6/scripts/run_nm_v6.py": {
+              "mode": "100644",
+              "sha256": "da5b79358a4f0226263d07908b89429c52186aa52241204f9584977d83d832c4",
+              "state": "present"
+            },
+            "template/v6/.codex/config.toml": {
+              "mode": "100644",
+              "sha256": "15160b824bab30ce321b35a4e54bee34327b834cf2afa33a04e7612c84ded9a4",
+              "state": "present"
+            },
+            "template/v6/.codex/hooks/stop-status.sh": {
+              "mode": "100755",
+              "sha256": "ade4ada0e80400fe532c85346665e96201f8bc74d7730978c9f6a70464bf10bc",
+              "state": "present"
+            },
+            "template/v6/.delete-pending/.gitkeep": {
+              "mode": "100644",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "state": "present"
+            },
+            "template/v6/.gitignore": {
+              "mode": "100644",
+              "sha256": "5b5b9770bc7636b36b06b4c7d1a2b405ced0f55db511a3359d94b7869391f0bd",
+              "state": "present"
+            },
+            "template/v6/.markdownlint.json": {
+              "mode": "100644",
+              "sha256": "51ce11df85229625dc429fdf0af8741cc8509e052914db8a151a063f00239ec8",
+              "state": "present"
+            },
+            "template/v6/.markdownlintignore": {
+              "mode": "100644",
+              "sha256": "d91df22a43a8961df54a5eb6d735e910717af4835a16684d9f1e95abfdfac780",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0a-spec/.gitkeep": {
+              "mode": "100644",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0a-spec/SPEC.md": {
+              "mode": "100644",
+              "sha256": "c673c794bd5f638f5d3fabb326135cd5000c8324a41dfda2e5f4c54640ea36d5",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0a-spec/SPEC.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "9a5933149db2d41a253e7520c175061a47cc37a659fda9a4747f2eab6f6676a3",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0a-spec/spec.example.json": {
+              "mode": "100644",
+              "sha256": "27878ae0ec884136e6771b918ea8b6f517531ba79f2294eaef7e9a1135957f9e",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0a-spec/traceability.json": {
+              "mode": "100644",
+              "sha256": "e9cbf92fdf23ecd293706c4ef4cc799c60ed49a1711ee986a7ced680f6bb2811",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0b-design/prototype/.gitkeep": {
+              "mode": "100644",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0c-prompts/review-spec.md": {
+              "mode": "100644",
+              "sha256": "1f6338a55897c445c29a6b4ed27fb033003bcfb90112232d2331f72e1a4ae4c3",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0c-prompts/security-review.md": {
+              "mode": "100644",
+              "sha256": "ddab6377076a684744ae62e993424da01ec4064daf14e63f836785472f6b5198",
+              "state": "present"
+            },
+            "template/v6/0a-docs/0c-prompts/write-spec.md": {
+              "mode": "100644",
+              "sha256": "b673a4ba7b1e8d0d0bb9f340129ca5e61aefc779e2dd44ea90e4947d684018ca",
+              "state": "present"
+            },
+            "template/v6/0a-docs/DECISIONS.md": {
+              "mode": "100644",
+              "sha256": "dfc9187a1bcebd470a444d80e6857a54c9296764598e7d44059a9ff2a9365282",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/PROTOCOLS.md": {
+              "mode": "100644",
+              "sha256": "a8671eed6b88c0acd86d167aba48b712b5f526fca0d04de6bd44f2f951ca38d4",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/PROTOCOLS.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "1ebe4ccaac695a41e146d44787d75034af01984c546558c3cb33ae8ce9ad28e7",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/RECOVERY.md": {
+              "mode": "100644",
+              "sha256": "4be6fb7eb055f7097a04756be0500bacf4c7a77e6729649c77f0dbb7c7df52f8",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/RECOVERY.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "6877311ac57883cc66e169a606470cdc3cdde14ef9aef7657e274c7ee6c57fe6",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/WORKFLOW_V6.md": {
+              "mode": "100644",
+              "sha256": "bc0efba1856203c883d03927bd267755d71d9f2c6e0d9ecaccef0bdd0e5798b3",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "166cc612d380919b345a1cb0ca932726c7c959456a049e2bcc4504e5f3de2d50",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/adapters/claude.md": {
+              "mode": "100644",
+              "sha256": "e98e6619078d0a230bcf7ca07852c89b045ba07ba72fc8f66d413c1bafd2e3f1",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/adapters/claude.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "fe4f1a551daf07e107efd8e2f87fd3e17ee277e94c4629aba217c8c0f249246e",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/adapters/codex.md": {
+              "mode": "100644",
+              "sha256": "31287afe5d4e42a688469b64f582ead8b9d1996dbbc4786204c12a612e4478c1",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/adapters/codex.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "375686361e3793b7d24718a3cafb84386dce79f61c75b7b10bbedb0cd7aa0fc3",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/adapters/grok.md": {
+              "mode": "100644",
+              "sha256": "b21e46afefd05f7c705884d1fce59245a97356e4374b768a21b3747abcdf2790",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/adapters/grok.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "cb768f1fdf81b7f37a90b6c8b7bc315013dffac3f1b3800ec1631870d1dc734e",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/fixtures/fake-admin-public.pem": {
+              "mode": "100644",
+              "sha256": "0d6d6308a1190142b1b8de7c282f6e38d0bb1ff7f96541a42cecd5cece112f7a",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/recovery/agent.md": {
+              "mode": "100644",
+              "sha256": "e880842795a72947384dc88e2fc098efc2dde7cb762638736ccc786d0deaba06",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/recovery/agent.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "23c1f0b34ac7b796346dbc9bd741d73a4f6ec4d1bd5fb4aeeccf2753fdf30a9b",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/recovery/delivery.md": {
+              "mode": "100644",
+              "sha256": "14dce7afef18f41c72746d0634c6592ae8cc8a49c07955575bde8365f24c3e13",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/recovery/delivery.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "d3e596f6ceef9bda9bd40d7ebd65d5006ba93bc7efcd55b35d0a558a67460e12",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/recovery/git.md": {
+              "mode": "100644",
+              "sha256": "3cd9aa1bd5d8cae5a2fc94185c3fb8a554e4a6ed6c7c91724d9eedf716087f43",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/recovery/git.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "d3a32c4aefe375c99e0d93baa2bc1da57e1d42ef870d5c62e39de3a3d0499686",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/action-result-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "2e5d372a09acdfaeec5de0bb8d0f095861a99ee6f52f4a239a482a8c9dc6de37",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/action-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "f2e29368b9d87fa0ddd8b759583e859da5d592f95ea3ea95818f214d49a3ee29",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/adapter-config-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "648726bb029a824b42a9b612d4c5242c47632a0f9e903fc7eb6d79e1955d898f",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/adapter-probe-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "26c2e61cd67cb5f7cb881ca7d2e6d6fcbce212d6c56f879bf543f858edbf4d67",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/adapter-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "3545089d1d47b099231ab5e8ed8b852ff2a45370138aa321c1ccdb533d3973d0",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/adapter-result-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "0fcd00cb3983a7384d697d87f3fb36100c7d221a2db2202986d73d056ef9df9d",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/administrator-acceptance-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "39557df6966e19df7b1d9221d7602ba9a061905dd6192e16c7b88ccb6b75df02",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/approval-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "326011e9cce3a61bc478ad42c4e782f4a98586af4909bd4ceb2eef23fe7c8dcf",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/audit-export-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "26c591f54d1c4916d6ea310c9b21b29f9844c62cbbffceba788f5d784c785a11",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/authorization-config-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "ec491b01d497ce316d43df419250d7903150bb477ac6bd736320451bb74900b7",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/authorization-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "781cbc5f9e8a32a6999954c0bfbc6a168991f10dc41260b7609927ba60023265",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/cleanup-review-observation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "20b84099626055500540088b3c7d61e275d2b7031db8b3b9fbd10a54c438639b",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/cleanup-review-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "5b8e11075c17e5c45aa9f0c3a6aa4804435862b42dd251c65d5bee1b010ad269",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/confirmation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "e91c0b6c763b2722c6392ebef7c8835e2a5abc77d4e5b68de03445253219e499",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/context-addition-proposal-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "6c49208cc8c2c466600fca1990289f12e83558b9e2f4f9444c4938e61ea4979b",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/context-manifest-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "1505a8e92289072acc2ee4548e8ba8d77bd76141bc2f6ae47e19a17000f4ea15",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/evidence-config-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "99b659a48a236b5362af143e980a5b5271f8f4a35c0b1c1da22bd16bfe83202f",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/evidence-receipt-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "5c7eb3088834428ba6bbeababd4c0788ef73456c0da01b7f9bb1514869527d36",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/gate-receipt-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "f45cb0dfb4ecd27de1ef67c013276ab742f42934b0dc7b984aacee9e5a527af9",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/grant-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "55a9bfd222c76383ed97a87e583d62278fc18d2090d44b021e4662f583b25482",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/implementation-authorization-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "aaba3a3ca60c3326cdb62b5cdf0db4865d7fc0f212986b86d10b241b61ba32bf",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/merge-proposal-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "ec1d3a459361cb3bccc43ddbf99e844925f91945746b567fe62a8c6450d0adfc",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/merge-review-observation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "92c80eec98118e965b03a448871adef09e273aa0f0fd546ac6a048f97a5bf0ab",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/merge-review-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "9878465390135e24a8b18cc1e63473655e9102c3cfda2e489961888b50073280",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/project-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "4fceca54c6caa93bb67b43c9f7c0f9df0e7df2906c89e355456fba9ccb337fec",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/revocation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "e4ecf0b669885b80e85ffcd29f3c0bf3165532b0f29507330b7ef72e15632e4f",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/spec-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "99e30e5dfe9733a3b74e5b8ff742010cfed327c37f5c57638001ba263b8f977d",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/status-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "7b6042d11d5164ab6c09e4bdf6d6fa30d4b07ae3e0be46637e51a6e29e33f04e",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/supply-chain-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "6e7fb6ca6ffac37ce832e58cb3aa1f55c82a6626b34c3fe797ee2ac706dc82a2",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/transition-table-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "f257e65dc8d02a8bd25f39429eb22159053d567e025ffad0d624b01df500ab30",
+              "state": "present"
+            },
+            "template/v6/0c-workflow/schemas/version-record-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "38bf5bba0462c0b80e6ae8f1fe817617ba7c769e4cf00a540fac21ddc52fd95e",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/check-workflow.sh": {
+              "mode": "100755",
+              "sha256": "a85bc51639dd575796b67f6fde8691b309a04a12f78ceb143eb020b1cb4fbd46",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/fake-action.py": {
+              "mode": "100644",
+              "sha256": "d40f216c875057ad10875984cc974c8142a21ad568a45a52d9f7935e8f4d757b",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nm-v6.py": {
+              "mode": "100755",
+              "sha256": "015bb116cede21d43397b1bd421de5ed6b48c1e1e99da3cd3d073dc4c538aeef",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/__init__.py": {
+              "mode": "100644",
+              "sha256": "4e37cb6eff6f73d99ee0e9fb2d13bbae089d404f0ad8ad92e56bdf21c3c45a07",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/actions.py": {
+              "mode": "100644",
+              "sha256": "6a2dc270d232453df231d1027d0c9b848070d722c5bd77a02b3760594c7142c1",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/adapters.py": {
+              "mode": "100644",
+              "sha256": "7e82b30de0752f19d04a36859b6c17a59da02b238011c01bd9ec54327d4c56cb",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/audit.py": {
+              "mode": "100644",
+              "sha256": "e5716a8568002e3af60cd0be5b63b851685f0038c491e7248b522f5f5d96e6d6",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/authorization.py": {
+              "mode": "100644",
+              "sha256": "5ae202ad369b6f50c8eb0a70238335b0e3df26fc4ba4a35a49b31e6d34a08ce5",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/cleanup_review.py": {
+              "mode": "100644",
+              "sha256": "b037ef7437c1f079bfe4cc0c367064b7cd06f78fac0fed892dae4766069a41cc",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/cli.py": {
+              "mode": "100644",
+              "sha256": "76cf93eb2d762c7b55f69936d6d59b5b21fe2dffe1dc8b253723b700b41795db",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/context.py": {
+              "mode": "100644",
+              "sha256": "7f681a4c2b44006501ee5a04315a3369905c63af9750dcb88941dc4dd8069d89",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/contracts.py": {
+              "mode": "100644",
+              "sha256": "45973b55b47fb478352301176ce23002efe14d5ac1a75e164cd7dbc7ace81260",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/controller.py": {
+              "mode": "100644",
+              "sha256": "9e0e4762880c0dd882f8de1697a1b72b46047a42706b3d2334d80655aa8478f7",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/delivery.py": {
+              "mode": "100644",
+              "sha256": "ef0ff015c0e76c177ecffdee7f5cbc2be214341c2da57e11ed0c09ef116b1276",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/errors.py": {
+              "mode": "100644",
+              "sha256": "1beb0248e2fc53486030313fdcb428feb34f28a42c6c323f2be531736846d8c7",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/evidence.py": {
+              "mode": "100644",
+              "sha256": "ed622f5ab63fdc57a8c4d29f6daa351d57130a91357f5ba4cf08536213ff7d89",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/failpoints.py": {
+              "mode": "100644",
+              "sha256": "29c24a1462c664a710548045bb84f5416ec916333b54fc7919a8dab583da84ea",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/gates.py": {
+              "mode": "100644",
+              "sha256": "736e32aa46696c938e618fb804078548036bc4d2aef2964c06d39237fed630d7",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/git_controller.py": {
+              "mode": "100644",
+              "sha256": "916b74a090cb1881237264548087358bd7f81e8872a697aefb73dc21630aca44",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/merge_review.py": {
+              "mode": "100644",
+              "sha256": "d8606732cbe90f8aeb203adcff77e188801dc845570bb60dee1e35a2c4129dea",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/migrations/0001_initial.sql": {
+              "mode": "100644",
+              "sha256": "396e8d0aea56af7b8e0426f58d0892542b680e64a2df27da672ec05a998e0ba3",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/migrations/0002_lease_fencing_and_write_sets.sql": {
+              "mode": "100644",
+              "sha256": "29234e04fb2d77a6b8ad25916769bda0481a49150fefd3605269e6b9ca922f71",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/models.py": {
+              "mode": "100644",
+              "sha256": "09e83aed3eba1f655dff8669e4d892b653029da2e3a97a1b67c27b243edf6de9",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/outbox.py": {
+              "mode": "100644",
+              "sha256": "573cbfb5e679b88a98e81ef9f172f64e6f67d61555cc7833a4d54462986b4555",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/recovery.py": {
+              "mode": "100644",
+              "sha256": "083b732bc4b5a6bcce59717a03d0ef8d5ee682d95d54d42bb5200008277c7bd7",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/reducer.py": {
+              "mode": "100644",
+              "sha256": "149de73e8d55b5a78bd9f47b36a0298a86a996c67a28a15f1abdd71d94f5053f",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/repository_check.py": {
+              "mode": "100644",
+              "sha256": "b3450b0c6e9aebc1e5d18c6ec508cec86bfdc16467a5dc43b64337d1026b769b",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/runtime.py": {
+              "mode": "100644",
+              "sha256": "6161a17a963c79a2135a275a7a3653194ded728e9fd4fdc291b076f78ec478ef",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/scheduler.py": {
+              "mode": "100644",
+              "sha256": "0935778377e4d1556c19b840ab4c999b2aede917a9b5ce7e401f6071d6f8905b",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/specs.py": {
+              "mode": "100644",
+              "sha256": "b946feea42ba769a32b5ee345dfed5e2fed5acd1f85ec578abb65bb1fba0a7c7",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/store.py": {
+              "mode": "100644",
+              "sha256": "a4947026c68ea8b6f0528f207558d0e2cc3b4ba48f6ba9426bd5c10839d815df",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/supply_chain.py": {
+              "mode": "100644",
+              "sha256": "a8b54fa944392e765e9699ef93456da30643277c9f606ca0fa8e6ed681efa697",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/template_sync.py": {
+              "mode": "100644",
+              "sha256": "346cfaebebfa76c086e817574bfbee3d1d06c54175b161655dcc8750eb0d8ef6",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/traceability.py": {
+              "mode": "100644",
+              "sha256": "9e564ddd21fab06d67ef325ff67e5688a6ecb34a63b6f53e1d58168aac2450cc",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/transitions.py": {
+              "mode": "100644",
+              "sha256": "f6e605a546e089f7bc62b19f1f4304260c4a980adec054f6e4ea4238acb69ef5",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/util.py": {
+              "mode": "100644",
+              "sha256": "1d1d752f84ec02bf521a545a371953be6a762408a7ba9f3c5c8a97a92ee6b072",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/nmv6/workspace.py": {
+              "mode": "100644",
+              "sha256": "a18599e14f75226917bf9d828ed057d26db86016ac2ab32d1b694c9a0decbf01",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/python311.sh": {
+              "mode": "100755",
+              "sha256": "cbb9f555ad88256c0655e9ad11ddbe089d38978f380c4e2fdeffd3ef132144a9",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/test-workflow.sh": {
+              "mode": "100755",
+              "sha256": "bcbd609a89c64573145cca55072ece40b47a87f329825489345d03fb2605df12",
+              "state": "present"
+            },
+            "template/v6/0d-scripts/verify.sh": {
+              "mode": "100755",
+              "sha256": "ad6cd9f82014c68935f8666890767453940f1ce8c003976cf2cbaa6dc992d52f",
+              "state": "present"
+            },
+            "template/v6/AGENTS.md": {
+              "mode": "100644",
+              "sha256": "57a8e5d30efd3baf8211e5923bd96ab7f7fdfe46f061c14532404e33e84c5c11",
+              "state": "present"
+            },
+            "template/v6/AGENTS.zh-CN.md": {
+              "mode": "100644",
+              "sha256": "bd2a3bf917be9dcd93cadaf98f8a84faf6c22c068d58652fbc8641efa1d6acb2",
+              "state": "present"
+            },
+            "template/v6/CLAUDE.md": {
+              "mode": "100644",
+              "sha256": "56a9a2461b3781bfb4ecf1dedf2e546fee0641795febeb06edd18e9e8df591eb",
+              "state": "present"
+            },
+            "template/v6/GROK.md": {
+              "mode": "100644",
+              "sha256": "310c98d8a5232bc40ced52f7e26b720a26c3cda54dfe07799f8f8a1cbba86868",
+              "state": "present"
+            },
+            "template/v6/PROJECT_STRUCTURE.md": {
+              "mode": "100644",
+              "sha256": "bfe9ae182dd7edfeed3e94263ca60a6d384b0b1d5f2e5a2f04abef4c0a3f71cd",
+              "state": "present"
+            },
+            "template/v6/README.md": {
+              "mode": "100644",
+              "sha256": "c2d7757edb660ccde7afe429d922408df06211832377cba01d5cca9d6b565001",
+              "state": "present"
+            },
+            "template/v6/manifest.json": {
+              "mode": "100644",
+              "sha256": "acd1933e2e4592bbb52260ba8db0a10a4289af947f9a02a0b8b07ffa052f5297",
+              "state": "present"
+            },
+            "template/v6/package.json": {
+              "mode": "100644",
+              "sha256": "735223c81787104a2c7ccbfd069c60318a687c0200e7d4d4d9b9025280436fd5",
+              "state": "present"
+            },
+            "template/v6/project.example.json": {
+              "mode": "100644",
+              "sha256": "2ee7a04ebe4891f9f0216baf3d981e1cfe07a36712884f4b391768e301ec433e",
+              "state": "present"
+            },
+            "tools/nm-v6/generate_traceability.py": {
+              "mode": "100644",
+              "sha256": "8ed6b1f6c0003048dfa58c4b0374e615234e3c6bbe39816d5e6f3a3bbd8b118e",
+              "state": "present"
+            },
+            "tools/nm-v6/implementation-plan.json": {
+              "mode": "100644",
+              "sha256": "47d9486f081ccc819d747e61b17a13c167ebab40ef8d47760cf938a18e60aea7",
+              "state": "present"
+            },
+            "tools/nm-v6/install-skill.sh": {
+              "mode": "100755",
+              "sha256": "a2072fb15c212a0fbc70b87688c890751e2c1576631e73f4fab876d25a391726",
+              "state": "present"
+            },
+            "tools/nm-v6/nm_v6.py": {
+              "mode": "100755",
+              "sha256": "9eaa1101e70427752e3c7551fb08fdf0dc4970f5f80034eb0ee1fe57410d2688",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/__init__.py": {
+              "mode": "100644",
+              "sha256": "4e37cb6eff6f73d99ee0e9fb2d13bbae089d404f0ad8ad92e56bdf21c3c45a07",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/actions.py": {
+              "mode": "100644",
+              "sha256": "6a2dc270d232453df231d1027d0c9b848070d722c5bd77a02b3760594c7142c1",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/adapters.py": {
+              "mode": "100644",
+              "sha256": "7e82b30de0752f19d04a36859b6c17a59da02b238011c01bd9ec54327d4c56cb",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/audit.py": {
+              "mode": "100644",
+              "sha256": "e5716a8568002e3af60cd0be5b63b851685f0038c491e7248b522f5f5d96e6d6",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/authorization.py": {
+              "mode": "100644",
+              "sha256": "5ae202ad369b6f50c8eb0a70238335b0e3df26fc4ba4a35a49b31e6d34a08ce5",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/cleanup_review.py": {
+              "mode": "100644",
+              "sha256": "b037ef7437c1f079bfe4cc0c367064b7cd06f78fac0fed892dae4766069a41cc",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/cli.py": {
+              "mode": "100644",
+              "sha256": "76cf93eb2d762c7b55f69936d6d59b5b21fe2dffe1dc8b253723b700b41795db",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/context.py": {
+              "mode": "100644",
+              "sha256": "7f681a4c2b44006501ee5a04315a3369905c63af9750dcb88941dc4dd8069d89",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/contracts.py": {
+              "mode": "100644",
+              "sha256": "45973b55b47fb478352301176ce23002efe14d5ac1a75e164cd7dbc7ace81260",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/controller.py": {
+              "mode": "100644",
+              "sha256": "9e0e4762880c0dd882f8de1697a1b72b46047a42706b3d2334d80655aa8478f7",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/delivery.py": {
+              "mode": "100644",
+              "sha256": "ef0ff015c0e76c177ecffdee7f5cbc2be214341c2da57e11ed0c09ef116b1276",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/errors.py": {
+              "mode": "100644",
+              "sha256": "1beb0248e2fc53486030313fdcb428feb34f28a42c6c323f2be531736846d8c7",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/evidence.py": {
+              "mode": "100644",
+              "sha256": "ed622f5ab63fdc57a8c4d29f6daa351d57130a91357f5ba4cf08536213ff7d89",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/failpoints.py": {
+              "mode": "100644",
+              "sha256": "29c24a1462c664a710548045bb84f5416ec916333b54fc7919a8dab583da84ea",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/gates.py": {
+              "mode": "100644",
+              "sha256": "736e32aa46696c938e618fb804078548036bc4d2aef2964c06d39237fed630d7",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/git_controller.py": {
+              "mode": "100644",
+              "sha256": "916b74a090cb1881237264548087358bd7f81e8872a697aefb73dc21630aca44",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/merge_review.py": {
+              "mode": "100644",
+              "sha256": "d8606732cbe90f8aeb203adcff77e188801dc845570bb60dee1e35a2c4129dea",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/migrations/0001_initial.sql": {
+              "mode": "100644",
+              "sha256": "396e8d0aea56af7b8e0426f58d0892542b680e64a2df27da672ec05a998e0ba3",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/migrations/0002_lease_fencing_and_write_sets.sql": {
+              "mode": "100644",
+              "sha256": "29234e04fb2d77a6b8ad25916769bda0481a49150fefd3605269e6b9ca922f71",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/models.py": {
+              "mode": "100644",
+              "sha256": "09e83aed3eba1f655dff8669e4d892b653029da2e3a97a1b67c27b243edf6de9",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/outbox.py": {
+              "mode": "100644",
+              "sha256": "573cbfb5e679b88a98e81ef9f172f64e6f67d61555cc7833a4d54462986b4555",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/recovery.py": {
+              "mode": "100644",
+              "sha256": "083b732bc4b5a6bcce59717a03d0ef8d5ee682d95d54d42bb5200008277c7bd7",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/reducer.py": {
+              "mode": "100644",
+              "sha256": "149de73e8d55b5a78bd9f47b36a0298a86a996c67a28a15f1abdd71d94f5053f",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/repository_check.py": {
+              "mode": "100644",
+              "sha256": "b3450b0c6e9aebc1e5d18c6ec508cec86bfdc16467a5dc43b64337d1026b769b",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/runtime.py": {
+              "mode": "100644",
+              "sha256": "6161a17a963c79a2135a275a7a3653194ded728e9fd4fdc291b076f78ec478ef",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/scheduler.py": {
+              "mode": "100644",
+              "sha256": "0935778377e4d1556c19b840ab4c999b2aede917a9b5ce7e401f6071d6f8905b",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/specs.py": {
+              "mode": "100644",
+              "sha256": "b946feea42ba769a32b5ee345dfed5e2fed5acd1f85ec578abb65bb1fba0a7c7",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/store.py": {
+              "mode": "100644",
+              "sha256": "a4947026c68ea8b6f0528f207558d0e2cc3b4ba48f6ba9426bd5c10839d815df",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/supply_chain.py": {
+              "mode": "100644",
+              "sha256": "a8b54fa944392e765e9699ef93456da30643277c9f606ca0fa8e6ed681efa697",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/template_sync.py": {
+              "mode": "100644",
+              "sha256": "346cfaebebfa76c086e817574bfbee3d1d06c54175b161655dcc8750eb0d8ef6",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/traceability.py": {
+              "mode": "100644",
+              "sha256": "9e564ddd21fab06d67ef325ff67e5688a6ecb34a63b6f53e1d58168aac2450cc",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/transitions.py": {
+              "mode": "100644",
+              "sha256": "f6e605a546e089f7bc62b19f1f4304260c4a980adec054f6e4ea4238acb69ef5",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/util.py": {
+              "mode": "100644",
+              "sha256": "1d1d752f84ec02bf521a545a371953be6a762408a7ba9f3c5c8a97a92ee6b072",
+              "state": "present"
+            },
+            "tools/nm-v6/nmv6/workspace.py": {
+              "mode": "100644",
+              "sha256": "a18599e14f75226917bf9d828ed057d26db86016ac2ab32d1b694c9a0decbf01",
+              "state": "present"
+            },
+            "tools/nm-v6/python311.sh": {
+              "mode": "100755",
+              "sha256": "bbb9297e097230efffe99b540c157bb9c363f2462c5eec803738490b845c5e52",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/action-result-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "2e5d372a09acdfaeec5de0bb8d0f095861a99ee6f52f4a239a482a8c9dc6de37",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/action-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "f2e29368b9d87fa0ddd8b759583e859da5d592f95ea3ea95818f214d49a3ee29",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/adapter-config-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "648726bb029a824b42a9b612d4c5242c47632a0f9e903fc7eb6d79e1955d898f",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/adapter-probe-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "26c2e61cd67cb5f7cb881ca7d2e6d6fcbce212d6c56f879bf543f858edbf4d67",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/adapter-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "3545089d1d47b099231ab5e8ed8b852ff2a45370138aa321c1ccdb533d3973d0",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/adapter-result-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "0fcd00cb3983a7384d697d87f3fb36100c7d221a2db2202986d73d056ef9df9d",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/administrator-acceptance-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "39557df6966e19df7b1d9221d7602ba9a061905dd6192e16c7b88ccb6b75df02",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/approval-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "326011e9cce3a61bc478ad42c4e782f4a98586af4909bd4ceb2eef23fe7c8dcf",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/audit-export-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "26c591f54d1c4916d6ea310c9b21b29f9844c62cbbffceba788f5d784c785a11",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/authorization-config-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "ec491b01d497ce316d43df419250d7903150bb477ac6bd736320451bb74900b7",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/authorization-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "781cbc5f9e8a32a6999954c0bfbc6a168991f10dc41260b7609927ba60023265",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/cleanup-review-observation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "20b84099626055500540088b3c7d61e275d2b7031db8b3b9fbd10a54c438639b",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/cleanup-review-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "5b8e11075c17e5c45aa9f0c3a6aa4804435862b42dd251c65d5bee1b010ad269",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/confirmation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "e91c0b6c763b2722c6392ebef7c8835e2a5abc77d4e5b68de03445253219e499",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/context-addition-proposal-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "6c49208cc8c2c466600fca1990289f12e83558b9e2f4f9444c4938e61ea4979b",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/context-manifest-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "1505a8e92289072acc2ee4548e8ba8d77bd76141bc2f6ae47e19a17000f4ea15",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/evidence-config-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "99b659a48a236b5362af143e980a5b5271f8f4a35c0b1c1da22bd16bfe83202f",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/evidence-receipt-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "5c7eb3088834428ba6bbeababd4c0788ef73456c0da01b7f9bb1514869527d36",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/gate-receipt-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "f45cb0dfb4ecd27de1ef67c013276ab742f42934b0dc7b984aacee9e5a527af9",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/grant-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "55a9bfd222c76383ed97a87e583d62278fc18d2090d44b021e4662f583b25482",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/implementation-authorization-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "aaba3a3ca60c3326cdb62b5cdf0db4865d7fc0f212986b86d10b241b61ba32bf",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/merge-proposal-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "ec1d3a459361cb3bccc43ddbf99e844925f91945746b567fe62a8c6450d0adfc",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/merge-review-observation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "92c80eec98118e965b03a448871adef09e273aa0f0fd546ac6a048f97a5bf0ab",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/merge-review-request-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "9878465390135e24a8b18cc1e63473655e9102c3cfda2e489961888b50073280",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/project-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "4fceca54c6caa93bb67b43c9f7c0f9df0e7df2906c89e355456fba9ccb337fec",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/revocation-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "e4ecf0b669885b80e85ffcd29f3c0bf3165532b0f29507330b7ef72e15632e4f",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/spec-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "99e30e5dfe9733a3b74e5b8ff742010cfed327c37f5c57638001ba263b8f977d",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/status-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "7b6042d11d5164ab6c09e4bdf6d6fa30d4b07ae3e0be46637e51a6e29e33f04e",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/supply-chain-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "6e7fb6ca6ffac37ce832e58cb3aa1f55c82a6626b34c3fe797ee2ac706dc82a2",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/transition-table-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "f257e65dc8d02a8bd25f39429eb22159053d567e025ffad0d624b01df500ab30",
+              "state": "present"
+            },
+            "tools/nm-v6/schemas/version-record-v1.schema.json": {
+              "mode": "100644",
+              "sha256": "38bf5bba0462c0b80e6ae8f1fe817617ba7c769e4cf00a540fac21ddc52fd95e",
+              "state": "present"
+            },
+            "tools/nm-v6/sync_template.py": {
+              "mode": "100755",
+              "sha256": "329d9bfc4a40066d402e783e17cbe8a2d849b5f74ea5337be36729bd61a37f08",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/__init__.py": {
+              "mode": "100644",
+              "sha256": "518a1a82d6127a6b60561bd205a2525ee1b056fcf074bc4bcb7071ad48dd7429",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_cleanup_review_contract.py": {
+              "mode": "100644",
+              "sha256": "571fe7879bddfb3da635468ac6b45aab77a12b4d7ca2aaa940fc190b0c7e501f",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_contracts_adapters_context.py": {
+              "mode": "100644",
+              "sha256": "04fb108c89a6d63ed53d32f34e59507611eb77893278bd46e5f9f2125bf72617",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_crash_acceptance.py": {
+              "mode": "100644",
+              "sha256": "177a5ae3f8d35c07b06d6ad3d95f95e297a1922d1e5cf8c9e379b28451387fb8",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py": {
+              "mode": "100644",
+              "sha256": "da2bcea4a54301614cc0cecf55e7703af0104eb866d4f7136aa5291f5531418b",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_hotfix_runtime_generated.py": {
+              "mode": "100644",
+              "sha256": "6e7ced3b43bfff7fbe16dcf7411bcf44d4ae7d4cf3a2d88c9b27235d78bc07ed",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py": {
+              "mode": "100644",
+              "sha256": "5436e78e89df8614452a4e782d3ab00667e3485509391f314bf1dbe4dd53cb9a",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_normal_runtime_generated.py": {
+              "mode": "100644",
+              "sha256": "a6c693c2aceafadf9fcd2654c16322790e58711e459a5c843b9635dd101c92a8",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_operations.py": {
+              "mode": "100644",
+              "sha256": "e45fb2c4b084205e91b818a029d2db082fc3497d6fa6c99048d3ddb14b26e9b4",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_security_crash_acceptance.py": {
+              "mode": "100644",
+              "sha256": "18f79539abe8f9d7e96b61f01c48a9f1525de5122a7699d07f90c74607cdb15b",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_state_auth_evidence.py": {
+              "mode": "100644",
+              "sha256": "e0df4e3992f0d256a74d263f3db30b26eeab3efb5bc87cee3866b8ea55ad2df0",
+              "state": "present"
+            },
+            "tools/nm-v6/tests/test_template_cli_traceability.py": {
+              "mode": "100644",
+              "sha256": "66eb549742a5c47163383aa2851ee329de9de4678d727d7c11f655f55e673368",
+              "state": "present"
+            }
+          },
+          "head_sha": "af512a6786863431dde1ade49bfd250d8a05804b",
+          "merge_base_sha": "018bd9508231d6de3eceb5a7f49528a37c023dbb"
+        },
+        "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+        "started_at": "2026-07-10T10:20:06.124961Z",
+        "summary": {
+          "error": 0,
+          "expected_failure": 0,
+          "fail": 0,
+          "pass": 169,
+          "skip": 0,
+          "tests_run": 169,
+          "unexpected_success": 0
+        },
+        "test_inventory": {
+          "digest": "e452e7d3edf5de322e13268ca14c1e78df81fba4d41fb2850931d7ae3342dd2a",
+          "pattern": "test*.py",
+          "selectors": [
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_adapter_three_decisions_and_strict_envelope",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_context_and_durable_restart_are_exact",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_every_core_blocker_prevents_delete_local",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_exact_positive_request_allows_only_local_cleanup",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_rechecks_ai_core_and_preserves_remote",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_squash_proof_ignores_caller_boolean",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_stale_facts_fail_closed",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_integration_source_and_proof_are_core_bound",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_schemas_are_versioned_catalogued_and_root_strict",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_squash_requires_patch_or_tree_equivalence",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_stale_tampered_multiple_and_unknown_data_fail_closed",
+            "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_terminal_delivery_state_requires_final_resource_evidence_and_no_active_operation",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_adapter_cancel_and_prohibited_capability",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_adapter_rejects_stale_result_and_supports_capability_fallback",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_all_provider_adapters_share_one_conformance_boundary",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_context_digest_budget_and_tamper_detection",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_fake_merge_reviewer_durable_journal_restarts_and_collects_once",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_fake_merge_reviewer_malformed_and_stale_context_fail_closed",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_fake_merge_reviewer_uses_canonical_context_and_preserves_worker_default",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_on_demand_addition_is_budget_checked_audited_and_stale_safe",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_action_result_enforces_success_conditionals_and_operation_binding",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_complete_project_example_validates",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_external_mutation_requires_idempotency_and_observe_reconcile",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_fake_release_metadata_action_returns_bound_metadata",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_project_rejects_branch_shell_secret_and_incomplete_delivery",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_project_rejects_stage_authority_and_unsafe_release_metadata",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_status_audit_and_version_contracts",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_deterministic_fake_reviewer_covers_every_decision",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_merge_review_schemas_are_catalogued_and_strict",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_merge_reviewer_adapter_envelope_is_read_only_and_exact",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_observation_fail_closed_matrix",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_request_digest_route_topology_and_exact_tree_fail_closed",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_accepts_direct_phase_ancestor",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_accepts_transitive_phase_ancestor",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_rejects_descendant_phase",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_rejects_unordered_phase",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_normalizes_line_endings_trailing_lf_and_frontmatter_order",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_rejects_unknown_missing_duplicate_and_bom_frontmatter",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_optional_skip_requires_remaining_mandatory_coverage",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_repository_spec_hash_matches_confirmed_fixture",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_and_stage_due_semantics",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_rejects_missing_coverage_invalid_stage_and_cycles",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_requires_canonical_delivery_stage_decisions",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_bilingual_semantic_ids_and_mutable_markdown",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_legacy_boundary_dependency_and_artifact_controls",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_manifest_coverage_and_hash_plan",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_real_supply_chain_policy_and_catalog_fail_closed",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_version_drift_credentials_provider_policy_and_schema_catalog",
+            "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac017_state_sigkill_matrix_has_one_logical_effect",
+            "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac058_blob_and_receipt_sigkill_boundaries_are_recoverable",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac028_environment_mismatch_persists_evidence_and_requires_attention",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac029_not_started_retries_same_operation_id_under_original_scope",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac055_every_audit_class_is_append_only_tamper_evident_and_restart_stable",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac031_ac032_authorized_rollback_and_failure_paths_require_attention",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac050_release_publish_partial_unknown_are_observed_and_reconciled",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac053_normal_and_hotfix_release_binding_chain_rejects_substitution",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac052_git_failure_matrix_and_resync_invalidates_old_proposal",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac057_nonprotected_grants_are_exact_one_time_and_action_separated",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac060_cleanup_rechecks_current_facts_and_records_fresh_receipt",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_fails_closed_without_responsibility_evidence",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_ignores_false_caller_live_fact_claims_and_reads_store",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_persists_fresh_facts_digest_and_execution_receipt",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_protected_integration_preobserves_remote_and_restores_local_on_push_failure",
+            "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes",
+            "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_legacy_hotfix_action_aliases_do_not_authorize_canonical_actions",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac002_amendment_invalidates_confirmation_evidence_and_authorization",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac010_auto_delivery_continues_without_prompt_and_fails_closed",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac014_single_and_multi_worker_have_equivalent_logical_results",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac018_detached_restart_and_persistent_pause_resume",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac040_representative_end_to_end_scenario_matrix",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac054_pause_cancel_and_revoke_fence_every_external_mutation",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_generated_cli_uses_configured_dispatcher_and_durable_child",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_generated_self_test_executes_actions_and_fails_closed",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_sensitive_operation_restart_revalidates_gate_evidence_blob",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_sensitive_operation_revalidates_gate_evidence_blobs_before_start",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_sensitive_operation_scope_requires_every_gate_and_auth_binding",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_actual_overlap_blocks_before_candidate_ref_update",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_candidate_branch_rejects_unowned_preexisting_ref",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_cleanup_reviewer_recovers_core_and_provenance_boundaries",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_cleanup_reviewer_window_allows_only_its_own_lifecycle",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_completion_terminal_snapshot_rejects_live_resources_and_remote_delete_consumption",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_consumed_remote_delete_grant_blocks_terminal_cleanup_proof",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_declared_overlap_is_split_into_serial_task_batches",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_delivery_not_applicable_decisions_use_real_gates_and_complete",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_environment_mismatch_persists_evidence_and_requires_attention",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_expired_adapter_result_is_fenced_and_retried_with_new_attempt",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_expired_batch_result_is_fenced_before_new_attempt",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_failed_task_verification_does_not_advance_candidate_ref",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_max_workers_two_runs_one_real_overlapping_task_batch",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_merge_reviewer_failures_precede_gate_operation_and_ref_mutation",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_multiple_delivery_environments_are_ordered_and_scoped",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_rollback_authorization_and_verification_failures_require_attention",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_runtime_version_provider_schema_and_core_drift_fail_before_effects",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_single_and_multi_worker_task_batches_have_equivalent_trees",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_successful_rollback_closes_resources_and_final_branch_cleanup",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_task_batch_recovers_gate_before_candidate_cas_without_redispatch",
+            "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_action_contract_rejects_shell_interpolation_and_secret_output",
+            "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_action_is_persisted_before_minimal_secret_execution",
+            "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_detected_os_sandbox_cannot_read_sibling_secret",
+            "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_workspace_is_standalone_clone_without_remote",
+            "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_build_binds_source_and_release_source_kinds",
+            "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_bound_deploy_and_verified_rollback",
+            "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_mismatch_and_unhealthy_deploy_require_attention",
+            "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_interrupted_mutation_is_persisted_then_reconciled_once",
+            "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_partial_unknown_operation_is_observed_and_reconciled",
+            "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_retry_and_pause_fail_closed",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_cleanup_retention_matrix_and_squash_equivalence",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_exact_dev_merge_cas_push_and_cleanup",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_hotfix_uses_exact_stable_and_reconciles_into_dev",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_executes_all_three_strategy_choices",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_rejects_disabled_moved_and_stale_evidence",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_reports_conflicts_and_rejects_cannot_propose",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_request_derives_routes_and_git_facts",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards",
+            "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_protected_routes_require_canonical_authority_and_stable_source",
+            "tools/nm-v6/tests/test_operations.py::SchedulerTests.test_cycle_is_rejected",
+            "tools/nm-v6/tests/test_operations.py::SchedulerTests.test_dag_lease_fencing_and_write_conflicts",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac005_exit_zero_without_structured_result_cannot_advance",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac006_worker_success_is_advisory_and_failed_rerun_fails_gate",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac007_ac056_malicious_verify_cannot_touch_authority_or_secrets",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_git_integration_sigkill_observes_or_executes_one_cas",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_release_deploy_rollback_sigkill_reconcile_one_effect",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_state_and_verification_sigkill_resume_once",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac058_missing_corrupt_blobs_fail_gates_and_db_tamper_fails_integrity",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_adapter_session_survives_backend_restart_and_network_is_scoped",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_fake_adapter_exact_request_is_restart_safe_and_dispatched_once",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_all_terminal_states_reject_old_grant_operations_and_mode_change",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_cancelled_run_invalidates_old_and_pending_grants_but_allows_revocation",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_mode_change_requires_plan_and_consumes_one_time_approval",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_nonprotected_ref_authorization_rejects_unknown_or_expanded_scope",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_revoke_start_race_has_one_serial_order",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_signature_scope_replay_expiry_and_revocation",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_blob_failpoint_leaves_only_quarantinable_orphan",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_completion_gate_fails_closed_for_missing_or_invalid_traceability",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_completion_gate_requires_each_mandatory_acceptance_assertion",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_every_gate_prerequisite_fails_closed",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_receipt_failpoint_rolls_back_database_reference",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_redacted_atomic_blobs_receipt_validation_and_orphans",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_reducer_rechecks_persisted_prerequisite_evidence",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_reducer_rejects_completion_gate_omitting_canonical_acceptance",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_release_gate_requires_bound_source_artifact_and_related_receipts",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_task_gate_is_bound_to_exact_entity_and_candidate",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::SchemaRuntimeAlignmentTests.test_schema_required_fields_and_versions_match_runtime_outputs",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_lease_fencing_and_two_controller_exclusion",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_persisted_write_conflicts_and_pause_fence_all_child_writes",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_transition_document_is_versioned_and_unique",
+            "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_v1_to_v2_migration_backup_is_atomic_and_crash_retryable",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac020_cli_exposes_required_surface",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac020_skill_is_thin_and_has_no_download_fallback",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac037_init_is_clean_and_protected_refs_are_not_the_commit_branch",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_interrupted_update_can_abort_without_losing_user_file",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_interrupted_update_resumes_from_durable_project_stage",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_journal_traversal_tamper_and_recovery_context_fail_closed",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_missing_stage_or_backup_fails_closed_without_deleting_prior_file",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_and_ac042_installed_check_rejects_v5_runtime",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_repository_check_rejects_tampered_traceability_report",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac041_generated_project_commands_pass_cleanly",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac043_acceptance_and_self_test_reject_credential_environment",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac043_installed_skill_binds_exact_source_and_ignores_hostile_cwd",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac044_repository_bilingual_check_covers_workflow_and_missing_pairs",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac044_repository_bilingual_check_rejects_id_and_structure_drift",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_acceptance_binding_rejects_source_drift_extra_and_nonancestor",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_acceptance_binding_survives_evidence_commit_ref_move_and_clone",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_administrator_acceptance_is_explicit_exact_and_nonproduction",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_implementation_plan_maps_every_requirement",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac052_update_rejects_dirty_authoritative_tree",
+            "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac059_decisions_and_invariants_reach_executable_acceptance"
+          ],
+          "test_file_sha256": {
+            "tools/nm-v6/tests/test_cleanup_review_contract.py": "571fe7879bddfb3da635468ac6b45aab77a12b4d7ca2aaa940fc190b0c7e501f",
+            "tools/nm-v6/tests/test_contracts_adapters_context.py": "04fb108c89a6d63ed53d32f34e59507611eb77893278bd46e5f9f2125bf72617",
+            "tools/nm-v6/tests/test_crash_acceptance.py": "177a5ae3f8d35c07b06d6ad3d95f95e297a1922d1e5cf8c9e379b28451387fb8",
+            "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py": "da2bcea4a54301614cc0cecf55e7703af0104eb866d4f7136aa5291f5531418b",
+            "tools/nm-v6/tests/test_hotfix_runtime_generated.py": "6e7ced3b43bfff7fbe16dcf7411bcf44d4ae7d4cf3a2d88c9b27235d78bc07ed",
+            "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py": "5436e78e89df8614452a4e782d3ab00667e3485509391f314bf1dbe4dd53cb9a",
+            "tools/nm-v6/tests/test_normal_runtime_generated.py": "a6c693c2aceafadf9fcd2654c16322790e58711e459a5c843b9635dd101c92a8",
+            "tools/nm-v6/tests/test_operations.py": "e45fb2c4b084205e91b818a029d2db082fc3497d6fa6c99048d3ddb14b26e9b4",
+            "tools/nm-v6/tests/test_security_crash_acceptance.py": "18f79539abe8f9d7e96b61f01c48a9f1525de5122a7699d07f90c74607cdb15b",
+            "tools/nm-v6/tests/test_state_auth_evidence.py": "e0df4e3992f0d256a74d263f3db30b26eeab3efb5bc87cee3866b8ea55ad2df0",
+            "tools/nm-v6/tests/test_template_cli_traceability.py": "66eb549742a5c47163383aa2851ee329de9de4678d727d7c11f655f55e673368"
+          }
+        },
+        "test_outcomes": {
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_adapter_three_decisions_and_strict_envelope": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_cleanup_reviewer_context_and_durable_restart_are_exact": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_every_core_blocker_prevents_delete_local": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_exact_positive_request_allows_only_local_cleanup": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_rechecks_ai_core_and_preserves_remote": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_squash_proof_ignores_caller_boolean": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_git_cleanup_review_stale_facts_fail_closed": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_integration_source_and_proof_are_core_bound": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_schemas_are_versioned_catalogued_and_root_strict": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_squash_requires_patch_or_tree_equivalence": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_stale_tampered_multiple_and_unknown_data_fail_closed": "pass",
+          "tools/nm-v6/tests/test_cleanup_review_contract.py::CleanupReviewContractTests.test_terminal_delivery_state_requires_final_resource_evidence_and_no_active_operation": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_adapter_cancel_and_prohibited_capability": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_adapter_rejects_stale_result_and_supports_capability_fallback": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_all_provider_adapters_share_one_conformance_boundary": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_context_digest_budget_and_tamper_detection": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_fake_merge_reviewer_durable_journal_restarts_and_collects_once": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_fake_merge_reviewer_malformed_and_stale_context_fail_closed": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_fake_merge_reviewer_uses_canonical_context_and_preserves_worker_default": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::AdapterAndContextTests.test_on_demand_addition_is_budget_checked_audited_and_stale_safe": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_action_result_enforces_success_conditionals_and_operation_binding": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_complete_project_example_validates": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_external_mutation_requires_idempotency_and_observe_reconcile": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_fake_release_metadata_action_returns_bound_metadata": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_project_rejects_branch_shell_secret_and_incomplete_delivery": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_project_rejects_stage_authority_and_unsafe_release_metadata": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::ContractTests.test_status_audit_and_version_contracts": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_deterministic_fake_reviewer_covers_every_decision": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_merge_review_schemas_are_catalogued_and_strict": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_merge_reviewer_adapter_envelope_is_read_only_and_exact": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_observation_fail_closed_matrix": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::MergeReviewContractTests.test_request_digest_route_topology_and_exact_tree_fail_closed": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_accepts_direct_phase_ancestor": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_accepts_transitive_phase_ancestor": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_rejects_descendant_phase": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_cross_phase_task_dependency_rejects_unordered_phase": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_normalizes_line_endings_trailing_lf_and_frontmatter_order": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_hash_rejects_unknown_missing_duplicate_and_bom_frontmatter": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_optional_skip_requires_remaining_mandatory_coverage": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_repository_spec_hash_matches_confirmed_fixture": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_and_stage_due_semantics": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_rejects_missing_coverage_invalid_stage_and_cycles": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SpecTests.test_traceability_requires_canonical_delivery_stage_decisions": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_bilingual_semantic_ids_and_mutable_markdown": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_legacy_boundary_dependency_and_artifact_controls": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_manifest_coverage_and_hash_plan": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_real_supply_chain_policy_and_catalog_fail_closed": "pass",
+          "tools/nm-v6/tests/test_contracts_adapters_context.py::SupplyChainTests.test_version_drift_credentials_provider_policy_and_schema_catalog": "pass",
+          "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac017_state_sigkill_matrix_has_one_logical_effect": "pass",
+          "tools/nm-v6/tests/test_crash_acceptance.py::CrashRecoveryAcceptanceTests.test_ac058_blob_and_receipt_sigkill_boundaries_are_recoverable": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac028_environment_mismatch_persists_evidence_and_requires_attention": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac029_not_started_retries_same_operation_id_under_original_scope": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::AuditAndEnvironmentAcceptanceTests.test_ac055_every_audit_class_is_append_only_tamper_evident_and_restart_stable": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac031_ac032_authorized_rollback_and_failure_paths_require_attention": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac050_release_publish_partial_unknown_are_observed_and_reconciled": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::DeliveryBindingAcceptanceTests.test_ac053_normal_and_hotfix_release_binding_chain_rejects_substitution": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac052_git_failure_matrix_and_resync_invalidates_old_proposal": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac057_nonprotected_grants_are_exact_one_time_and_action_separated": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_ac060_cleanup_rechecks_current_facts_and_records_fresh_receipt": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_fails_closed_without_responsibility_evidence": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_ignores_false_caller_live_fact_claims_and_reads_store": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_cleanup_persists_fresh_facts_digest_and_execution_receipt": "pass",
+          "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py::GitPolicyAcceptanceTests.test_protected_integration_preobserves_remote_and_restores_local_on_push_failure": "pass",
+          "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_cli_hotfix_preserves_unreleased_dev_and_recovers_both_pushes": "pass",
+          "tools/nm-v6/tests/test_hotfix_runtime_generated.py::GeneratedHotfixRuntimeTests.test_legacy_hotfix_action_aliases_do_not_authorize_canonical_actions": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac002_amendment_invalidates_confirmation_evidence_and_authorization": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac010_auto_delivery_continues_without_prompt_and_fails_closed": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac014_single_and_multi_worker_have_equivalent_logical_results": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac018_detached_restart_and_persistent_pause_resume": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac040_representative_end_to_end_scenario_matrix": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_ac054_pause_cancel_and_revoke_fence_every_external_mutation": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_generated_cli_uses_configured_dispatcher_and_durable_child": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_generated_self_test_executes_actions_and_fails_closed": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_sensitive_operation_restart_revalidates_gate_evidence_blob": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_sensitive_operation_revalidates_gate_evidence_blobs_before_start": "pass",
+          "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py::LifecycleE2EAcceptanceTests.test_sensitive_operation_scope_requires_every_gate_and_auth_binding": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_actual_overlap_blocks_before_candidate_ref_update": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_candidate_branch_rejects_unowned_preexisting_ref": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_cleanup_reviewer_recovers_core_and_provenance_boundaries": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_cleanup_reviewer_window_allows_only_its_own_lifecycle": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_completion_terminal_snapshot_rejects_live_resources_and_remote_delete_consumption": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_consumed_remote_delete_grant_blocks_terminal_cleanup_proof": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_declared_overlap_is_split_into_serial_task_batches": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_delivery_not_applicable_decisions_use_real_gates_and_complete": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_environment_mismatch_persists_evidence_and_requires_attention": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_expired_adapter_result_is_fenced_and_retried_with_new_attempt": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_expired_batch_result_is_fenced_before_new_attempt": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_failed_task_verification_does_not_advance_candidate_ref": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_max_workers_two_runs_one_real_overlapping_task_batch": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_merge_reviewer_failures_precede_gate_operation_and_ref_mutation": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_multiple_delivery_environments_are_ordered_and_scoped": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_rollback_authorization_and_verification_failures_require_attention": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_runtime_version_provider_schema_and_core_drift_fail_before_effects": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_signed_plan_and_grant_drive_ordinary_run_to_completion": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_single_and_multi_worker_task_batches_have_equivalent_trees": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_successful_rollback_closes_resources_and_final_branch_cleanup": "pass",
+          "tools/nm-v6/tests/test_normal_runtime_generated.py::GeneratedNormalRuntimeTests.test_task_batch_recovers_gate_before_candidate_cas_without_redispatch": "pass",
+          "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_action_contract_rejects_shell_interpolation_and_secret_output": "pass",
+          "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_action_is_persisted_before_minimal_secret_execution": "pass",
+          "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_detected_os_sandbox_cannot_read_sibling_secret": "pass",
+          "tools/nm-v6/tests/test_operations.py::ActionAndWorkspaceTests.test_workspace_is_standalone_clone_without_remote": "pass",
+          "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_build_binds_source_and_release_source_kinds": "pass",
+          "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_bound_deploy_and_verified_rollback": "pass",
+          "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_environment_mismatch_and_unhealthy_deploy_require_attention": "pass",
+          "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_interrupted_mutation_is_persisted_then_reconciled_once": "pass",
+          "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_partial_unknown_operation_is_observed_and_reconciled": "pass",
+          "tools/nm-v6/tests/test_operations.py::DeliveryAndControllerTests.test_retry_and_pause_fail_closed": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_cleanup_retention_matrix_and_squash_equivalence": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_exact_dev_merge_cas_push_and_cleanup": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_hotfix_uses_exact_stable_and_reconciles_into_dev": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_executes_all_three_strategy_choices": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_rejects_disabled_moved_and_stale_evidence": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_helper_reports_conflicts_and_rejects_cannot_propose": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_review_request_derives_routes_and_git_facts": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_merge_strategies_produce_expected_trees_and_enforce_guards": "pass",
+          "tools/nm-v6/tests/test_operations.py::GitControllerTests.test_protected_routes_require_canonical_authority_and_stable_source": "pass",
+          "tools/nm-v6/tests/test_operations.py::SchedulerTests.test_cycle_is_rejected": "pass",
+          "tools/nm-v6/tests/test_operations.py::SchedulerTests.test_dag_lease_fencing_and_write_conflicts": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac005_exit_zero_without_structured_result_cannot_advance": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac006_worker_success_is_advisory_and_failed_rerun_fails_gate": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac007_ac056_malicious_verify_cannot_touch_authority_or_secrets": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_git_integration_sigkill_observes_or_executes_one_cas": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_release_deploy_rollback_sigkill_reconcile_one_effect": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac017_state_and_verification_sigkill_resume_once": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_ac058_missing_corrupt_blobs_fail_gates_and_db_tamper_fails_integrity": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_adapter_session_survives_backend_restart_and_network_is_scoped": "pass",
+          "tools/nm-v6/tests/test_security_crash_acceptance.py::SecurityAndCrashAcceptanceTests.test_fake_adapter_exact_request_is_restart_safe_and_dispatched_once": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_all_terminal_states_reject_old_grant_operations_and_mode_change": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_cancelled_run_invalidates_old_and_pending_grants_but_allows_revocation": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_mode_change_requires_plan_and_consumes_one_time_approval": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_nonprotected_ref_authorization_rejects_unknown_or_expanded_scope": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_revoke_start_race_has_one_serial_order": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::AuthorizationTests.test_signature_scope_replay_expiry_and_revocation": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_blob_failpoint_leaves_only_quarantinable_orphan": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_completion_gate_fails_closed_for_missing_or_invalid_traceability": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_completion_gate_requires_each_mandatory_acceptance_assertion": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_every_gate_prerequisite_fails_closed": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_receipt_failpoint_rolls_back_database_reference": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_redacted_atomic_blobs_receipt_validation_and_orphans": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_reducer_rechecks_persisted_prerequisite_evidence": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_reducer_rejects_completion_gate_omitting_canonical_acceptance": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_release_gate_requires_bound_source_artifact_and_related_receipts": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::EvidenceGateTests.test_task_gate_is_bound_to_exact_entity_and_candidate": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::SchemaRuntimeAlignmentTests.test_schema_required_fields_and_versions_match_runtime_outputs": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_lease_fencing_and_two_controller_exclusion": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_persisted_write_conflicts_and_pause_fence_all_child_writes": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_sqlite_pragmas_cas_idempotency_tamper_and_rebuild": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_transition_document_is_versioned_and_unique": "pass",
+          "tools/nm-v6/tests/test_state_auth_evidence.py::StoreReducerTests.test_v1_to_v2_migration_backup_is_atomic_and_crash_retryable": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac020_cli_exposes_required_surface": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac020_skill_is_thin_and_has_no_download_fallback": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac037_init_is_clean_and_protected_refs_are_not_the_commit_branch": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_interrupted_update_can_abort_without_losing_user_file": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_interrupted_update_resumes_from_durable_project_stage": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_journal_traversal_tamper_and_recovery_context_fail_closed": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac038_missing_stage_or_backup_fails_closed_without_deleting_prior_file": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_and_ac042_installed_check_rejects_v5_runtime": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac039_repository_check_rejects_tampered_traceability_report": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac041_generated_project_commands_pass_cleanly": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac043_acceptance_and_self_test_reject_credential_environment": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac043_installed_skill_binds_exact_source_and_ignores_hostile_cwd": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac044_repository_bilingual_check_covers_workflow_and_missing_pairs": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac044_repository_bilingual_check_rejects_id_and_structure_drift": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_acceptance_binding_rejects_source_drift_extra_and_nonancestor": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_acceptance_binding_survives_evidence_commit_ref_move_and_clone": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_administrator_acceptance_is_explicit_exact_and_nonproduction": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac045_implementation_plan_maps_every_requirement": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac052_update_rejects_dirty_authoritative_tree": "pass",
+          "tools/nm-v6/tests/test_template_cli_traceability.py::TemplateAndCliAcceptanceTests.test_ac059_decisions_and_invariants_reach_executable_acceptance": "pass"
+        }
+      },
+      "result_file_name": "nm-v6-acceptance-result-C.json",
+      "result_file_sha256": "29e0b422bb407513fac4df2875e2708e745f2de1593831a12a41b1cd2f02aa41"
+    },
+    "independent_review": {
+      "chinese_spec_sha256": "adddb299e0380bf353513e074859c62e549e7257d787a774d518f1fe4fdacddb",
+      "english_spec_sha256": "24137bd389b40e5a017e50f8e271494a41d23641781d49c03d5a7aad098e0e02",
+      "files": {
+        "docs/nm-v6-bilingual-semantic-review.md": "edd3899f0e2e07d146c8378851814e669a20df33bbb47d1d1762e349aca5e1fb",
+        "docs/nm-v6-bilingual-semantic-review.zh-CN.md": "7c3a8e36e2f06834b59a1598000a97f8e84c1627597e273ab57150ad81377490"
+      },
+      "reviewer": "/root/independent_bilingual_review",
+      "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+      "status": "pass"
+    }
+  },
+  "file_scope": {
+    "base_ref": "origin/dev",
+    "changed_files_digest": "5ab432ff660b758994097712c8e604bfcd0c06f9328d76bf50d8d74233b30d86",
+    "merge_base_sha": "018bd9508231d6de3eceb5a7f49528a37c023dbb"
+  },
+  "files": {
+    ".gitignore": [
+      "V6-REQ-002",
+      "V6-REQ-020"
+    ],
+    "AGENTS.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "AGENTS.zh-CN.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "README.md": [
+      "V6-REQ-021",
+      "V6-REQ-022"
+    ],
+    "docs/README.zh-CN.md": [
+      "V6-REQ-021",
+      "V6-REQ-022"
+    ],
+    "docs/installation.md": [
+      "V6-REQ-020",
+      "V6-REQ-022"
+    ],
+    "docs/installation.zh-CN.md": [
+      "V6-REQ-020",
+      "V6-REQ-021",
+      "V6-REQ-022"
+    ],
+    "docs/nm-v6-bilingual-semantic-review.md": [
+      "V6-REQ-021"
+    ],
+    "docs/nm-v6-bilingual-semantic-review.zh-CN.md": [
+      "V6-REQ-021"
+    ],
+    "docs/nm-v6-implementation-traceability.md": [
+      "V6-REQ-024"
+    ],
+    "docs/nm-v6-implementation-traceability.zh-CN.md": [
+      "V6-REQ-021",
+      "V6-REQ-024"
+    ],
+    "docs/template-versions.md": [
+      "V6-REQ-022"
+    ],
+    "docs/template-versions.zh-CN.md": [
+      "V6-REQ-021",
+      "V6-REQ-022"
+    ],
+    "package.json": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "skills/nm-init-project-v6/SKILL.md": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "skills/nm-init-project-v6/agents/openai.yaml": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "skills/nm-init-project-v6/references/install.md": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "skills/nm-init-project-v6/references/trusted-control-plane.md": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "skills/nm-init-project-v6/scripts/run_nm_v6.py": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/.codex/config.toml": [
+      "V6-REQ-008",
+      "V6-REQ-020"
+    ],
+    "template/v6/.codex/hooks/stop-status.sh": [
+      "V6-REQ-008",
+      "V6-REQ-019",
+      "V6-REQ-020"
+    ],
+    "template/v6/.delete-pending/.gitkeep": [
+      "V6-REQ-014"
+    ],
+    "template/v6/.gitignore": [
+      "V6-REQ-002",
+      "V6-REQ-008"
+    ],
+    "template/v6/.markdownlint.json": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "template/v6/.markdownlintignore": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0a-spec/.gitkeep": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0a-spec/SPEC.md": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0a-spec/SPEC.zh-CN.md": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0a-spec/spec.example.json": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0a-spec/traceability.json": [
+      "V6-REQ-001",
+      "V6-REQ-015",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0b-design/prototype/.gitkeep": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0c-prompts/review-spec.md": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0c-prompts/security-review.md": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/0c-prompts/write-spec.md": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0a-docs/DECISIONS.md": [
+      "V6-REQ-001",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/PROTOCOLS.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/PROTOCOLS.zh-CN.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/RECOVERY.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/RECOVERY.zh-CN.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/WORKFLOW_V6.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/adapters/claude.md": [
+      "V6-REQ-007",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/adapters/claude.zh-CN.md": [
+      "V6-REQ-007",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/adapters/codex.md": [
+      "V6-REQ-007",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/adapters/codex.zh-CN.md": [
+      "V6-REQ-007",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/adapters/grok.md": [
+      "V6-REQ-007",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/adapters/grok.zh-CN.md": [
+      "V6-REQ-007",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/fixtures/fake-admin-public.pem": [
+      "V6-REQ-006",
+      "V6-REQ-023"
+    ],
+    "template/v6/0c-workflow/recovery/agent.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/recovery/agent.zh-CN.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/recovery/delivery.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/recovery/delivery.zh-CN.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/recovery/git.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/recovery/git.zh-CN.md": [
+      "V6-REQ-011",
+      "V6-REQ-021"
+    ],
+    "template/v6/0c-workflow/schemas/action-result-v1.schema.json": [
+      "V6-REQ-016"
+    ],
+    "template/v6/0c-workflow/schemas/action-v1.schema.json": [
+      "V6-REQ-016"
+    ],
+    "template/v6/0c-workflow/schemas/adapter-config-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "template/v6/0c-workflow/schemas/adapter-probe-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "template/v6/0c-workflow/schemas/adapter-request-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "template/v6/0c-workflow/schemas/adapter-result-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "template/v6/0c-workflow/schemas/administrator-acceptance-v1.schema.json": [
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "template/v6/0c-workflow/schemas/approval-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/audit-export-v1.schema.json": [
+      "V6-REQ-019"
+    ],
+    "template/v6/0c-workflow/schemas/authorization-config-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/authorization-request-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/cleanup-review-observation-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0c-workflow/schemas/cleanup-review-request-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0c-workflow/schemas/confirmation-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/context-addition-proposal-v1.schema.json": [
+      "V6-REQ-012"
+    ],
+    "template/v6/0c-workflow/schemas/context-manifest-v1.schema.json": [
+      "V6-REQ-012"
+    ],
+    "template/v6/0c-workflow/schemas/evidence-config-v1.schema.json": [
+      "V6-REQ-004",
+      "V6-REQ-017"
+    ],
+    "template/v6/0c-workflow/schemas/evidence-receipt-v1.schema.json": [
+      "V6-REQ-004"
+    ],
+    "template/v6/0c-workflow/schemas/gate-receipt-v1.schema.json": [
+      "V6-REQ-005"
+    ],
+    "template/v6/0c-workflow/schemas/grant-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/implementation-authorization-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/merge-proposal-v1.schema.json": [
+      "V6-REQ-014"
+    ],
+    "template/v6/0c-workflow/schemas/merge-review-observation-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0c-workflow/schemas/merge-review-request-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0c-workflow/schemas/project-v1.schema.json": [
+      "V6-REQ-015",
+      "V6-REQ-016"
+    ],
+    "template/v6/0c-workflow/schemas/revocation-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0c-workflow/schemas/spec-v1.schema.json": [
+      "V6-REQ-001",
+      "V6-REQ-015"
+    ],
+    "template/v6/0c-workflow/schemas/status-v1.schema.json": [
+      "V6-REQ-020"
+    ],
+    "template/v6/0c-workflow/schemas/supply-chain-v1.schema.json": [
+      "V6-REQ-023"
+    ],
+    "template/v6/0c-workflow/schemas/transition-table-v1.schema.json": [
+      "V6-REQ-003"
+    ],
+    "template/v6/0c-workflow/schemas/version-record-v1.schema.json": [
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/check-workflow.sh": [
+      "V6-REQ-008",
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/fake-action.py": [
+      "V6-REQ-015",
+      "V6-REQ-016"
+    ],
+    "template/v6/0d-scripts/nm-v6.py": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/nmv6/__init__.py": [
+      "V6-REQ-020"
+    ],
+    "template/v6/0d-scripts/nmv6/actions.py": [
+      "V6-REQ-008",
+      "V6-REQ-016",
+      "V6-REQ-017"
+    ],
+    "template/v6/0d-scripts/nmv6/adapters.py": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0d-scripts/nmv6/audit.py": [
+      "V6-REQ-019"
+    ],
+    "template/v6/0d-scripts/nmv6/authorization.py": [
+      "V6-REQ-006"
+    ],
+    "template/v6/0d-scripts/nmv6/cleanup_review.py": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0d-scripts/nmv6/cli.py": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/nmv6/context.py": [
+      "V6-REQ-012"
+    ],
+    "template/v6/0d-scripts/nmv6/contracts.py": [
+      "V6-REQ-015",
+      "V6-REQ-016"
+    ],
+    "template/v6/0d-scripts/nmv6/controller.py": [
+      "V6-REQ-009",
+      "V6-REQ-018"
+    ],
+    "template/v6/0d-scripts/nmv6/delivery.py": [
+      "V6-REQ-015"
+    ],
+    "template/v6/0d-scripts/nmv6/errors.py": [
+      "V6-REQ-020"
+    ],
+    "template/v6/0d-scripts/nmv6/evidence.py": [
+      "V6-REQ-004",
+      "V6-REQ-017"
+    ],
+    "template/v6/0d-scripts/nmv6/failpoints.py": [
+      "V6-REQ-011"
+    ],
+    "template/v6/0d-scripts/nmv6/gates.py": [
+      "V6-REQ-005",
+      "V6-REQ-014"
+    ],
+    "template/v6/0d-scripts/nmv6/git_controller.py": [
+      "V6-REQ-013",
+      "V6-REQ-014"
+    ],
+    "template/v6/0d-scripts/nmv6/merge_review.py": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "template/v6/0d-scripts/nmv6/migrations/0001_initial.sql": [
+      "V6-REQ-002",
+      "V6-REQ-019"
+    ],
+    "template/v6/0d-scripts/nmv6/migrations/0002_lease_fencing_and_write_sets.sql": [
+      "V6-REQ-002",
+      "V6-REQ-019"
+    ],
+    "template/v6/0d-scripts/nmv6/models.py": [
+      "V6-REQ-002",
+      "V6-REQ-007"
+    ],
+    "template/v6/0d-scripts/nmv6/outbox.py": [
+      "V6-REQ-019"
+    ],
+    "template/v6/0d-scripts/nmv6/recovery.py": [
+      "V6-REQ-011"
+    ],
+    "template/v6/0d-scripts/nmv6/reducer.py": [
+      "V6-REQ-002",
+      "V6-REQ-003",
+      "V6-REQ-006",
+      "V6-REQ-009",
+      "V6-REQ-010",
+      "V6-REQ-018"
+    ],
+    "template/v6/0d-scripts/nmv6/repository_check.py": [
+      "V6-REQ-020",
+      "V6-REQ-021",
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "template/v6/0d-scripts/nmv6/runtime.py": [
+      "V6-REQ-003",
+      "V6-REQ-005",
+      "V6-REQ-006",
+      "V6-REQ-007",
+      "V6-REQ-009",
+      "V6-REQ-010",
+      "V6-REQ-011",
+      "V6-REQ-013",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-018",
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/nmv6/scheduler.py": [
+      "V6-REQ-009",
+      "V6-REQ-010"
+    ],
+    "template/v6/0d-scripts/nmv6/specs.py": [
+      "V6-REQ-001",
+      "V6-REQ-015"
+    ],
+    "template/v6/0d-scripts/nmv6/store.py": [
+      "V6-REQ-002",
+      "V6-REQ-019"
+    ],
+    "template/v6/0d-scripts/nmv6/supply_chain.py": [
+      "V6-REQ-021",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/nmv6/template_sync.py": [
+      "V6-REQ-020",
+      "V6-REQ-022"
+    ],
+    "template/v6/0d-scripts/nmv6/traceability.py": [
+      "V6-REQ-024"
+    ],
+    "template/v6/0d-scripts/nmv6/transitions.py": [
+      "V6-REQ-003"
+    ],
+    "template/v6/0d-scripts/nmv6/util.py": [
+      "V6-REQ-002",
+      "V6-REQ-016"
+    ],
+    "template/v6/0d-scripts/nmv6/workspace.py": [
+      "V6-REQ-008"
+    ],
+    "template/v6/0d-scripts/python311.sh": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/test-workflow.sh": [
+      "V6-REQ-008",
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/0d-scripts/verify.sh": [
+      "V6-REQ-008",
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "template/v6/AGENTS.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/AGENTS.zh-CN.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/CLAUDE.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/GROK.md": [
+      "V6-REQ-008",
+      "V6-REQ-021"
+    ],
+    "template/v6/PROJECT_STRUCTURE.md": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "template/v6/README.md": [
+      "V6-REQ-020",
+      "V6-REQ-021"
+    ],
+    "template/v6/manifest.json": [
+      "V6-REQ-023"
+    ],
+    "template/v6/package.json": [
+      "V6-REQ-016",
+      "V6-REQ-020"
+    ],
+    "template/v6/project.example.json": [
+      "V6-REQ-015",
+      "V6-REQ-016"
+    ],
+    "tools/nm-v6/acceptance-manifest.json": [
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/administrator-acceptance.json": [
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/generate_traceability.py": [
+      "V6-REQ-020",
+      "V6-REQ-021",
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/implementation-plan.json": [
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/install-skill.sh": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/nm_v6.py": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/nmv6/__init__.py": [
+      "V6-REQ-020"
+    ],
+    "tools/nm-v6/nmv6/actions.py": [
+      "V6-REQ-008",
+      "V6-REQ-016",
+      "V6-REQ-017"
+    ],
+    "tools/nm-v6/nmv6/adapters.py": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/nmv6/audit.py": [
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/nmv6/authorization.py": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/nmv6/cleanup_review.py": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/nmv6/cli.py": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/nmv6/context.py": [
+      "V6-REQ-012"
+    ],
+    "tools/nm-v6/nmv6/contracts.py": [
+      "V6-REQ-015",
+      "V6-REQ-016"
+    ],
+    "tools/nm-v6/nmv6/controller.py": [
+      "V6-REQ-009",
+      "V6-REQ-018"
+    ],
+    "tools/nm-v6/nmv6/delivery.py": [
+      "V6-REQ-015"
+    ],
+    "tools/nm-v6/nmv6/errors.py": [
+      "V6-REQ-020"
+    ],
+    "tools/nm-v6/nmv6/evidence.py": [
+      "V6-REQ-004",
+      "V6-REQ-017"
+    ],
+    "tools/nm-v6/nmv6/failpoints.py": [
+      "V6-REQ-011"
+    ],
+    "tools/nm-v6/nmv6/gates.py": [
+      "V6-REQ-005",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/nmv6/git_controller.py": [
+      "V6-REQ-013",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/nmv6/merge_review.py": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/nmv6/migrations/0001_initial.sql": [
+      "V6-REQ-002",
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/nmv6/migrations/0002_lease_fencing_and_write_sets.sql": [
+      "V6-REQ-002",
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/nmv6/models.py": [
+      "V6-REQ-002",
+      "V6-REQ-007"
+    ],
+    "tools/nm-v6/nmv6/outbox.py": [
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/nmv6/recovery.py": [
+      "V6-REQ-011"
+    ],
+    "tools/nm-v6/nmv6/reducer.py": [
+      "V6-REQ-002",
+      "V6-REQ-003",
+      "V6-REQ-006",
+      "V6-REQ-009",
+      "V6-REQ-010",
+      "V6-REQ-018"
+    ],
+    "tools/nm-v6/nmv6/repository_check.py": [
+      "V6-REQ-020",
+      "V6-REQ-021",
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/nmv6/runtime.py": [
+      "V6-REQ-003",
+      "V6-REQ-005",
+      "V6-REQ-006",
+      "V6-REQ-007",
+      "V6-REQ-009",
+      "V6-REQ-010",
+      "V6-REQ-011",
+      "V6-REQ-013",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-018",
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/nmv6/scheduler.py": [
+      "V6-REQ-009",
+      "V6-REQ-010"
+    ],
+    "tools/nm-v6/nmv6/specs.py": [
+      "V6-REQ-001",
+      "V6-REQ-015"
+    ],
+    "tools/nm-v6/nmv6/store.py": [
+      "V6-REQ-002",
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/nmv6/supply_chain.py": [
+      "V6-REQ-021",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/nmv6/template_sync.py": [
+      "V6-REQ-020",
+      "V6-REQ-022"
+    ],
+    "tools/nm-v6/nmv6/traceability.py": [
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/nmv6/transitions.py": [
+      "V6-REQ-003"
+    ],
+    "tools/nm-v6/nmv6/util.py": [
+      "V6-REQ-002",
+      "V6-REQ-016"
+    ],
+    "tools/nm-v6/nmv6/workspace.py": [
+      "V6-REQ-008"
+    ],
+    "tools/nm-v6/python311.sh": [
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/schemas/action-result-v1.schema.json": [
+      "V6-REQ-016"
+    ],
+    "tools/nm-v6/schemas/action-v1.schema.json": [
+      "V6-REQ-016"
+    ],
+    "tools/nm-v6/schemas/adapter-config-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "tools/nm-v6/schemas/adapter-probe-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "tools/nm-v6/schemas/adapter-request-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "tools/nm-v6/schemas/adapter-result-v1.schema.json": [
+      "V6-REQ-007"
+    ],
+    "tools/nm-v6/schemas/administrator-acceptance-v1.schema.json": [
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/schemas/approval-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/audit-export-v1.schema.json": [
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/schemas/authorization-config-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/authorization-request-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/cleanup-review-observation-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/schemas/cleanup-review-request-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/schemas/confirmation-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/context-addition-proposal-v1.schema.json": [
+      "V6-REQ-012"
+    ],
+    "tools/nm-v6/schemas/context-manifest-v1.schema.json": [
+      "V6-REQ-012"
+    ],
+    "tools/nm-v6/schemas/evidence-config-v1.schema.json": [
+      "V6-REQ-004",
+      "V6-REQ-017"
+    ],
+    "tools/nm-v6/schemas/evidence-receipt-v1.schema.json": [
+      "V6-REQ-004"
+    ],
+    "tools/nm-v6/schemas/gate-receipt-v1.schema.json": [
+      "V6-REQ-005"
+    ],
+    "tools/nm-v6/schemas/grant-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/implementation-authorization-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/merge-proposal-v1.schema.json": [
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/schemas/merge-review-observation-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/schemas/merge-review-request-v1.schema.json": [
+      "V6-REQ-007",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/schemas/project-v1.schema.json": [
+      "V6-REQ-015",
+      "V6-REQ-016"
+    ],
+    "tools/nm-v6/schemas/revocation-v1.schema.json": [
+      "V6-REQ-006"
+    ],
+    "tools/nm-v6/schemas/spec-v1.schema.json": [
+      "V6-REQ-001",
+      "V6-REQ-015"
+    ],
+    "tools/nm-v6/schemas/status-v1.schema.json": [
+      "V6-REQ-020"
+    ],
+    "tools/nm-v6/schemas/supply-chain-v1.schema.json": [
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/schemas/transition-table-v1.schema.json": [
+      "V6-REQ-003"
+    ],
+    "tools/nm-v6/schemas/version-record-v1.schema.json": [
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/sync_template.py": [
+      "V6-REQ-020",
+      "V6-REQ-023",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/tests/__init__.py": [
+      "V6-REQ-020",
+      "V6-REQ-022",
+      "V6-REQ-024"
+    ],
+    "tools/nm-v6/tests/test_cleanup_review_contract.py": [
+      "V6-REQ-007",
+      "V6-REQ-011",
+      "V6-REQ-013",
+      "V6-REQ-014"
+    ],
+    "tools/nm-v6/tests/test_contracts_adapters_context.py": [
+      "V6-REQ-001",
+      "V6-REQ-007",
+      "V6-REQ-012",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-016",
+      "V6-REQ-021",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/tests/test_crash_acceptance.py": [
+      "V6-REQ-002",
+      "V6-REQ-004",
+      "V6-REQ-011"
+    ],
+    "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py": [
+      "V6-REQ-005",
+      "V6-REQ-010",
+      "V6-REQ-013",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-017",
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/tests/test_hotfix_runtime_generated.py": [
+      "V6-REQ-005",
+      "V6-REQ-007",
+      "V6-REQ-011",
+      "V6-REQ-013",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-020"
+    ],
+    "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py": [
+      "V6-REQ-001",
+      "V6-REQ-003",
+      "V6-REQ-005",
+      "V6-REQ-006",
+      "V6-REQ-009",
+      "V6-REQ-011",
+      "V6-REQ-018"
+    ],
+    "tools/nm-v6/tests/test_normal_runtime_generated.py": [
+      "V6-REQ-005",
+      "V6-REQ-006",
+      "V6-REQ-007",
+      "V6-REQ-009",
+      "V6-REQ-011",
+      "V6-REQ-013",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-018",
+      "V6-REQ-020",
+      "V6-REQ-023"
+    ],
+    "tools/nm-v6/tests/test_operations.py": [
+      "V6-REQ-008",
+      "V6-REQ-009",
+      "V6-REQ-010",
+      "V6-REQ-011",
+      "V6-REQ-013",
+      "V6-REQ-014",
+      "V6-REQ-015",
+      "V6-REQ-018"
+    ],
+    "tools/nm-v6/tests/test_security_crash_acceptance.py": [
+      "V6-REQ-002",
+      "V6-REQ-004",
+      "V6-REQ-011"
+    ],
+    "tools/nm-v6/tests/test_state_auth_evidence.py": [
+      "V6-REQ-002",
+      "V6-REQ-003",
+      "V6-REQ-004",
+      "V6-REQ-005",
+      "V6-REQ-006",
+      "V6-REQ-010",
+      "V6-REQ-019"
+    ],
+    "tools/nm-v6/tests/test_template_cli_traceability.py": [
+      "V6-REQ-020",
+      "V6-REQ-021",
+      "V6-REQ-022",
+      "V6-REQ-024"
+    ]
+  },
+  "implementation_status": "accepted",
+  "requirements": {
+    "V6-REQ-001": {
+      "acceptance": [
+        "V6-AC-001",
+        "V6-AC-002",
+        "V6-AC-035",
+        "V6-AC-046",
+        "V6-AC-048"
+      ],
+      "files": [
+        "template/v6/0a-docs/0a-spec/.gitkeep",
+        "template/v6/0a-docs/0a-spec/SPEC.md",
+        "template/v6/0a-docs/0a-spec/SPEC.zh-CN.md",
+        "template/v6/0a-docs/0a-spec/spec.example.json",
+        "template/v6/0a-docs/0a-spec/traceability.json",
+        "template/v6/0a-docs/0b-design/prototype/.gitkeep",
+        "template/v6/0a-docs/0c-prompts/review-spec.md",
+        "template/v6/0a-docs/0c-prompts/security-review.md",
+        "template/v6/0a-docs/0c-prompts/write-spec.md",
+        "template/v6/0a-docs/DECISIONS.md",
+        "template/v6/0c-workflow/schemas/spec-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/specs.py",
+        "tools/nm-v6/nmv6/specs.py",
+        "tools/nm-v6/schemas/spec-v1.schema.json",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py"
+      ]
+    },
+    "V6-REQ-002": {
+      "acceptance": [
+        "V6-AC-003",
+        "V6-AC-004",
+        "V6-AC-017",
+        "V6-AC-058"
+      ],
+      "files": [
+        ".gitignore",
+        "template/v6/.gitignore",
+        "template/v6/0d-scripts/nmv6/migrations/0001_initial.sql",
+        "template/v6/0d-scripts/nmv6/migrations/0002_lease_fencing_and_write_sets.sql",
+        "template/v6/0d-scripts/nmv6/models.py",
+        "template/v6/0d-scripts/nmv6/reducer.py",
+        "template/v6/0d-scripts/nmv6/store.py",
+        "template/v6/0d-scripts/nmv6/util.py",
+        "tools/nm-v6/nmv6/migrations/0001_initial.sql",
+        "tools/nm-v6/nmv6/migrations/0002_lease_fencing_and_write_sets.sql",
+        "tools/nm-v6/nmv6/models.py",
+        "tools/nm-v6/nmv6/reducer.py",
+        "tools/nm-v6/nmv6/store.py",
+        "tools/nm-v6/nmv6/util.py",
+        "tools/nm-v6/tests/test_crash_acceptance.py",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-003": {
+      "acceptance": [
+        "V6-AC-005",
+        "V6-AC-008",
+        "V6-AC-018",
+        "V6-AC-054"
+      ],
+      "files": [
+        "template/v6/0c-workflow/schemas/transition-table-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/reducer.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "template/v6/0d-scripts/nmv6/transitions.py",
+        "tools/nm-v6/nmv6/reducer.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/transitions.py",
+        "tools/nm-v6/schemas/transition-table-v1.schema.json",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-004": {
+      "acceptance": [
+        "V6-AC-006",
+        "V6-AC-029",
+        "V6-AC-030",
+        "V6-AC-051",
+        "V6-AC-058"
+      ],
+      "files": [
+        "template/v6/0c-workflow/schemas/evidence-config-v1.schema.json",
+        "template/v6/0c-workflow/schemas/evidence-receipt-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/evidence.py",
+        "tools/nm-v6/nmv6/evidence.py",
+        "tools/nm-v6/schemas/evidence-config-v1.schema.json",
+        "tools/nm-v6/schemas/evidence-receipt-v1.schema.json",
+        "tools/nm-v6/tests/test_crash_acceptance.py",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-005": {
+      "acceptance": [
+        "V6-AC-006",
+        "V6-AC-009",
+        "V6-AC-010",
+        "V6-AC-031",
+        "V6-AC-032",
+        "V6-AC-048",
+        "V6-AC-049"
+      ],
+      "files": [
+        "template/v6/0c-workflow/schemas/gate-receipt-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/gates.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/gates.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/schemas/gate-receipt-v1.schema.json",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-006": {
+      "acceptance": [
+        "V6-AC-009",
+        "V6-AC-010",
+        "V6-AC-011",
+        "V6-AC-047",
+        "V6-AC-054"
+      ],
+      "files": [
+        "template/v6/0c-workflow/fixtures/fake-admin-public.pem",
+        "template/v6/0c-workflow/schemas/approval-v1.schema.json",
+        "template/v6/0c-workflow/schemas/authorization-config-v1.schema.json",
+        "template/v6/0c-workflow/schemas/authorization-request-v1.schema.json",
+        "template/v6/0c-workflow/schemas/confirmation-v1.schema.json",
+        "template/v6/0c-workflow/schemas/grant-v1.schema.json",
+        "template/v6/0c-workflow/schemas/implementation-authorization-v1.schema.json",
+        "template/v6/0c-workflow/schemas/revocation-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/authorization.py",
+        "template/v6/0d-scripts/nmv6/reducer.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/authorization.py",
+        "tools/nm-v6/nmv6/reducer.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/schemas/approval-v1.schema.json",
+        "tools/nm-v6/schemas/authorization-config-v1.schema.json",
+        "tools/nm-v6/schemas/authorization-request-v1.schema.json",
+        "tools/nm-v6/schemas/confirmation-v1.schema.json",
+        "tools/nm-v6/schemas/grant-v1.schema.json",
+        "tools/nm-v6/schemas/implementation-authorization-v1.schema.json",
+        "tools/nm-v6/schemas/revocation-v1.schema.json",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-007": {
+      "acceptance": [
+        "V6-AC-012",
+        "V6-AC-013"
+      ],
+      "files": [
+        "template/v6/0c-workflow/adapters/claude.md",
+        "template/v6/0c-workflow/adapters/claude.zh-CN.md",
+        "template/v6/0c-workflow/adapters/codex.md",
+        "template/v6/0c-workflow/adapters/codex.zh-CN.md",
+        "template/v6/0c-workflow/adapters/grok.md",
+        "template/v6/0c-workflow/adapters/grok.zh-CN.md",
+        "template/v6/0c-workflow/schemas/adapter-config-v1.schema.json",
+        "template/v6/0c-workflow/schemas/adapter-probe-v1.schema.json",
+        "template/v6/0c-workflow/schemas/adapter-request-v1.schema.json",
+        "template/v6/0c-workflow/schemas/adapter-result-v1.schema.json",
+        "template/v6/0c-workflow/schemas/cleanup-review-observation-v1.schema.json",
+        "template/v6/0c-workflow/schemas/cleanup-review-request-v1.schema.json",
+        "template/v6/0c-workflow/schemas/merge-review-observation-v1.schema.json",
+        "template/v6/0c-workflow/schemas/merge-review-request-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/adapters.py",
+        "template/v6/0d-scripts/nmv6/cleanup_review.py",
+        "template/v6/0d-scripts/nmv6/merge_review.py",
+        "template/v6/0d-scripts/nmv6/models.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/adapters.py",
+        "tools/nm-v6/nmv6/cleanup_review.py",
+        "tools/nm-v6/nmv6/merge_review.py",
+        "tools/nm-v6/nmv6/models.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/schemas/adapter-config-v1.schema.json",
+        "tools/nm-v6/schemas/adapter-probe-v1.schema.json",
+        "tools/nm-v6/schemas/adapter-request-v1.schema.json",
+        "tools/nm-v6/schemas/adapter-result-v1.schema.json",
+        "tools/nm-v6/schemas/cleanup-review-observation-v1.schema.json",
+        "tools/nm-v6/schemas/cleanup-review-request-v1.schema.json",
+        "tools/nm-v6/schemas/merge-review-observation-v1.schema.json",
+        "tools/nm-v6/schemas/merge-review-request-v1.schema.json",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py"
+      ]
+    },
+    "V6-REQ-008": {
+      "acceptance": [
+        "V6-AC-007",
+        "V6-AC-019",
+        "V6-AC-021",
+        "V6-AC-026",
+        "V6-AC-056"
+      ],
+      "files": [
+        "AGENTS.md",
+        "AGENTS.zh-CN.md",
+        "template/v6/.codex/config.toml",
+        "template/v6/.codex/hooks/stop-status.sh",
+        "template/v6/.gitignore",
+        "template/v6/0c-workflow/PROTOCOLS.md",
+        "template/v6/0c-workflow/PROTOCOLS.zh-CN.md",
+        "template/v6/0c-workflow/WORKFLOW_V6.md",
+        "template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md",
+        "template/v6/0d-scripts/check-workflow.sh",
+        "template/v6/0d-scripts/nmv6/actions.py",
+        "template/v6/0d-scripts/nmv6/workspace.py",
+        "template/v6/0d-scripts/test-workflow.sh",
+        "template/v6/0d-scripts/verify.sh",
+        "template/v6/AGENTS.md",
+        "template/v6/AGENTS.zh-CN.md",
+        "template/v6/CLAUDE.md",
+        "template/v6/GROK.md",
+        "tools/nm-v6/nmv6/actions.py",
+        "tools/nm-v6/nmv6/workspace.py",
+        "tools/nm-v6/tests/test_operations.py"
+      ]
+    },
+    "V6-REQ-009": {
+      "acceptance": [
+        "V6-AC-014",
+        "V6-AC-018",
+        "V6-AC-040"
+      ],
+      "files": [
+        "template/v6/0d-scripts/nmv6/controller.py",
+        "template/v6/0d-scripts/nmv6/reducer.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "template/v6/0d-scripts/nmv6/scheduler.py",
+        "tools/nm-v6/nmv6/controller.py",
+        "tools/nm-v6/nmv6/reducer.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/scheduler.py",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_operations.py"
+      ]
+    },
+    "V6-REQ-010": {
+      "acceptance": [
+        "V6-AC-015",
+        "V6-AC-016",
+        "V6-AC-052"
+      ],
+      "files": [
+        "template/v6/0d-scripts/nmv6/reducer.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "template/v6/0d-scripts/nmv6/scheduler.py",
+        "tools/nm-v6/nmv6/reducer.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/scheduler.py",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py",
+        "tools/nm-v6/tests/test_operations.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-011": {
+      "acceptance": [
+        "V6-AC-017",
+        "V6-AC-018",
+        "V6-AC-030",
+        "V6-AC-050",
+        "V6-AC-054",
+        "V6-AC-058"
+      ],
+      "files": [
+        "template/v6/0c-workflow/RECOVERY.md",
+        "template/v6/0c-workflow/RECOVERY.zh-CN.md",
+        "template/v6/0c-workflow/recovery/agent.md",
+        "template/v6/0c-workflow/recovery/agent.zh-CN.md",
+        "template/v6/0c-workflow/recovery/delivery.md",
+        "template/v6/0c-workflow/recovery/delivery.zh-CN.md",
+        "template/v6/0c-workflow/recovery/git.md",
+        "template/v6/0c-workflow/recovery/git.zh-CN.md",
+        "template/v6/0d-scripts/nmv6/failpoints.py",
+        "template/v6/0d-scripts/nmv6/recovery.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/failpoints.py",
+        "tools/nm-v6/nmv6/recovery.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py",
+        "tools/nm-v6/tests/test_crash_acceptance.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_operations.py",
+        "tools/nm-v6/tests/test_security_crash_acceptance.py"
+      ]
+    },
+    "V6-REQ-012": {
+      "acceptance": [
+        "V6-AC-033"
+      ],
+      "files": [
+        "template/v6/0c-workflow/schemas/context-addition-proposal-v1.schema.json",
+        "template/v6/0c-workflow/schemas/context-manifest-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/context.py",
+        "tools/nm-v6/nmv6/context.py",
+        "tools/nm-v6/schemas/context-addition-proposal-v1.schema.json",
+        "tools/nm-v6/schemas/context-manifest-v1.schema.json",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py"
+      ]
+    },
+    "V6-REQ-013": {
+      "acceptance": [
+        "V6-AC-019",
+        "V6-AC-020",
+        "V6-AC-021",
+        "V6-AC-022",
+        "V6-AC-052",
+        "V6-AC-057"
+      ],
+      "files": [
+        "template/v6/0d-scripts/nmv6/git_controller.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/git_controller.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_operations.py"
+      ]
+    },
+    "V6-REQ-014": {
+      "acceptance": [
+        "V6-AC-023",
+        "V6-AC-024",
+        "V6-AC-025",
+        "V6-AC-060"
+      ],
+      "files": [
+        "template/v6/.delete-pending/.gitkeep",
+        "template/v6/0c-workflow/schemas/cleanup-review-observation-v1.schema.json",
+        "template/v6/0c-workflow/schemas/cleanup-review-request-v1.schema.json",
+        "template/v6/0c-workflow/schemas/merge-proposal-v1.schema.json",
+        "template/v6/0c-workflow/schemas/merge-review-observation-v1.schema.json",
+        "template/v6/0c-workflow/schemas/merge-review-request-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/adapters.py",
+        "template/v6/0d-scripts/nmv6/cleanup_review.py",
+        "template/v6/0d-scripts/nmv6/gates.py",
+        "template/v6/0d-scripts/nmv6/git_controller.py",
+        "template/v6/0d-scripts/nmv6/merge_review.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/adapters.py",
+        "tools/nm-v6/nmv6/cleanup_review.py",
+        "tools/nm-v6/nmv6/gates.py",
+        "tools/nm-v6/nmv6/git_controller.py",
+        "tools/nm-v6/nmv6/merge_review.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/schemas/cleanup-review-observation-v1.schema.json",
+        "tools/nm-v6/schemas/cleanup-review-request-v1.schema.json",
+        "tools/nm-v6/schemas/merge-proposal-v1.schema.json",
+        "tools/nm-v6/schemas/merge-review-observation-v1.schema.json",
+        "tools/nm-v6/schemas/merge-review-request-v1.schema.json",
+        "tools/nm-v6/tests/test_cleanup_review_contract.py",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_operations.py"
+      ]
+    },
+    "V6-REQ-015": {
+      "acceptance": [
+        "V6-AC-028",
+        "V6-AC-029",
+        "V6-AC-030",
+        "V6-AC-031",
+        "V6-AC-032",
+        "V6-AC-050",
+        "V6-AC-053"
+      ],
+      "files": [
+        "template/v6/0a-docs/0a-spec/traceability.json",
+        "template/v6/0c-workflow/schemas/project-v1.schema.json",
+        "template/v6/0c-workflow/schemas/spec-v1.schema.json",
+        "template/v6/0d-scripts/fake-action.py",
+        "template/v6/0d-scripts/nmv6/contracts.py",
+        "template/v6/0d-scripts/nmv6/delivery.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "template/v6/0d-scripts/nmv6/specs.py",
+        "template/v6/project.example.json",
+        "tools/nm-v6/nmv6/contracts.py",
+        "tools/nm-v6/nmv6/delivery.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/specs.py",
+        "tools/nm-v6/schemas/project-v1.schema.json",
+        "tools/nm-v6/schemas/spec-v1.schema.json",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_operations.py"
+      ]
+    },
+    "V6-REQ-016": {
+      "acceptance": [
+        "V6-AC-027",
+        "V6-AC-037",
+        "V6-AC-038",
+        "V6-AC-050"
+      ],
+      "files": [
+        "template/v6/0c-workflow/schemas/action-result-v1.schema.json",
+        "template/v6/0c-workflow/schemas/action-v1.schema.json",
+        "template/v6/0c-workflow/schemas/project-v1.schema.json",
+        "template/v6/0d-scripts/fake-action.py",
+        "template/v6/0d-scripts/nmv6/actions.py",
+        "template/v6/0d-scripts/nmv6/contracts.py",
+        "template/v6/0d-scripts/nmv6/util.py",
+        "template/v6/package.json",
+        "template/v6/project.example.json",
+        "tools/nm-v6/nmv6/actions.py",
+        "tools/nm-v6/nmv6/contracts.py",
+        "tools/nm-v6/nmv6/util.py",
+        "tools/nm-v6/schemas/action-result-v1.schema.json",
+        "tools/nm-v6/schemas/action-v1.schema.json",
+        "tools/nm-v6/schemas/project-v1.schema.json",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py"
+      ]
+    },
+    "V6-REQ-017": {
+      "acceptance": [
+        "V6-AC-026",
+        "V6-AC-027",
+        "V6-AC-028",
+        "V6-AC-051"
+      ],
+      "files": [
+        "template/v6/0c-workflow/schemas/evidence-config-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/actions.py",
+        "template/v6/0d-scripts/nmv6/evidence.py",
+        "tools/nm-v6/nmv6/actions.py",
+        "tools/nm-v6/nmv6/evidence.py",
+        "tools/nm-v6/schemas/evidence-config-v1.schema.json",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py"
+      ]
+    },
+    "V6-REQ-018": {
+      "acceptance": [
+        "V6-AC-034",
+        "V6-AC-035",
+        "V6-AC-054"
+      ],
+      "files": [
+        "template/v6/0d-scripts/nmv6/controller.py",
+        "template/v6/0d-scripts/nmv6/reducer.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/controller.py",
+        "tools/nm-v6/nmv6/reducer.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/tests/test_lifecycle_e2e_acceptance.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_operations.py"
+      ]
+    },
+    "V6-REQ-019": {
+      "acceptance": [
+        "V6-AC-036",
+        "V6-AC-055"
+      ],
+      "files": [
+        "template/v6/.codex/hooks/stop-status.sh",
+        "template/v6/0c-workflow/schemas/audit-export-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/audit.py",
+        "template/v6/0d-scripts/nmv6/migrations/0001_initial.sql",
+        "template/v6/0d-scripts/nmv6/migrations/0002_lease_fencing_and_write_sets.sql",
+        "template/v6/0d-scripts/nmv6/outbox.py",
+        "template/v6/0d-scripts/nmv6/store.py",
+        "tools/nm-v6/nmv6/audit.py",
+        "tools/nm-v6/nmv6/migrations/0001_initial.sql",
+        "tools/nm-v6/nmv6/migrations/0002_lease_fencing_and_write_sets.sql",
+        "tools/nm-v6/nmv6/outbox.py",
+        "tools/nm-v6/nmv6/store.py",
+        "tools/nm-v6/schemas/audit-export-v1.schema.json",
+        "tools/nm-v6/tests/test_git_delivery_audit_acceptance.py",
+        "tools/nm-v6/tests/test_state_auth_evidence.py"
+      ]
+    },
+    "V6-REQ-020": {
+      "acceptance": [
+        "V6-AC-037",
+        "V6-AC-038",
+        "V6-AC-039",
+        "V6-AC-041"
+      ],
+      "files": [
+        ".gitignore",
+        "docs/installation.md",
+        "docs/installation.zh-CN.md",
+        "package.json",
+        "skills/nm-init-project-v6/SKILL.md",
+        "skills/nm-init-project-v6/agents/openai.yaml",
+        "skills/nm-init-project-v6/references/install.md",
+        "skills/nm-init-project-v6/references/trusted-control-plane.md",
+        "skills/nm-init-project-v6/scripts/run_nm_v6.py",
+        "template/v6/.codex/config.toml",
+        "template/v6/.codex/hooks/stop-status.sh",
+        "template/v6/.markdownlint.json",
+        "template/v6/.markdownlintignore",
+        "template/v6/0c-workflow/schemas/status-v1.schema.json",
+        "template/v6/0d-scripts/check-workflow.sh",
+        "template/v6/0d-scripts/nm-v6.py",
+        "template/v6/0d-scripts/nmv6/__init__.py",
+        "template/v6/0d-scripts/nmv6/cli.py",
+        "template/v6/0d-scripts/nmv6/errors.py",
+        "template/v6/0d-scripts/nmv6/repository_check.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "template/v6/0d-scripts/nmv6/template_sync.py",
+        "template/v6/0d-scripts/python311.sh",
+        "template/v6/0d-scripts/test-workflow.sh",
+        "template/v6/0d-scripts/verify.sh",
+        "template/v6/PROJECT_STRUCTURE.md",
+        "template/v6/README.md",
+        "template/v6/package.json",
+        "tools/nm-v6/generate_traceability.py",
+        "tools/nm-v6/install-skill.sh",
+        "tools/nm-v6/nm_v6.py",
+        "tools/nm-v6/nmv6/__init__.py",
+        "tools/nm-v6/nmv6/cli.py",
+        "tools/nm-v6/nmv6/errors.py",
+        "tools/nm-v6/nmv6/repository_check.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/template_sync.py",
+        "tools/nm-v6/python311.sh",
+        "tools/nm-v6/schemas/status-v1.schema.json",
+        "tools/nm-v6/sync_template.py",
+        "tools/nm-v6/tests/__init__.py",
+        "tools/nm-v6/tests/test_hotfix_runtime_generated.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py",
+        "tools/nm-v6/tests/test_template_cli_traceability.py"
+      ]
+    },
+    "V6-REQ-021": {
+      "acceptance": [
+        "V6-AC-033",
+        "V6-AC-039",
+        "V6-AC-044"
+      ],
+      "files": [
+        "AGENTS.md",
+        "AGENTS.zh-CN.md",
+        "README.md",
+        "docs/README.zh-CN.md",
+        "docs/installation.zh-CN.md",
+        "docs/nm-v6-bilingual-semantic-review.md",
+        "docs/nm-v6-bilingual-semantic-review.zh-CN.md",
+        "docs/nm-v6-implementation-traceability.zh-CN.md",
+        "docs/template-versions.zh-CN.md",
+        "skills/nm-init-project-v6/SKILL.md",
+        "skills/nm-init-project-v6/references/install.md",
+        "skills/nm-init-project-v6/references/trusted-control-plane.md",
+        "template/v6/.markdownlint.json",
+        "template/v6/.markdownlintignore",
+        "template/v6/0a-docs/0a-spec/.gitkeep",
+        "template/v6/0a-docs/0a-spec/SPEC.md",
+        "template/v6/0a-docs/0a-spec/SPEC.zh-CN.md",
+        "template/v6/0a-docs/0a-spec/spec.example.json",
+        "template/v6/0a-docs/0a-spec/traceability.json",
+        "template/v6/0a-docs/0b-design/prototype/.gitkeep",
+        "template/v6/0a-docs/0c-prompts/review-spec.md",
+        "template/v6/0a-docs/0c-prompts/security-review.md",
+        "template/v6/0a-docs/0c-prompts/write-spec.md",
+        "template/v6/0a-docs/DECISIONS.md",
+        "template/v6/0c-workflow/PROTOCOLS.md",
+        "template/v6/0c-workflow/PROTOCOLS.zh-CN.md",
+        "template/v6/0c-workflow/RECOVERY.md",
+        "template/v6/0c-workflow/RECOVERY.zh-CN.md",
+        "template/v6/0c-workflow/WORKFLOW_V6.md",
+        "template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md",
+        "template/v6/0c-workflow/adapters/claude.md",
+        "template/v6/0c-workflow/adapters/claude.zh-CN.md",
+        "template/v6/0c-workflow/adapters/codex.md",
+        "template/v6/0c-workflow/adapters/codex.zh-CN.md",
+        "template/v6/0c-workflow/adapters/grok.md",
+        "template/v6/0c-workflow/adapters/grok.zh-CN.md",
+        "template/v6/0c-workflow/recovery/agent.md",
+        "template/v6/0c-workflow/recovery/agent.zh-CN.md",
+        "template/v6/0c-workflow/recovery/delivery.md",
+        "template/v6/0c-workflow/recovery/delivery.zh-CN.md",
+        "template/v6/0c-workflow/recovery/git.md",
+        "template/v6/0c-workflow/recovery/git.zh-CN.md",
+        "template/v6/0d-scripts/nmv6/repository_check.py",
+        "template/v6/0d-scripts/nmv6/supply_chain.py",
+        "template/v6/AGENTS.md",
+        "template/v6/AGENTS.zh-CN.md",
+        "template/v6/CLAUDE.md",
+        "template/v6/GROK.md",
+        "template/v6/PROJECT_STRUCTURE.md",
+        "template/v6/README.md",
+        "tools/nm-v6/generate_traceability.py",
+        "tools/nm-v6/nmv6/repository_check.py",
+        "tools/nm-v6/nmv6/supply_chain.py",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py",
+        "tools/nm-v6/tests/test_template_cli_traceability.py"
+      ]
+    },
+    "V6-REQ-022": {
+      "acceptance": [
+        "V6-AC-042"
+      ],
+      "files": [
+        "README.md",
+        "docs/README.zh-CN.md",
+        "docs/installation.md",
+        "docs/installation.zh-CN.md",
+        "docs/template-versions.md",
+        "docs/template-versions.zh-CN.md",
+        "template/v6/0d-scripts/nmv6/template_sync.py",
+        "tools/nm-v6/nmv6/template_sync.py",
+        "tools/nm-v6/tests/__init__.py",
+        "tools/nm-v6/tests/test_template_cli_traceability.py"
+      ]
+    },
+    "V6-REQ-023": {
+      "acceptance": [
+        "V6-AC-043"
+      ],
+      "files": [
+        "package.json",
+        "skills/nm-init-project-v6/agents/openai.yaml",
+        "skills/nm-init-project-v6/scripts/run_nm_v6.py",
+        "template/v6/0c-workflow/fixtures/fake-admin-public.pem",
+        "template/v6/0c-workflow/schemas/administrator-acceptance-v1.schema.json",
+        "template/v6/0c-workflow/schemas/supply-chain-v1.schema.json",
+        "template/v6/0c-workflow/schemas/version-record-v1.schema.json",
+        "template/v6/0d-scripts/check-workflow.sh",
+        "template/v6/0d-scripts/nm-v6.py",
+        "template/v6/0d-scripts/nmv6/cli.py",
+        "template/v6/0d-scripts/nmv6/repository_check.py",
+        "template/v6/0d-scripts/nmv6/runtime.py",
+        "template/v6/0d-scripts/nmv6/supply_chain.py",
+        "template/v6/0d-scripts/python311.sh",
+        "template/v6/0d-scripts/test-workflow.sh",
+        "template/v6/0d-scripts/verify.sh",
+        "template/v6/manifest.json",
+        "tools/nm-v6/acceptance-manifest.json",
+        "tools/nm-v6/administrator-acceptance.json",
+        "tools/nm-v6/generate_traceability.py",
+        "tools/nm-v6/install-skill.sh",
+        "tools/nm-v6/nm_v6.py",
+        "tools/nm-v6/nmv6/cli.py",
+        "tools/nm-v6/nmv6/repository_check.py",
+        "tools/nm-v6/nmv6/runtime.py",
+        "tools/nm-v6/nmv6/supply_chain.py",
+        "tools/nm-v6/python311.sh",
+        "tools/nm-v6/schemas/administrator-acceptance-v1.schema.json",
+        "tools/nm-v6/schemas/supply-chain-v1.schema.json",
+        "tools/nm-v6/schemas/version-record-v1.schema.json",
+        "tools/nm-v6/sync_template.py",
+        "tools/nm-v6/tests/test_contracts_adapters_context.py",
+        "tools/nm-v6/tests/test_normal_runtime_generated.py"
+      ]
+    },
+    "V6-REQ-024": {
+      "acceptance": [
+        "V6-AC-045",
+        "V6-AC-059"
+      ],
+      "files": [
+        "docs/nm-v6-implementation-traceability.md",
+        "docs/nm-v6-implementation-traceability.zh-CN.md",
+        "template/v6/0c-workflow/schemas/administrator-acceptance-v1.schema.json",
+        "template/v6/0d-scripts/nmv6/repository_check.py",
+        "template/v6/0d-scripts/nmv6/traceability.py",
+        "tools/nm-v6/acceptance-manifest.json",
+        "tools/nm-v6/administrator-acceptance.json",
+        "tools/nm-v6/generate_traceability.py",
+        "tools/nm-v6/implementation-plan.json",
+        "tools/nm-v6/nmv6/repository_check.py",
+        "tools/nm-v6/nmv6/traceability.py",
+        "tools/nm-v6/schemas/administrator-acceptance-v1.schema.json",
+        "tools/nm-v6/sync_template.py",
+        "tools/nm-v6/tests/__init__.py",
+        "tools/nm-v6/tests/test_template_cli_traceability.py"
+      ]
+    }
+  },
+  "schema_version": "nm-v6/acceptance-manifest-v2",
+  "spec_hash": "62196ab27c2be08ea1c716081903a009185f1d518ba7a53ed9b3d8485236cb7f",
+  "spec_id": "SPEC-NM-WORKFLOW-V6-V1",
+  "spec_version": 1
+}
