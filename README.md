@@ -25,8 +25,8 @@ V3.1 is recommended because it provides:
 - protected-branch rules with Plan and Goal branches based on exact Git SHAs;
 - strict Feishu progress and attention channels, with final completion delivered
   as a visible attention handoff;
-- transactional init, update, migration, status, validation, exact-tool
-  Skill-install, and idempotent completion commands.
+- transactional init, update, migration, status, validation, self-contained
+  exact-tool Skill distribution, and idempotent completion commands.
 
 Recommendation selects the default workflow; it does not authorize protected
 branch updates, pushes, releases, deployments, production access, or other
@@ -91,12 +91,26 @@ project that still has separate Requirements and Acceptance documents. The
 updater and migrator require a clean Git repository at the current remote `dev`
 baseline and create an allowed task branch before changing files.
 
-Install the V3 Skill for local agents:
+After the immutable `v3.1.0` release tag is published, install through the
+interactive `vercel-labs/skills` flow:
+
+```bash
+npx skills add notmaster/nm-docs@v3.1.0 --global
+```
+
+Select `nm-init-project-v3` and the target agents in the prompt. Keep the
+default single canonical installation under `~/.agents/skills`; do not maintain
+independent copies in multiple agent directories.
+
+Or use the built-in installer:
 
 ```bash
 python3 tools/nm-v3/nm_v3.py install-skill \
   --target-dir "$HOME/.agents/skills"
 ```
+
+Remote installation and update must use an administrator-reviewed immutable tag
+rather than mutable `main`; see [Installation](docs/installation.md).
 
 ## Work in a generated project
 
@@ -123,6 +137,7 @@ npm run lm
 npm run v3:check
 npm run v3:test
 npm run skill:v3:check
+npm run skill:v3:vercel:check
 ```
 
 ## Other workflow versions

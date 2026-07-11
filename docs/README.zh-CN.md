@@ -17,7 +17,7 @@
 - 每个 Goal 串行独立测试和自审，Plan 全部 Goal 集成后再执行一次全量验证；
 - 基于精确 Git SHA 的受保护分支规则，以及 Plan 和 Goal 分支；
 - 严格区分飞书进度与重要通知通道，最终完成通过重要通知显式交接；
-- 事务化的初始化、更新、迁移、状态、校验、精确工具 Skill 安装和幂等完成命令。
+- 事务化的初始化、更新、迁移、状态、校验、自包含精确工具 Skill 分发和幂等完成命令。
 
 “推荐”只表示默认工作流选择；它不授权更新受保护分支、推送、发布、部署、生产访问或其他外部影响。
 
@@ -75,12 +75,24 @@ python3 tools/nm-v3/nm_v3.py update \
 
 如果要转换仍然使用独立 Requirements 和 Acceptance 文档的 V3 3.0 项目，应使用 `migrate --dry-run` 代替 `update --dry-run`。Updater 和 migrator 要求 Git 仓库干净并位于当前远端 `dev` 基线，且必须在修改文件前创建允许的任务分支。
 
-为本地 Agent 安装 V3 Skill：
+不可变 `v3.1.0` 发布 tag 发布后，通过 `vercel-labs/skills` 的交互流程安装：
+
+```bash
+npx skills add notmaster/nm-docs@v3.1.0 --global
+```
+
+在界面中选择 `nm-init-project-v3` 和目标 Agent。保留 `~/.agents/skills` 下的默认
+单一 canonical 安装，不要在多个 Agent 目录维护彼此独立的副本。
+
+或者使用内置安装器：
 
 ```bash
 python3 tools/nm-v3/nm_v3.py install-skill \
   --target-dir "$HOME/.agents/skills"
 ```
+
+远程安装和更新必须使用管理员已审阅的不可变 tag，不得使用可变 `main`；详见
+[安装](installation.zh-CN.md)。
 
 ## 在生成项目中工作
 
@@ -100,6 +112,7 @@ npm run lm
 npm run v3:check
 npm run v3:test
 npm run skill:v3:check
+npm run skill:v3:vercel:check
 ```
 
 ## 其他工作流版本

@@ -4,7 +4,49 @@
 
 ## 推荐的 V3.1 工作流
 
-从受信本地 checkout 安装 V3.1 Skill：
+仓库中的 V3.1 Skill 是正式兼容 `vercel-labs/skills` 的自包含分发制品。兼容性
+检查固定使用 `skills@1.5.16`；变更受测版本时必须重新运行该检查。
+
+在受信本地 checkout 的根目录打开交互式安装界面：
+
+```bash
+npx skills add . --global
+```
+
+不可变 `v3.1.0` 发布 tag 发布后，使用以下命令安装已审阅的远程版本：
+
+```bash
+npx skills add notmaster/nm-docs@v3.1.0 --global
+```
+
+该命令会打开选择界面，在其中选择 `nm-init-project-v3` 和目标 Agent。`--global`
+表示使用 `~/.agents/skills` 用户级 canonical 根目录；不带该参数时，默认范围是当前
+项目的 `.agents/skills`。保留默认单副本行为；需要 Agent 专用路径时，由 CLI 管理
+兼容链接。不要在多个 Agent 目录使用彼此独立的 `--copy` 安装。
+
+使用以下命令列出或移除任一安装：
+
+```bash
+npx skills list --global
+npx skills remove nm-init-project-v3 --global
+```
+
+GitHub 安装可使用以下命令检查被锁定 tag 是否发生变化：
+
+```bash
+npx skills update nm-init-project-v3 --global
+```
+
+`skills@1.5.16` 不会对本地路径安装记录来源；受信 checkout 同步并完成审阅后，应
+重新运行本地 `skills add` 命令。GitHub 来源锁在检查更新时会保留选定 tag。不得从
+可变 `main` 安装或更新。采用较新的已审阅版本时，应使用其新不可变 tag 重新运行
+`skills add`。安装或更新不授权合并、推送、发布、部署或其他外部操作。
+
+仓库 Skill 已包含 `scripts/vendor/nm_v3.py` 和版本化摘要绑定，因此复制安装后无需
+`nm-docs` checkout 即可运行；bundle、绑定 schema、分发版本或工具摘要变化时都会
+失败关闭。该实现不信任 CLI 执行 post-install hook。
+
+未使用 `vercel-labs/skills` 的环境仍可使用内置安装器：
 
 ```bash
 python3 tools/nm-v3/nm_v3.py install-skill \
@@ -12,9 +54,9 @@ python3 tools/nm-v3/nm_v3.py install-skill \
   --source-dir .
 ```
 
-安装器会捆绑精确的 V3 工具，并记录模板版本、SHA-256、来源 commit 和来源 dirty
-状态。安装后的 wrapper 每次运行都校验该绑定，绝不从可变分支下载未经检查的可执行
-文件。采用经过审阅的更新时需要重新安装 Skill。
+它复制同一仓库分发制品，记录来源 commit 和 dirty 状态，并在 vendored 工具或绑定
+发生漂移时拒绝安装。两条安装路径都会在每次运行时校验精确工具，且绝不搜索或下载
+其他可执行文件。
 
 初始化并校验新项目：
 

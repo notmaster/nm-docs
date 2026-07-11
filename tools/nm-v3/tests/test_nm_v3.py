@@ -203,12 +203,70 @@ class NmV3Tests(unittest.TestCase):
         binding = json.loads((installed / ".nm-v3-binding.json").read_text())
         bundled = installed / "scripts/vendor/nm_v3.py"
         self.assertTrue(bundled.is_file())
+        self.assertEqual(binding["schemaVersion"], 2)
+        self.assertEqual(binding["distributionVersion"], 1)
+        self.assertEqual(binding["distributionMode"], "local-installer")
         self.assertEqual(binding["templateVersion"], "3.1.0")
         self.assertEqual(binding["toolSha256"], __import__("hashlib").sha256(bundled.read_bytes()).hexdigest())
         wrapper = installed / "scripts/run_nm_v3.py"
         self.assertNotIn("urllib", wrapper.read_text())
         result = run(["python3", str(wrapper), "status", "--target", str(target)], REPO)
         self.assertIn("Managed drift: 0", result.stdout)
+
+    def test_vercel_labs_skills_copy_is_standalone(self) -> None:
+        target = self.generate("vercel-skills-status")
+        home = self.root / "isolated-home"
+        installed = home / ".codex/skills/nm-init-project-v3"
+        installed.parent.mkdir(parents=True)
+        shutil.copytree(REPO / "skills/nm-init-project-v3", installed)
+        outside = self.root / "outside-checkout"
+        outside.mkdir()
+        env = os.environ.copy()
+        env["HOME"] = str(home)
+        env.pop("NM_DOCS_DIR", None)
+        binding = json.loads((installed / ".nm-v3-binding.json").read_text())
+        self.assertEqual(binding["distributionMode"], "repository-source")
+        result = run(
+            ["python3", str(installed / "scripts/run_nm_v3.py"), "status", "--target", str(target)],
+            outside,
+            env=env,
+        )
+        self.assertIn("Managed drift: 0", result.stdout)
+
+        bundled = installed / "scripts/vendor/nm_v3.py"
+        bundled.write_bytes(bundled.read_bytes() + b"\n# tampered\n")
+        rejected = run(
+            ["python3", str(installed / "scripts/run_nm_v3.py"), "--help"],
+            outside,
+            env=env,
+            check=False,
+        )
+        self.assertNotEqual(rejected.returncode, 0)
+        self.assertIn("digest drifted", rejected.stderr)
+
+    def test_repository_skill_distribution_is_synchronized(self) -> None:
+        result = self.tool("sync-skill", "--source-dir", str(REPO), "--check")
+        self.assertIn("distribution is synchronized", result.stdout)
+
+        source = self.root / "drifted-source"
+        (source / "tools/nm-v3").mkdir(parents=True)
+        shutil.copy2(TOOL, source / "tools/nm-v3/nm_v3.py")
+        shutil.copytree(REPO / "skills/nm-init-project-v3", source / "skills/nm-init-project-v3")
+        bundled = source / "skills/nm-init-project-v3/scripts/vendor/nm_v3.py"
+        bundled.write_bytes(bundled.read_bytes() + b"\n# drifted\n")
+        rejected = self.tool("sync-skill", "--source-dir", str(source), "--check", check=False)
+        self.assertNotEqual(rejected.returncode, 0)
+        self.assertIn("bundle drifted", rejected.stderr)
+        install = self.tool(
+            "install-skill",
+            "--source-dir",
+            str(source),
+            "--target-dir",
+            str(self.root / "rejected-install"),
+            check=False,
+        )
+        self.assertNotEqual(install.returncode, 0)
+        self.assertIn("bundle drifted", install.stderr)
 
     def test_planned_goal_requires_parent_plan(self) -> None:
         target = self.generate("orphan-goal")

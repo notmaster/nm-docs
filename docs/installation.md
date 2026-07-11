@@ -4,7 +4,57 @@ English | [中文](installation.zh-CN.md)
 
 ## Recommended V3.1 workflow
 
-Install the V3.1 Skill from a trusted local checkout:
+The repository V3.1 Skill is a self-contained distribution formally compatible
+with `vercel-labs/skills`. The compatibility check pins `skills@1.5.16`;
+changing that tested version requires rerunning the check.
+
+From the root of a trusted local checkout, open the interactive installer:
+
+```bash
+npx skills add . --global
+```
+
+After the immutable `v3.1.0` release tag is published, install the reviewed
+remote release with:
+
+```bash
+npx skills add notmaster/nm-docs@v3.1.0 --global
+```
+
+The command opens a selection interface. Choose `nm-init-project-v3` and the
+target agents. `--global` selects the user-level canonical root at
+`~/.agents/skills`; without it, the default scope is the current project's
+`.agents/skills`. Keep the default single-copy behavior and let the CLI manage
+compatibility links when an agent-specific path is required. Do not use
+independent `--copy` installations across multiple agent directories.
+
+List or remove either installation with:
+
+```bash
+npx skills list --global
+npx skills remove nm-init-project-v3 --global
+```
+
+For a GitHub installation, check the locked tag for changes with:
+
+```bash
+npx skills update nm-init-project-v3 --global
+```
+
+`skills@1.5.16` does not source-track a local-path installation; rerun the local
+`skills add` command after synchronizing its reviewed checkout. A GitHub source
+lock preserves the selected tag when checking for updates. Do not install or
+update from mutable `main`. To adopt a newer reviewed release, rerun `skills add`
+with its new immutable tag. Installation or update never grants merge, push,
+release, deployment, or other external authority.
+
+The repository Skill already contains `scripts/vendor/nm_v3.py` and a versioned
+digest binding. A copied installation therefore runs without an `nm-docs`
+checkout and fails closed when the bundle, binding schema, distribution version,
+or tool digest changes. The CLI is not trusted to execute a post-install hook.
+
+The built-in installer remains available for environments that do not use
+`vercel-labs/skills`:
 
 ```bash
 python3 tools/nm-v3/nm_v3.py install-skill \
@@ -12,10 +62,10 @@ python3 tools/nm-v3/nm_v3.py install-skill \
   --source-dir .
 ```
 
-The installer bundles the exact V3 tool and records its template version,
-SHA-256, source commit, and source dirty status. The installed wrapper verifies
-that binding on every run and never downloads an unchecked executable from a
-mutable branch. Reinstall the Skill to adopt a reviewed update.
+It copies the same repository distribution, records the source commit and dirty
+status, and refuses to install when the vendored tool or binding has drifted.
+Both installation paths verify the exact tool on every run and never search for
+or download another executable.
 
 Initialize and validate a new project:
 

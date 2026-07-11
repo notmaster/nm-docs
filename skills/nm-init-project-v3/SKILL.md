@@ -27,9 +27,9 @@ When the repository path is unknown, use:
 python3 "$HOME/.agents/skills/nm-init-project-v3/scripts/run_nm_v3.py" <command> ...
 ```
 
-An installed Skill runs its digest-verified bundled tool. A repository-source
-Skill may use `NM_DOCS_DIR`, the current directory and its parents, or common
-home checkout locations. It never downloads an unchecked executable.
+Repository-source and installed copies run the same digest-verified bundled
+tool. The wrapper fails closed when its versioned binding or bundle is missing,
+unsupported, or changed. It never searches for or downloads another executable.
 
 ## New Project
 

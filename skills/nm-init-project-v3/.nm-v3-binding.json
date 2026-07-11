@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 2,
+  "distributionVersion": 1,
+  "distributionMode": "repository-source",
+  "templateVersion": "3.1.0",
+  "toolPath": "scripts/vendor/nm_v3.py",
+  "toolSha256": "502819233dfe763ffa2fa64b65d6529e3a4388a0a89724d7c699635ce99cf879",
+  "sourcePath": "tools/nm-v3/nm_v3.py"
+}
