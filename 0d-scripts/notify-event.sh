@@ -45,10 +45,10 @@ case "$SEVERITY" in
 esac
 
 case "$EVENT" in
-  work_started|stage_completed|work_completed)
+  work_started|stage_completed)
     EXPECTED_SEVERITY="progress"
     ;;
-  attention_required|blocked|validation_failed)
+  work_completed|attention_required|blocked|validation_failed)
     EXPECTED_SEVERITY="attention"
     ;;
   notify_test)

@@ -57,12 +57,18 @@ authorization from its version or checks.
 
 Tools: `skills/nm-init-project-v4` and `tools/nm-v4/nm_v4.py`.
 
-## Previous: V3
+## Recommended: V3.1
 
-`template/v3` contains the goal-driven workflow with `REQUIREMENTS.md`,
-`ACCEPTANCE.md`, `DESIGN.md`, and Plan/Goal files under `0b-goals/`.
+`template/v3` is the preserved lightweight Goal workflow. V3.1 uses an optional
+`0a-docs/spec.md`, a project-owned reference allowlist in `AGENTS.md`, standalone
+or planned self-contained Goals, one final full verification per Plan, and
+strict dual-channel Feishu events. V3.1 also provides transactional migration,
+exact-tool Skill binding, commit-bound evidence, and an idempotent completion
+handoff. It is the recommended workflow for new projects; recommendation does
+not grant protected or external authority.
 
 Tools: `skills/nm-init-project-v3` and `tools/nm-v3/nm_v3.py`.
+See [NM V3.1 upgrade](nm-v3-3.1-upgrade.md) / [中文](nm-v3-3.1-upgrade.zh-CN.md).
 
 ## Previous: V2
 

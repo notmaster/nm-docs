@@ -12,6 +12,11 @@ Install from a local `nm-docs` checkout:
 python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py install-skill --target-dir "$HOME/.agents/skills"
 ```
 
+The installer bundles the exact V3 tool, records its SHA-256, template version,
+source commit, and source dirty status, and verifies the binding on every run.
+The installed Skill does not download a mutable tool from `main`; reinstall it
+to adopt a reviewed update.
+
 Install with the convenience wrapper:
 
 ```bash

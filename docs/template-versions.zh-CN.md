@@ -38,11 +38,16 @@ V5 是混合编排实验：
 
 工具：`skills/nm-init-project-v4` 与 `tools/nm-v4/nm_v4.py`。
 
-## 早期版本：V3
+## 推荐版本：V3.1
 
-`template/v3` 是目标驱动工作流，包含 `REQUIREMENTS.md`、`ACCEPTANCE.md`、`DESIGN.md`，以及 `0b-goals/` 下的 Plan/Goal 文件。
+`template/v3` 是被保留的轻量 Goal 工作流。V3.1 使用可选的
+`0a-docs/spec.md`、`AGENTS.md` 中的项目自有参考白名单、独立或计划内自包含
+Goal、每个 Plan 一次最终全量验证，以及严格的飞书双通道事件。V3.1 还提供事务化
+迁移、精确工具 Skill 绑定、commit 绑定证据和幂等完成交接。它是新项目的推荐工作流；
+推荐状态不授予受保护操作或外部影响权限。
 
 工具：`skills/nm-init-project-v3` 与 `tools/nm-v3/nm_v3.py`。
+参见 [NM V3.1 升级说明](nm-v3-3.1-upgrade.zh-CN.md) / [English](nm-v3-3.1-upgrade.md)。
 
 ## 早期版本：V2
 

@@ -1,100 +1,94 @@
 ---
-plan_id: PlanID001
-status: planned
-administrator_review_required: true
-auto_execute_goals: false
-auto_merge_to_dev: false
-auto_push: true
-execution_mode: serial
+schema_version: 1
+plan_id: p001
+status: draft
+source_type: administrator_request
+spec_path: null
+spec_version: null
+plan_branch: feature/plan-p001-slug
+full_verification_status: not_run
+full_verification_commit: null
+administrator_review_status: pending
 ---
 
 # Plan: <title>
 
-文件命名必须使用：
+File name:
 
 ```text
-Plan-<YYYYMMDD>-PlanID<001>-<slug>.md
+plan-p001-<slug>.md
 ```
 
 ## Objective
 
-说明本 Plan 要完成的项目阶段、功能集合、重构或修复目标。
+Describe the final Plan outcome.
 
-## Inputs
+## Source And Authority
 
-- Requirements: `0a-docs/0a-product/REQUIREMENTS.md`
-- Acceptance: `0a-docs/0a-product/ACCEPTANCE.md`
-- Prototype: `0a-docs/0b-design/prototype/v<number>/`
-- Design: `0a-docs/0b-design/DESIGN.md`
+- Administrator request:
+- Current-task instruction:
+- Authorized local actions:
+- Actions still requiring administrator authorization:
 
-## Prototype Version Rule
+## Active Context
 
-- 如果本 Plan 创建或修改原型，原型必须放在 `0a-docs/0b-design/prototype/v<number>/`。
-- 创建新原型前，扫描已有 `v<number>` 目录，并使用当前最大数字加 1；如果还没有版本目录，从 `v1` 开始。
-- 每个版本目录必须自包含该版原型文件和资产，除非管理员明确要求，不得覆盖旧版本。
+List only context required by this Plan. Optional project documents are active
+only when `AGENTS.md` lists them.
+
+- Project rules: `AGENTS.md`
+- Spec: `<path and version | not used>`
+- Other required references:
 
 ## Scope
 
-- 本 Plan 必须完成的范围。
+- <required outcome>
 
-## Out of Scope
+## Out Of Scope
 
-- 本 Plan 明确不做的范围。
-
-## Execution Policy
-
-- `administrator_review_required: true`
-- `auto_execute_goals: false`
-- `auto_merge_to_dev: false`
-- `auto_push: true`
-- `execution_mode: serial`
-- `status: planned`
-
-默认需要管理员验收，默认不自动合并。只有管理员明确授权，并将相关字段设置为允许时，Agent 才能自动拆分、执行、验证、push、合并和归档 Goal。
+- <explicit exclusion>
 
 ## Goal List
 
-每个 Goal 文件命名必须使用：
+| Goal | File | Depends On | Summary | Status |
+| --- | --- | --- | --- | --- |
+| g001 | `goal-p001-g001-<slug>.md` | none | <summary> | planned |
 
-```text
-Goal-<YYYYMMDD>-PlanID<001>-<GoalID001>-<slug>.md
-```
-
-| Goal | File | Depends On | Summary | Verification | Status |
-| --- | --- | --- | --- | --- | --- |
-| GoalID001 | `Goal-<YYYYMMDD>-PlanID001-GoalID001-<slug>.md` | none | 待填写 | `./0d-scripts/verify.sh` | planned |
-
-## Dependency Rules
-
-- 0 到 1 产品研发阶段默认串行执行。
-- 后续 Goal 依赖前序 Goal 的输出时，不得并行。
-- 只有在 API 契约、数据边界、文件边界和分支策略清晰时，才允许并行子 Agent。
-- 前后端分离项目可以在 API contract 经管理员确认后并行执行前端和后端 Goal。
+Create one Goal just in time. V3.1 Goals are serial; create the next Goal only
+after the previous Goal is integrated.
 
 ## Verification Strategy
 
-- 每个 Goal 完成前必须运行 `./0d-scripts/verify.sh`。
-- 同一类验证失败连续 5 次仍无法修复时，停止并通知管理员。
-- Plan 完成前必须确保所有 Goal 已完成、归档，并且最终本地验证通过。
+- Each Goal runs only its declared Goal-level commands.
+- After all Goals are integrated, run the project full verification exactly once.
+- Full command: `./0d-scripts/verify.sh`
+
+## Requirement Change Rules
+
+- Clarification without scope/acceptance change: update active Goal and continue.
+- Material scope, acceptance, dependency, data, permission, or security change:
+  set `status: needs_replan`, stop later Goals, and notify attention.
+- Independent new request: create another Plan or standalone Goal.
 
 ## Stop Conditions
 
-遇到以下情况必须暂停并通知管理员：
+- Unsafe or unknown Git state.
+- Required context is missing or contradictory.
+- Scope or acceptance materially changes.
+- Production credentials/data or irreversible work is needed.
+- Verification repair path is exhausted.
+- A merge conflict or moved ref cannot be safely reconciled.
 
-- requirements、acceptance 和 design 之间存在无法保守决策的冲突。
-- 需要扩大本 Plan 的 Scope。
-- 需要真实外部账号、付费资源、生产密钥或生产数据。
-- 涉及破坏性迁移、数据删除、权限安全策略或不可逆操作。
-- `dev` 合并冲突无法安全解决。
-- 自动化验收通过，但结果高度依赖管理员主观判断。
+## Execution Record
+
+The main agent records state transitions, Goal results, integration SHAs, full
+verification, notifications, and unresolved risks. Do not paste raw logs or
+secrets.
 
 ## Completion
 
-Plan 完成时必须说明：
-
-- 完成的 Goal 列表。
-- 每个 Goal 的验证结果。
-- 是否已 push。
-- 是否已合并到 `dev`。
-- 是否仍需管理员验收。
-- 遗留问题和建议的后续 Plan。
+- Integrated Goals:
+- Full verification command/result:
+- Candidate commit/tree:
+- Administrator review: `<pending|accepted|changes_requested>`
+- Protected integration/push: `<not_authorized|authorized|completed>`
+- Remaining risks:

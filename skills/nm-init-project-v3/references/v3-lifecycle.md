@@ -1,65 +1,62 @@
-# NM V3 Lifecycle
+# NM V3.1 Lifecycle
 
 ## Source Of Truth
 
-- Repository: `https://github.com/notmaster/nm-docs.git`
 - Template: `template/v3/`
 - Manifest: `template/v3/manifest.json`
 - Deterministic tool: `tools/nm-v3/nm_v3.py`
-- Project state: `.nm-template-state.json`
+- Installed-project state: `.nm-template-state.json`
+- Workflow version: `3.1.0`
 
-## Main Flow
-
-V3 uses:
-
-```text
-REQUIREMENTS.md
--> ACCEPTANCE.md
--> DESIGN.md
--> Plan
--> Goal
--> local verify
--> push branch backup
--> administrator acceptance
--> merge
-```
-
-Plans live in `0b-goals/0a-plans/` and use:
+## Entry Paths
 
 ```text
-Plan-<YYYYMMDD>-PlanID<001>-<slug>.md
+small request → standalone Goal → Goal verification/self-review → administrator integration decision
 ```
-
-Current Goals live in `0b-goals/0b-current/` and use:
 
 ```text
-Goal-<YYYYMMDD>-PlanID<001>-<GoalID001>-<slug>.md
+optional 0a-docs/spec.md → Plan → just-in-time Goals → local Plan integration
+→ one full verification → administrator Plan review
 ```
 
-## Update Policy
+Optional documents are inactive unless the project-owned block in `AGENTS.md`
+lists them. `spec.md` contains project requirements and acceptance criteria;
+there is no separate Requirements or Acceptance document in V3.1.
 
-For existing projects, require Git and a clean working tree. Create a branch before writing. Template files may be overwritten on that branch; Git diff is the review mechanism.
+## Branches
 
-Do not silently discard old project-specific guidance. Preserve durable facts by moving them into the appropriate V3 file:
+- Plan: `feature/plan-p001-slug` from exact `origin/dev`.
+- Planned Goal: `task/goal-p001-g001-slug` from current Plan head.
+- Standalone Goal: `task/goal-g001-slug` from exact `origin/dev`.
+- Protected integration and push require explicit administrator authorization.
 
-- `0a-docs/DECISIONS.md` for product, design, architecture, deployment, or process decisions.
-- `0c-workflow/project-profile.yml` for project type and verification expectations.
-- `PROJECT_STRUCTURE.md` for structure facts.
-- `REQUIREMENTS.md` for product scope and constraints.
+## Review And Verification
 
-## Validation
+- The implementation child agent writes tests and self-reviews by default.
+- `independent_reviewer_required: true` is used only when the administrator
+  explicitly requests an independent Reviewer before Goal execution.
+- Each Goal runs its own commands. Full project verification runs once after all
+  Goals are integrated.
+- V3.1 executes one active Goal at a time.
+- Automated verification, agent review, and administrator acceptance remain
+  distinct.
 
-After init or update, run:
+## Notifications
 
-```bash
-npm install
-npm run workflow:check
-npm run verify
-```
+V3.1 uses strict Feishu `progress` and `attention` channels. Attention never
+falls back to progress. Producers emit only the fixed event catalog in the
+generated project's `0c-workflow/NOTIFY_EVENTS.md`.
+Final standalone-Goal or Plan completion emits `work_completed` through
+attention as a visible administrator handoff, not ordinary progress. Use the
+idempotent `finish` command so an unchanged completed subject is sent once.
 
-If package installation is not appropriate, run:
+## V3 3.0 Migration
 
-```bash
-bash 0d-scripts/check-workflow.sh
-bash 0d-scripts/verify.sh
-```
+Run a dry-run first. Migration:
+
+1. requires clean, current `dev` and creates a task branch at `origin/dev`;
+2. builds `0a-docs/spec.md` from the old Requirements and Acceptance content;
+3. preserves markerless legacy AGENTS guidance under `.delete-pending` for
+   administrator review and installs the new project-owned rules block;
+4. moves the old source documents under `.delete-pending/v3-3.1.0-migration/`;
+5. updates template state and requires administrator review of the result.

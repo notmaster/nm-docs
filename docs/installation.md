@@ -2,7 +2,45 @@
 
 English | [中文](installation.zh-CN.md)
 
-## Administrator-accepted V6 implementation
+## Recommended V3.1 workflow
+
+Install the V3.1 Skill from a trusted local checkout:
+
+```bash
+python3 tools/nm-v3/nm_v3.py install-skill \
+  --target-dir "$HOME/.agents/skills" \
+  --source-dir .
+```
+
+The installer bundles the exact V3 tool and records its template version,
+SHA-256, source commit, and source dirty status. The installed wrapper verifies
+that binding on every run and never downloads an unchecked executable from a
+mutable branch. Reinstall the Skill to adopt a reviewed update.
+
+Initialize and validate a new project:
+
+```bash
+python3 tools/nm-v3/nm_v3.py init \
+  --target /absolute/project \
+  --project-name "My Project" \
+  --package-name "my-project" \
+  --source-dir .
+cd /absolute/project
+npm install
+npm run workflow:check
+npm run verify
+```
+
+For an existing project, use `status`, then `update --dry-run`. V3 3.0 projects
+use `migrate --dry-run`. The tool requires a clean exact `origin/dev` baseline,
+creates an allowed task branch, validates staged output, and rolls back an
+interrupted file transaction. Remote template refs are resolved to one immutable
+commit before files are read.
+
+Published V3.1 source should have the immutable release tag `v3.1.0`. Creating
+or pushing that tag remains a separately authorized release action.
+
+## Administrator-accepted, non-recommended V6 implementation
 
 V6 requires Python 3.11 or newer. The exact source snapshot bound by a valid
 `tools/nm-v6/administrator-acceptance.json` record is
@@ -142,9 +180,8 @@ outbox or an authorization channel.
 
 ## Earlier versions
 
-V4 and V3 installation tools remain available for existing projects:
+The V4 installation tool remains available for existing projects:
 
 ```bash
 bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.agents/skills"
-bash tools/nm-v3/install-skill.sh --target-dir "$HOME/.agents/skills"
 ```

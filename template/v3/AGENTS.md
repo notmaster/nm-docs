@@ -1,73 +1,122 @@
 # Agent Rules
 
-This file contains only the hard rules that the agent must follow on every run.
-For the full workflow, read `0c-workflow/WORKFLOW_V3.md`.
+This file contains the durable NM V3 rules that every agent must follow. Read
+`0c-workflow/WORKFLOW_V3.md` only when planning or executing a Plan or Goal.
 
 ## Language And Environment
 
-- Use Simplified Chinese for user communication, project documentation, and necessary code comments by default.
-- Use UTC+8 as the default timezone.
+- Use Simplified Chinese for administrator communication and project documents
+  unless the administrator requests another language.
+- Use ISO 8601 timestamps with the local UTC+8 offset.
+
+## Project Rules
+
+Only references listed in the project-owned block below are active project
+context. Do not discover or read `spec.md`, design documents, prototypes,
+architecture notes, or other optional documents merely because they exist.
+Required references must exist and be non-empty. Missing or empty optional
+references are reported and skipped. Update the English and Chinese blocks
+together.
+
+<!-- NM-V3-PROJECT-RULES:START -->
+```yaml
+references:
+  required: []
+  optional: []
+verification:
+  goal_commands: []
+  full_command: ./0d-scripts/verify.sh
+```
+<!-- NM-V3-PROJECT-RULES:END -->
+
+## Work Authorization
+
+- Inspection, review, explanation, diagnosis, and status requests are read-only.
+- A change request authorizes only scoped edits and normal local verification.
+- `Execute Plan <id>` authorizes Goal branches, implementation, Goal-level
+  verification, self-review, and local Goal-to-Plan integration in the current
+  task. It does not authorize push or protected-branch integration.
+- A new task or agent session requires a fresh `Continue Plan <id>` instruction.
+  Plan fields record prior intent but do not grant new authority.
+- Push, Plan-to-`dev`, `dev`-to-stable, release, deployment, destructive work,
+  production access, and remote branch deletion require explicit administrator
+  authorization for the exact action.
 
 ## Branching
 
-- The default integration branch is `dev`.
-- Do not perform regular development directly on `main`.
-- Regular tasks must branch from `dev` and use one of these prefixes:
-  `feature/*`, `fix/*`, `docs/*`, `refactor/*`, or `chore/*`.
-- Use `hotfix/*` only for urgent production fixes, and create it from `main`.
-- Before merging back to `dev`, local verification must pass and the administrator must accept the work, unless both the active Plan and the active Goal set `auto_merge_to_dev: true`.
-- After a branch is merged, evaluate whether to clean it up according to `0c-workflow/BRANCHING.md`. Never auto-delete `main`, `dev`, `release/*`, `hotfix/*`, unmerged branches, or branches still under review, acceptance, canary, release, or rollback responsibility.
+- `main` or `master` is stable; `dev` is integration. They are protected.
+- Except for an explicitly classified `hotfix/*`, no file may be modified while
+  `main`, `master`, or `dev` is checked out.
+- Before ordinary work, require a clean tree, fetch `origin/dev`, confirm local
+  `dev` equals `origin/dev`, and create an allowed branch at that exact SHA.
+- Allowed ordinary prefixes are `feature/*`, `fix/*`, `docs/*`, `refactor/*`,
+  `chore/*`, and `task/*`.
+- A planned workflow uses a Plan branch such as `feature/plan-p001-slug`.
+  Planned Goal branches use `task/goal-p001-g001-slug` and start from the current
+  Plan branch head. A standalone Goal uses `task/goal-g001-slug` from `origin/dev`.
+- Goal branches may integrate locally into the Plan branch only after the Goal's
+  configured verification and review policy pass.
+- Full verification runs once after every Goal is integrated, not after each
+  Goal. A failure reopens the affected Goal or moves the Plan to `blocked`.
+- Never force-push protected refs. Re-fetch and compare the expected remote SHA
+  immediately before an authorized protected integration or push.
 
-## Goal Workflow
+## Plan And Goal Workflow
 
-- Plans live under `0b-goals/0a-plans/` and must use `Plan-<YYYYMMDD>-PlanID<001>-<slug>.md`.
-- Active Goals live under `0b-goals/0b-current/` and must use `Goal-<YYYYMMDD>-PlanID<001>-<GoalID001>-<slug>.md`.
-- Prototype deliverables must live under versioned directories in `0a-docs/0b-design/prototype/`, using `v<number>` names such as `v1`, `v2`, and `v3`.
-- Before creating a new prototype, scan existing `v<number>` directories and use the next number after the current maximum; if none exist, start with `v1`. Each version directory must contain its own prototype files and assets, and old versions must not be overwritten unless the administrator explicitly requests it.
-- Before implementation, read the active Goal under `0b-goals/0b-current/` and its referenced Plan.
-- `0b-goals/0b-current/` must contain at most one active Goal by default. If multiple Goal files exist, stop and ask the administrator which one is active.
-- If no active Goal exists, do not start substantial implementation. Ask the administrator whether a Goal should be created first.
-- When the administrator requests a new feature, behavior change, or complex bugfix, create or update a Goal first and wait for administrator confirmation before implementation.
-- If the administrator explicitly asks for automatic implementation, automatic fixing, or no confirmation, the agent may create the Goal and then execute it immediately.
-- Default execution fields are `administrator_review_required: true`, `auto_execute_goals: false`, `auto_merge_to_dev: false`, and `auto_push: true`.
-- After a Goal is complete, the agent may push the working branch for backup when `auto_push: true`.
-- Do not merge into `dev` unless the administrator explicitly approves it or both the active Plan and the active Goal set `auto_merge_to_dev: true`.
-- Full automatic execution may split a Plan into Goals, execute them serially, verify, push, merge, archive, and continue only when the administrator explicitly authorizes it through the Plan fields.
-- When automatic execution completes or becomes blocked, call `0d-scripts/notify-admin.sh` to notify the administrator.
+- Plans live in `0b-goals/0a-plans/` and use `plan-p<NNN>-<slug>.md`.
+- The active Goal lives in `0b-goals/0b-current/`. Planned Goals use
+  `goal-p<NNN>-g<NNN>-<slug>.md`; standalone Goals use
+  `goal-g<NNN>-<slug>.md`.
+- Keep exactly zero or one active Goal. V3.1 executes Goals serially.
+- A small task may use one standalone Goal without a Plan or spec.
+- A planned task may use an optional `0a-docs/spec.md`, then a Plan, then Goals
+  created just in time.
+- The main agent is the only writer of Plan/Goal status and execution records.
+  A child agent reads the self-contained Goal, changes code, writes tests,
+  self-reviews by default, and returns a structured report.
+- When child-agent capability exists, use the platform's general instruction to
+  select a suitable available child model from the Goal's difficulty and scope.
+  Do not assume a provider-specific adapter or hard-code a model name.
+- `independent_reviewer_required: false` is the default. Set it to `true` only
+  when the administrator explicitly requests an independent reviewer before the
+  Goal starts.
+- A material change to scope, acceptance, dependencies, data, or security moves
+  the Plan to `needs_replan`, stops later Goals, and emits an attention event.
 
-## Execution Quality
+## Verification And Evidence
 
-- Before starting a non-trivial task, state the assumptions, risks, and success criteria.
-- If the request has multiple reasonable interpretations, do not choose silently. Ask the administrator or write the ambiguity into the Goal and wait for confirmation.
-- Prefer the simplest implementation that satisfies the request. Do not add unrequested features, abstractions, or configuration.
-- Keep changes surgical. Do not opportunistically refactor, reformat, or clean up unrelated code.
-- Every changed line should trace back to the active Goal or the administrator request.
-- Record important product, design, architecture, deployment, or workflow decisions in `0a-docs/DECISIONS.md`.
-
-## Verification
-
-- Before a Goal is considered complete, run local verification according to `0c-workflow/VERIFY.md`.
-- The default verification entrypoint is `./0d-scripts/verify.sh`.
-- The lightweight workflow check entrypoint is `./0d-scripts/check-workflow.sh`.
-- `0c-workflow/project-profile.yml` declares the project type and verification requirements. In the early template, `verify.sh` is not required to parse this file automatically.
-- If the same category of verification failure cannot be fixed after 5 consecutive attempts, stop the repair loop and notify the administrator.
-- During 0-to-1 development, do not rely on remote CI as the quality gate.
+- Run each Goal's declared commands before marking it `verified`.
+- After all Goals are locally integrated, run the full command declared in the
+  project rules before marking the Plan `awaiting_review`.
+- Separate automated verification, agent review, and administrator acceptance.
+  Agent self-review never substitutes for a required command or administrator
+  acceptance.
+- Record commands, pass/fail/not-run, concise failure summaries, repair count,
+  commit/tree SHAs, and review outcome. Do not store raw logs, secrets,
+  credentials, or production data in a Goal.
 
 ## Notifications
 
-- For questions that require administrator confirmation or for important status updates, call `0d-scripts/notify-admin.sh`.
-- Project notification entrypoints are authoritative for this repository. When a project notification script exists, use it first.
-- Do not bypass or replace project notification behavior with system-level Feishu tools such as `~/.agents/skills/nm-notify-feishu/scripts/notify.sh`.
-- System-level Feishu notification may be used only after the administrator explicitly authorizes that fallback for the current task.
-- The project Feishu config path is fixed at `~/.config/nm-docs/nm-notify-feishu.env`.
-- Project Feishu notifications must include a stable project source identity. The default is the Git repository root directory name; override it with `--project`, `FEISHU_PROJECT_NAME`, or `PROJECT_NAME` when needed.
-- If project Feishu notification is unavailable, report whether the failure is caused by project script behavior, missing or unsafe project config, missing local dependencies, network delivery, or Feishu rejection. Then stop and ask the administrator before using any system-level notifier.
-- Feishu notification delivery is recommended and does not invalidate completed development work, but notification failures must not be silently treated as success.
+- Emit only catalogued events through `./0d-scripts/notify-event.sh`.
+- `progress` reports meaningful state changes. `attention` reports an
+  administrator decision, review gate, material risk, or hard stop.
+- Final completion always emits `work_completed` through attention so the
+  administrator receives a visible handoff.
+- Use `nm_v3.py finish` for the final handoff; it validates state, sends an
+  unchanged completed subject once, and records the delivery result.
+- Do not send heartbeats, per-command events, or duplicates for unchanged state.
+- Attention must never fall back to the progress channel. Notification failure
+  does not undo completed work, but it must be reported.
+- Notification secrets live only in
+  `~/.config/nm-docs/nm-notify-feishu.env` with mode `600`.
 
 ## Safety
 
-- Do not overwrite uncommitted user changes.
-- Do not run destructive git operations unless the administrator explicitly requests them.
-- Before deleting any local or remote branch, confirm the working tree is clean and report the merge proof, branch role, and exact delete command.
-- When files need to be deleted, prefer moving them to `.delete-pending/` and wait for administrator confirmation.
-- If acceptance criteria are unclear, verification commands are missing, external services are unavailable, or safety risks exist, stop and ask the administrator.
+- Never overwrite, stash, commit, or move uncommitted administrator changes.
+- Do not run destructive Git or external operations without explicit authority.
+- Move project files pending deletion to `.delete-pending/` and wait for
+  administrator confirmation.
+- After integration, remove a Worktree only when its agent has stopped and its
+  commits are safely integrated. Retain Goal and Plan branches while they still
+  carry review, release, backup, dependency, or rollback responsibility.
+- Remote deletion always requires a new explicit administrator instruction.

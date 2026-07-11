@@ -1,112 +1,132 @@
 ---
-plan_id: PlanID001
-goal_id: GoalID001
+schema_version: 1
+plan_id: p001
+goal_id: g001
 status: planned
-administrator_review_required: true
-auto_execute_goals: false
-auto_merge_to_dev: false
-auto_push: true
+source_type: plan
+base_branch: feature/plan-p001-slug
+working_branch: task/goal-p001-g001-slug
+verification_status: not_run
+verification_commit: null
+self_review_status: not_run
+independent_review_status: not_required
+integration_status: not_integrated
+integration_commit: null
+review:
+  independent_reviewer_required: false
 ---
 
 # Goal: <title>
 
+Planned Goal file name:
+
+```text
+goal-p001-g001-<slug>.md
+```
+
+Standalone Goal file name and metadata:
+
+```text
+goal-g001-<slug>.md
+plan_id: null
+source_type: administrator_request
+base_branch: dev
+working_branch: task/goal-g001-<slug>
+```
+
 ## Objective
 
-一句话说明最终要达成什么。
+State one complete, independently executable outcome.
 
-## Inputs
+## Source And Authority
 
-- Requirements: `0a-docs/0a-product/REQUIREMENTS.md`
-- Acceptance: `0a-docs/0a-product/ACCEPTANCE.md`
-- Prototype: `0a-docs/0b-design/prototype/v<number>/`
-- Design: `0a-docs/0b-design/DESIGN.md`
-- Plan: `0b-goals/0a-plans/Plan-<YYYYMMDD>-PlanID001-<slug>.md`
+- Administrator request or parent Plan:
+- Authorized local work:
+- External/protected actions not authorized:
 
-## Prototype Version Rule
+## Context Packet
 
-- 如果本 Goal 创建或修改原型，原型必须放在 `0a-docs/0b-design/prototype/v<number>/`。
-- 创建新原型前，扫描已有 `v<number>` 目录，并使用当前最大数字加 1；如果还没有版本目录，从 `v1` 开始。
-- 每个版本目录必须自包含该版原型文件和资产，除非管理员明确要求，不得覆盖旧版本。
+Include the task-relevant facts needed by a child agent. Do not copy unrelated
+documents.
+
+- Project rules: `AGENTS.md`
+- Parent Plan: `<path | standalone>`
+- Required files and references:
+- Relevant decisions and constraints:
+- Starting commit/tree:
 
 ## Scope
 
-- 本次必须完成的内容。
+- <required change>
 
-## Out of Scope
+## Out Of Scope
 
-- 本次明确不做的内容。
+- <explicit exclusion>
 
-## Branch
+## TODO
 
-- Base: `dev`
-- Working branch: `<feature|fix|docs|refactor|chore>/<slug>`
-- `administrator_review_required: true`
-- `auto_execute_goals: false`
-- `auto_merge_to_dev: false`
-- `auto_push: true`
-- `status: planned`
+- [ ] <implementation item>
+- [ ] Write or update tests.
+- [ ] Run Goal-level verification.
+- [ ] Self-review the implementation and test coverage.
+- [ ] Return a structured report to the main agent.
 
-## Steps
+## Acceptance Criteria
 
-1. 待填写。
-2. 待填写。
-3. 待填写。
+- <observable outcome>
 
 ## Verification
 
-必须运行：
+Run only the commands needed for this Goal:
 
 ```bash
-./0d-scripts/verify.sh
+<command>
 ```
 
-项目类型附加检查：
+Do not run full Plan verification here unless this Goal explicitly requires it.
 
-- common:
-- docs:
-- web:
-- backend:
-- cli:
-- mobile:
-- desktop:
+## Review Policy
 
-## Manual Acceptance
+Default:
 
-管理员需要检查：
+```yaml
+review:
+  independent_reviewer_required: false
+```
 
-- 待填写。
+The implementation child agent writes tests and self-reviews. Change this field
+to `true` before execution only when the administrator explicitly requests an
+independent Reviewer.
 
 ## Stop Conditions
 
-遇到以下情况必须暂停并通知管理员：
+- Required context or acceptance is unclear.
+- Scope, acceptance, dependencies, data, permissions, or security materially change.
+- The base branch or expected Plan head moved.
+- A destructive, external, production, or newly privileged action is needed.
+- The repair path is exhausted.
 
-- active Goal 不唯一。
-- 验收标准不清。
-- 必需工具或外部服务缺失。
-- 同一类验证失败连续 5 次仍无法修复。
-- 需要扩大 Scope。
-- 存在安全、数据破坏或破坏性 git 操作风险。
+## Child Agent Report
 
-## Completion
+Return:
 
-完成时必须说明：
+- summary of changes;
+- files changed;
+- tests written or updated;
+- commands and pass/fail/not-run;
+- concise failures and repair count;
+- self-review findings and fixes;
+- commit/tree SHA when available;
+- blockers, assumptions, and remaining risks.
 
-- 改了什么。
-- 运行了哪些验证。
-- 当前分支。
-- 是否已 push。
-- 是否等待管理员验收。
-- 是否合并到 `dev`。
+## Main Agent Record
 
-## Result
+Only the main agent updates status and records:
 
-归档关键 Goal 时填写：
-
-- Status: `<completed|cancelled|blocked>`
 - Verification:
-- Review:
-- Plan:
-- Working branch:
-- Merged to dev: `<yes|no>`
-- Pushed: `<yes|no>`
+- Self-review:
+- Independent review: `<not_required|pending|pass|changes_requested>`
+- Integration strategy/source/target/result SHAs:
+- Notification event/result:
+- Administrator acceptance: `<pending|accepted|changes_requested>`
 - Notes:

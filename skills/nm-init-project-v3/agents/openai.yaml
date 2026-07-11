@@ -1,4 +1,4 @@
 interface:
   display_name: "NM Project Init V3"
-  short_description: "Initialize or update projects with NM V3"
-  default_prompt: "Use $nm-init-project-v3 to initialize or update this project with the latest NM V3 workflow from nm-docs."
+  short_description: "Manage the lightweight NM V3.1 Goal workflow"
+  default_prompt: "Use $nm-init-project-v3 to initialize, inspect, migrate, or update this project with NM V3.1."

@@ -30,10 +30,15 @@ required architecture.
 | `progress` | Monitoring stream; usually non-disturbing | Prefer progress webhook |
 | `attention` | Admin must see; usually disturbing | Prefer attention webhook |
 
-`notify-event.sh` maps:
+`notify-event.sh` keeps routing and outcome semantics separate:
 
-- `progress` → card level `info` (blue)
-- `attention` → card level `error` (red)
+- `progress` and `attention` select the configured delivery channel;
+- completed workflow events use card level `completed` (green), including when
+  they require the attention channel for a visible handoff;
+- administrator decisions use `action_required` (yellow);
+- skipped work uses `warning` (yellow);
+- blockers, conflicts, exhausted repair, and validation failures use `error`
+  (red).
 
 Card layout is built-in (title, project, message, optional “next step”). There is
 **no per-event message template file** to configure.

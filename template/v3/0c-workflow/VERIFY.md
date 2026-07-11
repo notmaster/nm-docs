@@ -1,85 +1,70 @@
 # Verification
 
-## 入口
+## Workflow Structure
 
-默认本地验证入口：
-
-```bash
-./0d-scripts/verify.sh
-```
-
-也可以通过 npm 调用：
-
-```bash
-npm run verify
-```
-
-轻量工作流结构检查入口：
-
-```bash
-./0d-scripts/check-workflow.sh
-```
-
-也可以通过 npm 调用：
+Run:
 
 ```bash
 npm run workflow:check
 ```
 
-## 配置
+This validates core files, project references, optional spec metadata, Plan and
+Goal names/frontmatter, state prerequisites, protected-branch dirtiness, and
+notification entry points.
 
-项目验证要求声明在：
+## Goal Verification
 
-```text
-0c-workflow/project-profile.yml
+Each Goal declares the smallest complete commands that prove its own acceptance
+criteria. The implementation child agent writes tests, runs those commands, and
+self-reviews by default. An independent reviewer runs only when the Goal was
+configured before execution with:
+
+```yaml
+review:
+  independent_reviewer_required: true
 ```
 
-早期模板保持简单：`project-profile.yml` 只声明项目类型和验证要求，`verify.sh` 手动实现具体命令，不要求自动解析 yml。
+Goal verification does not run the full project verification unless the Goal
+explicitly requires it.
 
-## 完成标准
+## Full Verification
 
-Goal 未通过必需本地验证前，不得视为完成。
+After every Goal is integrated into the Plan branch, run once:
 
-`verify.sh` 默认先调用 `check-workflow.sh`，检查 v3 目录、Plan/Goal 命名、active Goal 数量、必要文档、脚本执行权限和 `DESIGN.md` 规范。
+```bash
+./0d-scripts/verify.sh
+```
 
-## 验证分层
+The command must run `workflow:check` plus the complete project lint, typecheck,
+test, build, and other required checks. A Plan cannot enter `awaiting_review`
+until this exact integrated result passes.
 
-通用项目可以按类型选择验证层：
+## Evidence
 
-- `common`：格式、lint、类型检查、单元测试、构建。
-- `docs`：Markdown lint、链接检查。
-- `web`：构建、浏览器 smoke、关键页面和响应式检查。
-- `backend`：单元测试、集成测试、API smoke、迁移检查。
-- `cli`：命令 smoke、`--help`、`--version`。
-- `mobile`：构建、核心路径自动化或人工验收清单。
-- `desktop`：启动检查、核心路径自动化或人工验收清单。
+Record:
 
-## 失败分类
+- exact commands;
+- `pass`, `fail`, or `not-run`;
+- concise failure summary and repair count;
+- tested commit/tree SHA;
+- self-review or independent-review result;
+- skipped checks and reasons.
 
-同一类验证失败连续 5 次仍无法修复时，Agent 必须停止并通知管理员。
+Do not copy raw terminal logs, credentials, webhook values, production data, or
+other secrets into Plan/Goal files.
 
-失败类别使用以下粗粒度分类：
+Record the Goal test commit in `verification_commit`, the Goal-to-Plan result in
+`integration_commit`, and the final Plan test commit in
+`full_verification_commit`. Status text without these bindings is insufficient.
 
-- `dependency/install`
-- `lint/format`
-- `typecheck`
-- `unit-test`
-- `integration-test`
-- `e2e/browser`
-- `build`
-- `runtime/startup`
-- `migration/database`
-- `external-service`
-- `unknown`
+## Manual Acceptance
 
-通知管理员时必须说明：
+Keep these separate:
 
-- 失败类别。
-- 已运行的命令。
-- 最近的错误摘要。
-- 已尝试的修复。
-- 当前建议的下一步。
+- automated verification;
+- agent review;
+- administrator acceptance.
 
-## 远端 CI
-
-0 到 1 开发阶段不强制远端 CI。首版稳定后，远端 CI 应调用同一个本地验证入口，避免两套质量标准。
+UI, product judgment, wording, and real external-service behavior may include
+screenshots, preview URLs, or a checklist, but remain
+`awaiting_administrator` until the administrator decides.

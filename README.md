@@ -5,118 +5,159 @@ English | [中文](docs/README.zh-CN.md)
 `nm-docs` maintains NotMaster workflow templates, Skills, and deterministic
 tooling for AI-assisted project delivery.
 
-## Current workflow status
+## Recommended workflow: NM V3.1
 
-- **V7**: the decision register at rev9 is substantially finalized, but its
-  administrator-side task and control workflow remains too complex for this
-  repository's simple-workflow goal. V7 is therefore temporarily shelved; the
-  register authorizes no implementation work, and implementation will not begin
-  unless the administrator explicitly reopens it. This repository has no V7
-  implementation, template, tool, accepted snapshot, or active controller; V7
-  remains `experimental=true`, `recommended=false`, and
-  `production_ready=false`.
-- **V6**: the exact source snapshot identified by a valid
-  `tools/nm-v6/administrator-acceptance.json` record is
-  administrator-accepted after independent evidence review. Acceptance is not
-  transferable to a modified or unrecorded snapshot. V6 remains
-  `recommended=false` and `production_ready=false`.
-- **V5**: retained as an experimental supervised-trial workflow. Its runner and
-  checks do not authorize or independently prove unattended merge, release,
-  deployment, production access, or production readiness.
-- **V4 and earlier**: retained for existing projects and historical reference.
+**NM V3.1 (`3.1.0`) is the recommended workflow for new projects.** It keeps
+project control in a small set of readable files and supports both quick changes
+and planned multi-Goal development without requiring a heavyweight runtime.
 
-V6 uses one SQLite runtime authority, a deterministic reducer and gate engine,
-signed trusted-control-plane records, standalone candidate workspaces, thin
-Codex/GrokBuild/Claude adapters, content-addressed redacted evidence, protected
-Git integration, recoverable delivery actions, audit chaining, and a durable
-notification outbox. Staged and auto modes share the same state graph and
-technical gates.
+V3.1 is recommended because it provides:
 
-V6 does not import or resume V5's mutable `INDEX.yaml` or Task-card runtime.
-Repository-level acceptance covers only the record-bound V6 implementation
-snapshot. Every generated project must still define and confirm its own Spec,
-pass its own gates, and present valid scoped grants before protected or external
-effects.
+- an optional `0a-docs/spec.md` containing requirements and acceptance criteria;
+- a project-owned reference allowlist in `AGENTS.md`, so agents read optional
+  design, prototype, or Spec documents only when the project activates them;
+- a standalone Goal path for small changes and a Plan-to-Goals path for larger
+  work;
+- self-contained Goal files that can be handed directly to an implementation
+  agent;
+- serial per-Goal tests and self-review, followed by one full verification after
+  all Goals in a Plan are integrated;
+- protected-branch rules with Plan and Goal branches based on exact Git SHAs;
+- strict Feishu progress and attention channels, with final completion delivered
+  as a visible attention handoff;
+- transactional init, update, migration, status, validation, exact-tool
+  Skill-install, and idempotent completion commands.
 
-## V6 repository commands
+Recommendation selects the default workflow; it does not authorize protected
+branch updates, pushes, releases, deployments, production access, or other
+external effects.
 
-The V6 core requires Python 3.11 or newer. The repository wrapper locates an
-eligible runtime or accepts `NM_V6_PYTHON`.
+## V3.1 workflow
 
-```bash
-npm run lm
-npm run v6:check
-npm run v6:test
-npm run skill:v6:check
+Use the smallest path that fits the work:
+
+```text
+Small request
+  -> standalone Goal
+  -> Goal implementation, tests, and self-review
+  -> administrator integration decision
+
+Planned work
+  -> optional spec.md
+  -> Plan
+  -> just-in-time self-contained Goals
+  -> each Goal: implemented -> verified -> integrated
+  -> one full project verification
+  -> administrator Plan review
 ```
 
-Initialize a disposable or new project from this checkout:
+The implementation agent writes tests and self-reviews by default. Set
+`independent_reviewer_required: true` in a Goal only when the administrator asks
+for an independent reviewer before execution.
+
+## Start a project
+
+Initialize a new project from this checkout:
 
 ```bash
-bash tools/nm-v6/python311.sh tools/nm-v6/nm_v6.py init \
+python3 tools/nm-v3/nm_v3.py init \
   --target /absolute/path/to/project \
   --project-name "My Project" \
   --package-name "my-project" \
   --source-dir .
 ```
 
-Preview a safe existing-project update:
+Then validate the generated project:
 
 ```bash
-bash tools/nm-v6/python311.sh tools/nm-v6/nm_v6.py update \
+cd /absolute/path/to/project
+npm install
+npm run workflow:check
+npm run verify
+```
+
+For an existing V3 project, inspect status and preview the update before writing:
+
+```bash
+python3 tools/nm-v3/nm_v3.py status --target /absolute/path/to/project
+python3 tools/nm-v3/nm_v3.py update \
   --target /absolute/path/to/project \
   --source-dir . \
   --dry-run
 ```
 
-The updater requires a clean Git root, a successful fetch, exact
-remote-tracking `dev`, an allowed new branch, outside-target staging, validation
-before application, and deterministic resume or abort after an injected or real
-failure.
+Use `migrate --dry-run` instead of `update --dry-run` when converting a V3 3.0
+project that still has separate Requirements and Acceptance documents. The
+updater and migrator require a clean Git repository at the current remote `dev`
+baseline and create an allowed task branch before changing files.
 
-Install the thin Skill from this checkout:
-
-```bash
-bash tools/nm-v6/install-skill.sh --target-dir "$HOME/.agents/skills"
-```
-
-The installer binds the Skill to the reviewed checkout and its executable V6
-sources. Reinstall after a reviewed core update; digest drift fails closed.
-
-## Generated V6 project
-
-Inside a generated project:
+Install the V3 Skill for local agents:
 
 ```bash
-npm install
-npm run workflow:check
-npm run workflow:test
-npm run verify
+python3 tools/nm-v3/nm_v3.py install-skill \
+  --target-dir "$HOME/.agents/skills"
 ```
 
-These commands produce technical evidence; they do not confirm a project Spec,
-sign an approval, grant protected/external authority, or transfer the upstream
-repository snapshot's administrator acceptance to the generated project.
+## Work in a generated project
+
+- Read `AGENTS.md` first; its project-owned block identifies the optional
+  documents active for that project.
+- For a small or later-stage change, create one standalone Goal from
+  `0c-workflow/GOAL_TEMPLATE.md`. A Spec is not required unless the
+  administrator requests one.
+- For larger work, optionally create `0a-docs/spec.md`, create a Plan from
+  `0c-workflow/PLAN_TEMPLATE.md`, then create Goals just in time.
+- Treat every Goal as a complete execution packet containing its required
+  context, TODOs, acceptance criteria, commands, and execution record.
+- Run Goal-specific tests before `verified -> integrated`; run the full project
+  verification once after every Goal in the Plan is integrated.
+- Wait for explicit administrator instructions before protected integration or
+  push operations.
+
+## Repository V3 commands
+
+Changes to the V3 template, tool, or Skill must pass:
+
+```bash
+npm run lm
+npm run v3:check
+npm run v3:test
+npm run skill:v3:check
+```
+
+## Other workflow versions
+
+- **V6**: its record-bound exact source snapshot is administrator-accepted after
+  independent evidence review, but V6 remains `recommended=false` and
+  `production_ready=false`.
+- **V5**: retained as an experimental supervised-trial workflow; it is not
+  recommended.
+- **V7**: design work is shelved and has no implementation, template, tool,
+  accepted snapshot, or active controller.
+- **V1, V2, and V4**: retained for compatibility, existing projects, and
+  historical reference.
+
+Acceptance or verification of another version does not make it the recommended
+workflow and does not transfer authority to a generated project.
 
 ## Repository layout
 
 ```text
-template/v6/                  # Self-contained V6 implementation
-tools/nm-v6/                  # Deterministic CLI/core, schemas, and acceptance tests
-skills/nm-init-project-v6/    # Thin agent entry over the same CLI
+template/v3/                  # Recommended self-contained V3.1 template
+tools/nm-v3/                  # Deterministic V3.1 CLI and tests
+skills/nm-init-project-v3/    # V3.1 agent entry and references
+template/v6/                  # Administrator-accepted record-bound V6 snapshot
 template/v5/                  # Experimental V5 trial workflow
-skills/nm-init-project-v5/    # V5 maintenance Skill
-tools/nm-v5/                  # V5 maintenance tooling
 template/v4/ … template/v1/  # Preserved earlier versions
-docs/                         # User documentation and administrator mirrors
+docs/                         # User documentation and Chinese mirrors
 ```
 
 ## Documentation
 
-- [V7 workflow decision register](docs/nm-v7-workflow-decisions.md) / [中文管理员镜像](docs/nm-v7-workflow-decisions.zh-CN.md)
-- [V6 normative workflow Spec](docs/nm-v6-workflow-spec.md) / [中文管理员镜像](docs/nm-v6-workflow-spec.zh-CN.md)
-- [V6 implementation traceability](docs/nm-v6-implementation-traceability.md)
+- [NM V3.1 upgrade](docs/nm-v3-3.1-upgrade.md) / [中文](docs/nm-v3-3.1-upgrade.zh-CN.md)
+- [V3.1 lifecycle](skills/nm-init-project-v3/references/v3-lifecycle.md)
+- [V3.1 generated-project workflow](template/v3/0c-workflow/WORKFLOW_V3.md)
 - [Template versions](docs/template-versions.md) / [中文](docs/template-versions.zh-CN.md)
 - [Installation](docs/installation.md) / [中文](docs/installation.zh-CN.md)
 - [Repository work notifications](docs/repository-notifications.md) / [中文](docs/repository-notifications.zh-CN.md)
-- [V6 template workflow](template/v6/0c-workflow/WORKFLOW_V6.md) / [中文](template/v6/0c-workflow/WORKFLOW_V6.zh-CN.md)
+- [V6 normative workflow Spec](docs/nm-v6-workflow-spec.md) / [中文管理员镜像](docs/nm-v6-workflow-spec.zh-CN.md)

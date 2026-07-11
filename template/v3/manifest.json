@@ -1,6 +1,7 @@
 {
-  "schemaVersion": 1,
-  "templateVersion": "3.0.0",
+  "schemaVersion": 2,
+  "templateVersion": "3.1.0",
+  "minimumUpgradableVersion": "3.0.0",
   "repository": "https://github.com/notmaster/nm-docs.git",
   "rawBase": "https://raw.githubusercontent.com/notmaster/nm-docs",
   "defaultRef": "main",
@@ -10,10 +11,6 @@
     ".codex/hooks",
     ".delete-pending",
     "0a-docs",
-    "0a-docs/0a-product",
-    "0a-docs/0b-design",
-    "0a-docs/0b-design/prototype",
-    "0a-docs/0c-prompts",
     "0b-goals",
     "0b-goals/0a-plans",
     "0b-goals/0b-current",
@@ -23,183 +20,64 @@
   ],
   "gitkeepDirectories": [
     ".delete-pending",
-    "0a-docs/0b-design/prototype",
+    "0a-docs",
     "0b-goals/0a-plans",
     "0b-goals/0b-current",
     "0b-goals/0c-archive"
   ],
   "templates": [
-    {
-      "target": ".gitignore",
-      "source": "template/v3/.gitignore",
-      "policy": "create-only"
-    },
-    {
-      "target": ".markdownlint.json",
-      "source": "template/v3/.markdownlint.json",
-      "policy": "create-only"
-    },
-    {
-      "target": ".markdownlintignore",
-      "source": "template/v3/.markdownlintignore",
-      "policy": "create-only"
-    },
+    {"target": ".gitignore", "source": "template/v3/.gitignore", "policy": "create-only"},
+    {"target": ".markdownlint.json", "source": "template/v3/.markdownlint.json", "policy": "create-only"},
+    {"target": ".markdownlintignore", "source": "template/v3/.markdownlintignore", "policy": "create-only"},
     {
       "target": "AGENTS.md",
       "source": "template/v3/AGENTS.md",
-      "policy": "create-only"
+      "policy": "section-merge",
+      "startMarker": "<!-- NM-V3-PROJECT-RULES:START -->",
+      "endMarker": "<!-- NM-V3-PROJECT-RULES:END -->"
     },
     {
       "target": "AGENTS.zh-CN.md",
       "source": "template/v3/AGENTS.zh-CN.md",
-      "policy": "create-only"
+      "policy": "section-merge",
+      "startMarker": "<!-- NM-V3-PROJECT-RULES:START -->",
+      "endMarker": "<!-- NM-V3-PROJECT-RULES:END -->"
     },
-    {
-      "target": "PROJECT_STRUCTURE.md",
-      "source": "template/v3/PROJECT_STRUCTURE.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "README.md",
-      "source": "template/v3/README.md",
-      "policy": "create-only"
-    },
+    {"target": "README.md", "source": "template/v3/README.md", "policy": "create-only"},
     {
       "target": "package.json",
       "source": "template/v3/package.json",
       "policy": "json-merge",
-      "mergeRoots": ["scripts", "devDependencies"]
-    },
-    {
-      "target": ".codex/config.toml",
-      "source": "template/v3/.codex/config.toml",
-      "policy": "create-only"
-    },
-    {
-      "target": ".codex/hooks/stop-status.sh",
-      "source": "template/v3/.codex/hooks/stop-status.sh",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/DECISIONS.md",
-      "source": "template/v3/0a-docs/DECISIONS.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0a-product/REQUIREMENTS.md",
-      "source": "template/v3/0a-docs/0a-product/REQUIREMENTS.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0a-product/ACCEPTANCE.md",
-      "source": "template/v3/0a-docs/0a-product/ACCEPTANCE.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0b-design/DESIGN.md",
-      "source": "template/v3/0a-docs/0b-design/DESIGN.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0c-prompts/write-design-md.md",
-      "source": "template/v3/0a-docs/0c-prompts/write-design-md.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0c-prompts/discover-requirements.md",
-      "source": "template/v3/0a-docs/0c-prompts/discover-requirements.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0c-prompts/plan-goals-from-requirements.md",
-      "source": "template/v3/0a-docs/0c-prompts/plan-goals-from-requirements.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0a-docs/0c-prompts/security-review.md",
-      "source": "template/v3/0a-docs/0c-prompts/security-review.md",
-      "policy": "create-only"
-    },
-    {
-      "target": "0c-workflow/WORKFLOW_V3.md",
-      "source": "template/v3/0c-workflow/WORKFLOW_V3.md",
-      "policy": "managed"
-    },
-    {
-      "target": "0c-workflow/BRANCHING.md",
-      "source": "template/v3/0c-workflow/BRANCHING.md",
-      "policy": "managed"
-    },
-    {
-      "target": "0c-workflow/VERIFY.md",
-      "source": "template/v3/0c-workflow/VERIFY.md",
-      "policy": "managed"
-    },
-    {
-      "target": "0c-workflow/RELEASE_CHECKLIST.md",
-      "source": "template/v3/0c-workflow/RELEASE_CHECKLIST.md",
-      "policy": "managed"
-    },
-    {
-      "target": "0c-workflow/GOAL_TEMPLATE.md",
-      "source": "template/v3/0c-workflow/GOAL_TEMPLATE.md",
-      "policy": "managed"
-    },
-    {
-      "target": "0c-workflow/PLAN_TEMPLATE.md",
-      "source": "template/v3/0c-workflow/PLAN_TEMPLATE.md",
-      "policy": "managed"
-    },
-    {
-      "target": "0c-workflow/project-profile.yml",
-      "source": "template/v3/0c-workflow/project-profile.yml",
-      "policy": "create-only"
-    },
-    {
-      "target": "0d-scripts/check-workflow.sh",
-      "source": "template/v3/0d-scripts/check-workflow.sh",
-      "policy": "create-only"
-    },
-    {
-      "target": "0d-scripts/verify.sh",
-      "source": "template/v3/0d-scripts/verify.sh",
-      "policy": "create-only"
-    },
-    {
-      "target": "0d-scripts/notify-admin.sh",
-      "source": "template/v3/0d-scripts/notify-admin.sh",
-      "policy": "create-only"
-    },
-    {
-      "target": "0d-scripts/nm-notify-feishu.sh",
-      "source": "template/v3/0d-scripts/nm-notify-feishu.sh",
-      "policy": "create-only"
-    }
-  ],
-  "github": {
-    "integrationBranch": "dev",
-    "stableBranch": "main",
-    "labels": [
-      {
-        "name": "goal-active",
-        "color": "1D76DB",
-        "description": "Goal 正在执行"
-      },
-      {
-        "name": "needs-admin",
-        "color": "B60205",
-        "description": "需要管理员介入或验收"
-      },
-      {
-        "name": "verify-failed",
-        "color": "D93F0B",
-        "description": "本地验证失败"
-      },
-      {
-        "name": "ready-for-acceptance",
-        "color": "0E8A16",
-        "description": "等待管理员验收"
+      "mergeRoots": ["scripts", "devDependencies"],
+      "overwriteKeys": {
+        "scripts": ["workflow:check", "verify", "notify:event"],
+        "devDependencies": ["yaml"]
       }
+    },
+    {"target": ".codex/config.toml", "source": "template/v3/.codex/config.toml", "policy": "create-only"},
+    {"target": ".codex/hooks/stop-status.sh", "source": "template/v3/.codex/hooks/stop-status.sh", "policy": "create-only"},
+    {"target": "0c-workflow/WORKFLOW_V3.md", "source": "template/v3/0c-workflow/WORKFLOW_V3.md", "policy": "managed"},
+    {"target": "0c-workflow/BRANCHING.md", "source": "template/v3/0c-workflow/BRANCHING.md", "policy": "managed"},
+    {"target": "0c-workflow/VERIFY.md", "source": "template/v3/0c-workflow/VERIFY.md", "policy": "managed"},
+    {"target": "0c-workflow/SPEC_TEMPLATE.md", "source": "template/v3/0c-workflow/SPEC_TEMPLATE.md", "policy": "managed"},
+    {"target": "0c-workflow/PLAN_TEMPLATE.md", "source": "template/v3/0c-workflow/PLAN_TEMPLATE.md", "policy": "managed"},
+    {"target": "0c-workflow/GOAL_TEMPLATE.md", "source": "template/v3/0c-workflow/GOAL_TEMPLATE.md", "policy": "managed"},
+    {"target": "0c-workflow/NOTIFY_EVENTS.md", "source": "template/v3/0c-workflow/NOTIFY_EVENTS.md", "policy": "managed"},
+    {"target": "0d-scripts/check-workflow.mjs", "source": "template/v3/0d-scripts/check-workflow.mjs", "policy": "managed"},
+    {"target": "0d-scripts/verify.sh", "source": "template/v3/0d-scripts/verify.sh", "policy": "create-only"},
+    {"target": "0d-scripts/notify-event.sh", "source": "template/v3/0d-scripts/notify-event.sh", "policy": "managed"},
+    {"target": "0d-scripts/notify-admin.sh", "source": "template/v3/0d-scripts/notify-admin.sh", "policy": "managed"},
+    {"target": "0d-scripts/nm-notify-feishu.sh", "source": "template/v3/0d-scripts/nm-notify-feishu.sh", "policy": "managed"}
+  ],
+  "git": {
+    "integrationBranch": "dev",
+    "stableBranches": ["main", "master"],
+    "allowedPrefixes": ["feature/", "fix/", "docs/", "refactor/", "chore/", "task/", "hotfix/"]
+  },
+  "legacy": {
+    "migrateToPending": [
+      "0a-docs/0a-product/REQUIREMENTS.md",
+      "0a-docs/0a-product/ACCEPTANCE.md"
     ]
   }
 }

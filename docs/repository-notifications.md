@@ -27,7 +27,7 @@ free-form notifications.
 | --- | --- | --- |
 | `work_started` | `progress` | Preflight is complete and non-trivial work has begun |
 | `stage_completed` | `progress` | A meaningful discovery, implementation, or verification stage changed state |
-| `work_completed` | `progress` | Requested work and all required local validation are complete |
+| `work_completed` | `attention` | Requested work and all required local validation are complete; visibly hand off to the administrator |
 | `attention_required` | `attention` | An administrator decision, acceptance, or new authorization is required |
 | `blocked` | `attention` | Safety, Git state, dependencies, or repeated technical failure prevent safe progress |
 | `validation_failed` | `attention` | A required check remains failing when work must stop |
@@ -38,6 +38,12 @@ event. `work_completed` replaces `stage_completed` for the final stage;
 `validation_failed` replaces `blocked` for a required-check failure;
 `attention_required` is for a non-error human gate, while `blocked` is for an
 unsafe or technical hard stop.
+
+Final verified completion is not ordinary progress. It always uses attention so
+the administrator receives a visible handoff even when no error occurred.
+Routing severity and card meaning are independent: `work_completed` is an
+attention-channel event with a green completed card, `attention_required` is
+yellow, and only blockers or validation failures are red.
 
 Do not emit periodic heartbeats, one event per shell command, or duplicate events
 for unchanged state. A stage report should identify the task or branch and state

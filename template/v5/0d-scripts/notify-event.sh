@@ -59,10 +59,29 @@ if [ -z "$TITLE" ]; then
   TITLE="[$SEVERITY] $EVENT"
 fi
 
-LEVEL="info"
-if [ "$SEVERITY" = "attention" ]; then
-  LEVEL="error"
-fi
+# Severity selects the delivery channel. Event semantics select the card level;
+# an attention notification is not necessarily an error.
+case "$EVENT" in
+  work_completed|workflow_completed)
+    LEVEL="completed"
+    ;;
+  attention_required|mode_selection_required|phase_awaiting_acceptance|need_review)
+    LEVEL="action_required"
+    ;;
+  task_skipped)
+    LEVEL="warning"
+    ;;
+  blocked|validation_failed|mode_switch_conflict|repair_exhausted|git_conflict)
+    LEVEL="error"
+    ;;
+  *)
+    if [ "$SEVERITY" = "attention" ]; then
+      LEVEL="action_required"
+    else
+      LEVEL="info"
+    fi
+    ;;
+esac
 
 export NM_NOTIFY_EVENT="$EVENT"
 export NM_NOTIFY_SEVERITY="$SEVERITY"

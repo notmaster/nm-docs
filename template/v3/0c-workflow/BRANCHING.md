@@ -1,96 +1,87 @@
 # Branching
 
-## 分支职责
+## Protected Branches
 
-- `main`：稳定发布分支。
-- `dev`：开发集成分支。
-- `feature/*`：新功能。
-- `fix/*`：普通 bug 修复。
-- `docs/*`：文档变更。
-- `refactor/*`：重构。
-- `chore/*`：工程配置、依赖、脚本等。
-- `hotfix/*`：生产紧急修复。
+- `main` or `master`: stable.
+- `dev`: integration.
+- No ordinary file modification is allowed while a protected branch is checked
+  out. An explicitly classified `hotfix/*` is the only production-fix path.
 
-## 常规开发
+## Ordinary Preflight
 
-1. 从最新 `dev` 新建任务分支。
-2. 执行 active Goal。
-3. 运行本地验证。
-4. push 当前任务分支做备份。
-5. 等待管理员验收。
-6. 管理员批准后合并回 `dev` 并同步远端。
-7. 合并完成后按“分支清理”规则评估是否删除短期任务分支。
-
-常规开发不得直接从 `main` 新建分支，`hotfix/*` 除外。
-
-## 自动合并
-
-默认禁止自动合并。只有管理员明确授权，或者 active Plan 和 active Goal 都明确写明以下内容时才允许自动合并：
-
-```yaml
-auto_merge_to_dev: true
-```
-
-自动合并仍必须满足：
-
-- 本地验证通过。
-- 当前任务分支已 push。
-- 没有未解决的阻塞或安全问题。
-
-## 合并策略
-
-如果管理员指定合并方式，按管理员要求执行。
-
-如果管理员未指定，Agent 可按项目情况选择：
-
-- `squash merge`：适合功能型 Goal、提交较碎、希望历史干净的任务。
-- `merge --no-ff`：适合需要保留完整开发过程、多人协作或审计价值高的任务。
-
-Agent 在合并说明中必须说明选择的合并方式。
-
-## 分支清理
-
-分支合并后必须评估是否清理该分支。清理只适用于已经合并且不再承担发布、灰度、回滚、review 或验收职责的短期任务分支，例如已完成的 `feature/*`、`fix/*`、`docs/*`、`refactor/*`、`chore/*`。
-
-删除前必须满足：
-
-- 当前工作区干净，没有未提交变更、未完成 merge、rebase 或 cherry-pick。
-- 已用 `git merge-base --is-ancestor <branch> dev` 确认该分支已合并到 `dev`。
-- 如果分支曾直接面向稳定发布、hotfix 同步或 main 侧验收，必要时再用 `git merge-base --is-ancestor <branch> main` 确认已合并到 `main`。
-- 分支不再承担发布、灰度、回滚、review 或验收职责。
-- 删除前向管理员报告删除依据，包括已合并判定、分支职责判断、本地/远端存在情况和将执行的命令。
-
-不得自动删除：
-
-- `main`
-- `dev`
-- `release/*`
-- `hotfix/*`
-- 未合并分支
-- 仍在 review、验收、灰度、发布或回滚职责中的分支
-
-本地短期分支确认可删除时，使用：
+Before writing:
 
 ```bash
-git branch -d <branch>
+git status --short
+git fetch --prune origin dev
+git rev-parse dev
+git rev-parse origin/dev
 ```
 
-远端同名短期分支存在且确认可删除时，使用：
+Stop if the tree is dirty, fetch fails, `origin/dev` is unavailable, local
+`dev` differs from `origin/dev`, or the remote state is otherwise unknown.
 
-```bash
-git push origin --delete <branch>
+## Branch Topology
+
+Planned work:
+
+```text
+origin/dev
+└── feature/plan-p001-slug
+    ├── task/goal-p001-g001-slug
+    ├── task/goal-p001-g002-slug
+    └── task/goal-p001-g003-slug
 ```
 
-恢复方式：
+Standalone work:
 
-- 已知提交时，用 `git branch <branch> <commit>` 恢复分支名。
-- 未合并分支误删时，优先通过 `git reflog` 查找原提交，再用 `git branch <branch> <commit>` 恢复。
+```text
+origin/dev
+└── task/goal-g001-slug
+```
+
+Goals are serial. A later Goal starts from the Plan head after the previous Goal
+is integrated. V3.1 does not run parallel active Goals.
+
+## Local Goal Integration
+
+Goal-to-Plan integration is local automation and is permitted by an active
+`Execute Plan <id>` instruction only when:
+
+- Goal-specific verification passed;
+- the configured self-review or independent review passed;
+- the main agent inspected the returned report and diff;
+- no stop condition remains;
+- the expected Plan branch head has not moved.
+
+Choose fast-forward, squash, or merge commit according to topology, commit
+quality, audit value, conflict risk, and rollback needs. Record the strategy,
+source/target SHAs, and result tree.
+
+## Protected Integration
+
+Plan-to-`dev`, protected push, and stable promotion always require explicit
+administrator authorization. Re-fetch the target immediately before each
+mutation. A previous instruction remains conditional on the target SHA and
+verification; moved refs invalidate the old candidate evidence.
+
+Never force-push a protected ref. Never merge a Plan branch directly into
+stable; stable is promoted from the verified `dev` result.
 
 ## Hotfix
 
-1. 从最新 `main` 新建 `hotfix/*`。
-2. 修复并执行本地验证。
-3. 管理员验收后合并回 `main`。
-4. 将修复同步回 `dev`。
+An administrator must explicitly classify a hotfix. Create `hotfix/*` from the
+latest remote stable SHA, verify it, integrate it into stable only with explicit
+authorization, then reconcile the exact fix into `dev` and reverify. Retain the
+hotfix branch through release and rollback responsibility.
 
-`hotfix/*` 只用于生产紧急修复，不用于普通 bugfix。
+## Cleanup
+
+- A completed Goal Worktree may be removed after its agent stopped and its
+  commits are safely integrated.
+- Retain Goal branches until Plan acceptance and `dev` integration.
+- Delete a local short-lived branch only with exact-head ancestry or equivalent
+  squash/tree proof and no remaining review, backup, dependency, release, or
+  rollback responsibility.
+- Never auto-delete protected, release, hotfix, unmerged, or active branches.
+- Remote branch deletion requires a new explicit administrator instruction.

@@ -152,15 +152,15 @@ run_success_case \
   https://example.invalid/progress \
   blue
 run_success_case \
-  progress \
+  attention \
   work_completed \
-  https://example.invalid/progress \
-  blue
+  https://example.invalid/attention \
+  green
 run_success_case \
   attention \
   attention_required \
   https://example.invalid/attention \
-  red
+  yellow
 run_success_case \
   attention \
   blocked \
@@ -180,7 +180,7 @@ run_success_case \
   attention \
   notify_test \
   https://example.invalid/attention \
-  red
+  yellow
 
 if HOME="$TEST_HOME" PATH="$MOCK_BIN:$PATH" \
   "$ROOT/0d-scripts/notify-event.sh" \
@@ -203,6 +203,17 @@ if HOME="$TEST_HOME" PATH="$MOCK_BIN:$PATH" \
   exit 1
 fi
 grep -F "event blocked requires severity=attention" "$TMP_ROOT/mismatch.err" >/dev/null
+
+if HOME="$TEST_HOME" PATH="$MOCK_BIN:$PATH" \
+  "$ROOT/0d-scripts/notify-event.sh" \
+  --event work_completed \
+  --severity progress \
+  --message "must alert" \
+  >"$TMP_ROOT/completed-mismatch.out" 2>"$TMP_ROOT/completed-mismatch.err"; then
+  echo "ERROR: completed event unexpectedly used progress" >&2
+  exit 1
+fi
+grep -F "event work_completed requires severity=attention" "$TMP_ROOT/completed-mismatch.err" >/dev/null
 
 if HOME="$TEST_HOME" PATH="$MOCK_BIN:$PATH" \
   "$ROOT/0d-scripts/notify-event.sh" \

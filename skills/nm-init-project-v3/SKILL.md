@@ -1,36 +1,44 @@
 ---
 name: nm-init-project-v3
-description: Initialize, update, check, or install the NotMaster NM V3 goal-driven workflow for a project. Use when Codex needs to create a new project from template/v3, migrate an existing Git project to V3 rules, synchronize V3 workflow files, install the skill into ~/.agents/skills or another skills directory, summarize V3 workflow changes, or preserve project-specific guidance while adopting NM V3.
+description: Initialize, inspect, migrate, update, or validate a project with the NM V3.1 lightweight Goal workflow. Use when Codex needs to create a new V3 project, migrate V3 3.0 requirements and acceptance documents to an optional spec, create or stamp 0a-docs/spec.md, check installed V3 version or drift, synchronize managed workflow files without losing project-owned AGENTS.md rules, test configured dual-channel Feishu notifications, or install the V3 Skill.
 ---
 
 # NM Init Project V3
 
-Use the deterministic NM V3 tool. Do not manually copy template files.
+Use the deterministic tool. Do not manually copy template files.
 
-## Core Commands
+## Commands
 
-Prefer the repository tool when `nm-docs` is available:
+Prefer a local `nm-docs` checkout:
 
 ```bash
 python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py init --target /absolute/project --source-dir /path/to/nm-docs
-python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py update --target /absolute/project --source-dir /path/to/nm-docs --dry-run
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py status --target /absolute/project
 python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py check --target /absolute/project --source-dir /path/to/nm-docs
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py update --target /absolute/project --source-dir /path/to/nm-docs --dry-run
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py migrate --target /absolute/project --source-dir /path/to/nm-docs --dry-run
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py create-spec --target /absolute/project --source-dir /path/to/nm-docs --dry-run
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py finish --target /absolute/project --file 0b-goals/0a-plans/plan-p001-example.md
 ```
 
-When the repo path is unknown, use the skill wrapper:
+When the repository path is unknown, use:
 
 ```bash
-python3 "$HOME/.agents/skills/nm-init-project-v3/scripts/run_nm_v3.py" init --target /absolute/project
+python3 "$HOME/.agents/skills/nm-init-project-v3/scripts/run_nm_v3.py" <command> ...
 ```
 
-The wrapper searches `NM_DOCS_DIR`, common local checkout paths, then downloads the current tool from GitHub raw.
+An installed Skill runs its digest-verified bundled tool. A repository-source
+Skill may use `NM_DOCS_DIR`, the current directory and its parents, or common
+home checkout locations. It never downloads an unchecked executable.
 
 ## New Project
 
-1. Determine the target directory, project name, and package name.
-1. Run a dry run first when the directory exists and is not empty.
-1. Run `init`.
-1. In the target project, run:
+1. Determine the target, project name, and package name.
+2. For an empty non-Git target, run `init`. The tool creates a bootstrap task
+   commit, makes clean `main` and `dev` refs at that commit, and ends on `dev`.
+3. For a non-empty non-Git target, dry-run and use `--no-git-init`; do not absorb
+   unrelated files into an automatic commit.
+4. Run:
 
 ```bash
 npm install
@@ -38,40 +46,46 @@ npm run workflow:check
 npm run verify
 ```
 
-1. Tell the administrator to start with:
-   - `0a-docs/0a-product/REQUIREMENTS.md`
-   - `0a-docs/0a-product/ACCEPTANCE.md`
-   - `0a-docs/0b-design/DESIGN.md`
+Start small work with a standalone Goal. Create `0a-docs/spec.md` only when the
+administrator requests it.
 
-## Existing Project Update
+## Existing Project
 
-Before writing:
+Before any update or migration, require:
 
-1. Confirm the target is a Git repository root.
-1. Check `git status --short`.
-1. If the working tree is dirty, stop and ask the user to commit or stash.
-1. Run `update --dry-run`.
-1. Run `update` only after the dry-run output is acceptable.
+- the target is the Git root;
+- the working tree is clean;
+- `git fetch --prune origin dev` succeeds;
+- local `dev` exactly equals `origin/dev`;
+- the tool-created task branch starts at that exact remote SHA.
 
-`update` creates a branch named `chore/sync-nm-workflow-v3-YYYYMMDD` by default, then syncs V3 files. Existing template paths are overwritten on that branch so the administrator can inspect diffs with Git.
+Always run `update --dry-run` or `migrate --dry-run` first. V3 3.0 migration
+creates a candidate `0a-docs/spec.md`, preserves marked project-owned AGENTS
+blocks, archives markerless legacy guidance for administrator review, and moves
+old Requirements/Acceptance files into `.delete-pending/`.
 
-After update, inspect old project-specific material:
-
-- Existing `AGENTS.md`, `CLAUDE.md`, README, workflow docs, and project structure.
-- Move durable project-specific facts into `0a-docs/DECISIONS.md`, `0c-workflow/project-profile.yml`, `PROJECT_STRUCTURE.md`, or `REQUIREMENTS.md`.
-- Keep V3 framework rules in `AGENTS.md`; do not bloat it with project backlog.
-
-## Installing This Skill
-
-Use:
+After changing a spec version/body and its YAML `body_sha256`, run:
 
 ```bash
-python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py install-skill --target-dir "$HOME/.agents/skills"
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py spec-stamp --target /absolute/project
 ```
 
-Default install target is `~/.agents/skills` because it is shared by most local agent tools. Use `--target-dir` for another skills directory.
+This records version/hash only; it does not record administrator acceptance.
+
+After a standalone Goal is verified or a Plan reaches `awaiting_review`, use
+`finish` for one idempotent `work_completed` attention handoff. The command
+validates workflow state and records the delivery result in template state.
+
+## Notification Test
+
+Only run a live test after explicit administrator instruction:
+
+```bash
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py notify-test --target /absolute/project --severity progress
+python3 /path/to/nm-docs/tools/nm-v3/nm_v3.py notify-test --target /absolute/project --severity attention
+```
 
 ## References
 
-- Read `references/v3-lifecycle.md` before doing a migration or explaining the workflow.
-- Read `references/install.md` when the user asks how to install the skill.
+- Read `references/v3-lifecycle.md` before migration or workflow explanation.
+- Read `references/install.md` for Skill installation questions.

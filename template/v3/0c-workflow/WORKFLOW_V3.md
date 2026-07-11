@@ -1,132 +1,166 @@
-# Workflow V3
+# Workflow V3.1
 
-## 核心原则
+NM V3.1 is a lightweight, Goal-driven workflow. It keeps durable project rules
+small, makes project documents opt-in, and separates ordinary local automation
+from protected Git operations and administrator acceptance.
 
-V3 工作流采用“管理员定义目标，Agent 在 Goal 合约内实现，本地确定性验证兜底”的模式。
+## Two Entry Paths
 
-- 管理员负责需求文档、原型、设计规范、多模型评审和最终验收。
-- Agent 负责基于确认后的 Goal 执行实现、验证、修复和状态汇报。
-- 质量主要由本地脚本、测试、验收标准和轻量 hook 兜底。
-- 0 到 1 开发阶段不强制远端 CI/CD，GitHub 主要用于分支备份。
-- 首版稳定后再启用远端 CI/CD，并复用本地验证入口。
+### Standalone Goal
 
-## 目录产物
-
-- `0a-docs/0a-product/REQUIREMENTS.md`：需求和产品决策主文档。
-- `0a-docs/0a-product/ACCEPTANCE.md`：管理员验收标准。
-- `0a-docs/DECISIONS.md`：影响后续实现、验收或发布的关键决策记录。
-- `0a-docs/0b-design/prototype/`：原型版本根目录，原型放在 `v1`、`v2`、`v3` 等自增长目录。
-- `0a-docs/0b-design/DESIGN.md`：设计规范。
-- `0b-goals/0a-plans/`：执行计划，可有多个。
-- `0b-goals/0b-current/`：当前 active Goal，默认只能有一个。
-- `0b-goals/0c-archive/`：关键 Goal 完成后归档。
-- `0c-workflow/`：工作流、分支、验证、发布清单和 Plan/Goal 模板。
-- `0d-scripts/`：本地确定性脚本。
-
-## 原型版本目录
-
-- 所有新原型必须创建在 `0a-docs/0b-design/prototype/v<number>/` 下。
-- 创建新原型前，先扫描已有 `v<number>` 目录，并使用当前最大数字加 1。
-- 如果还没有版本目录，从 `v1` 开始。
-- 每个版本目录必须自包含该版原型文件、图片、CSS、说明和其他资产。
-- 除非管理员明确要求，不得覆盖、移动或删除旧版本原型。
-
-## 阶段 1：管理员规划
-
-管理员手动准备或确认以下内容：
-
-1. 需求文档。
-2. 验收标准。
-3. 原型。
-4. 设计规范。
-5. 关键决策记录。
-6. 可选的多模型评审结果。
-
-多模型评审由管理员手动操作，并由管理员决定是否保存评审记录。
-
-## 阶段 2：生成 Plan 和 Goal
-
-Agent 读取管理员确认的文档，先生成 Plan，再从 Plan 拆出可验收的 Goal。
-
-Plan 文件命名必须使用：
+Use for a small change or later maintenance when the administrator did not ask
+for a spec or Plan:
 
 ```text
-Plan-<YYYYMMDD>-PlanID<001>-<slug>.md
+administrator request
+→ self-contained standalone Goal
+→ task branch from exact origin/dev
+→ implementation + tests + configured review
+→ Goal verification
+→ administrator decides whether to integrate dev
 ```
 
-Goal 文件命名必须使用：
+### Planned Work
+
+Use for multi-Goal or higher-context work:
 
 ```text
-Goal-<YYYYMMDD>-PlanID<001>-<GoalID001>-<slug>.md
+optional 0a-docs/spec.md
+→ Plan + Plan branch from exact origin/dev
+→ just-in-time self-contained Goals
+→ Goal branches from current Plan head
+→ Goal verification + configured review
+→ local Goal-to-Plan integration
+→ one full verification after all Goals
+→ administrator reviews the Plan result
 ```
 
-Plan 应定义里程碑顺序、依赖关系、是否允许自动执行、是否允许自动合并。Goal 必须包含：
+An existing `spec.md`, design document, prototype, or architecture document is
+not active context unless the project-owned block in `AGENTS.md` lists it.
 
-- Objective。
-- Inputs。
-- Scope。
-- Out of Scope。
-- Branch。
-- Steps。
-- Verification。
-- Manual Acceptance。
-- Stop Conditions。
-- Completion。
+## Optional Spec
 
-管理员确认 Goal 后，Agent 才能进入实现阶段。
+Create `0a-docs/spec.md` only when the administrator requests one. Start from
+`0c-workflow/SPEC_TEMPLATE.md`. Its YAML metadata distinguishes:
 
-## 阶段 3：实现
+- `spec_version`: project specification version;
+- `workflow_version`: installed NM V3 version;
+- authors and reviewers, including provider/product/model for agents;
+- reviewer decisions bound to the reviewed spec version;
+- administrator acceptance as a record, never as external-action authority.
 
-1. 从 `dev` 新建任务分支。
-2. 在 Goal 模式下执行任务。
-3. 按 `0c-workflow/VERIFY.md` 执行本地验证。
-4. 验证失败时修复并重跑。
-5. 同一类失败连续 5 次仍无法修复时，停止并通知管理员。
-6. 验证通过后 push 当前任务分支做备份。
+Changing the Markdown body without changing `spec_version` invalidates workflow
+validation. A new spec version invalidates old current-version reviews and
+acceptance until they are renewed.
 
-默认执行字段：
+## Plan And Goal State
+
+Plan states:
+
+```text
+draft → ready → in_progress → awaiting_review → completed
+                   ↘ needs_replan | blocked | cancelled
+```
+
+Goal states:
+
+```text
+planned → in_progress → reviewing → verified → integrated → archived
+                       ↘ blocked | cancelled
+```
+
+The main agent owns status and execution-record updates. Child agents return a
+structured result; they do not declare their own Goal integrated or complete.
+On platforms with child-agent capability, give a general instruction to choose
+a suitable available child model from task difficulty. V3.1 does not define a
+provider-specific adapter or fixed model mapping.
+
+## Goal Contract
+
+Every Goal is a self-contained task packet with:
+
+- source request and authority boundary;
+- objective, required context snapshot, scope, and exclusions;
+- exact files/references to read;
+- concrete TODO list;
+- branch and optional Worktree;
+- verification commands and acceptance criteria;
+- review policy;
+- stop conditions;
+- compact execution, verification, review, and integration evidence.
+
+The default review policy is self-review by the implementation child agent:
 
 ```yaml
-administrator_review_required: true
-auto_execute_goals: false
-auto_merge_to_dev: false
-auto_push: true
+review:
+  independent_reviewer_required: false
 ```
 
-默认允许 Agent push 当前任务分支做备份，但禁止自动合并。
+Set it to `true` only when the administrator explicitly requests an independent
+reviewer before Goal execution starts.
 
-## 阶段 4：管理员验收
+## Execution And Integration
 
-默认情况下，任务完成后等待管理员验收。
+1. Complete the Git preflight in `BRANCHING.md`.
+2. Create the Plan or standalone Goal branch from exact `origin/dev`.
+3. For planned work, create one Goal just in time from the current Plan head.
+4. Give the child agent the Goal file. It implements, writes tests, runs the
+   Goal commands, self-reviews by default, and returns a structured report.
+5. The main agent checks the report and diff, records evidence, and locally
+   integrates a verified Goal into the Plan branch.
+6. Repeat for later Goals. Do not run the full project verification per Goal.
+7. After all Goals are integrated, run the full project verification once.
+8. If it passes, set the Plan to `awaiting_review` and emit the
+   `work_completed` attention event through `nm_v3.py finish`.
+9. Only an explicit administrator instruction may integrate/push protected refs.
 
-- 验收通过：管理员明确要求后，Agent 合并回 `dev`、同步远端，并按 `0c-workflow/BRANCHING.md` 评估是否清理已合并的短期任务分支。
-- 验收不通过：Agent 继续在当前任务分支修复。
-- 管理员要求新增功能：从 `dev` 新建新分支处理。
+If the full verification fails, reopen the responsible Goal when identifiable;
+otherwise set the Plan to `blocked`. Do not declare the Plan ready.
 
-只有管理员明确授权，或者当前 Plan 和 Goal 都设置 `auto_merge_to_dev: true` 时，Agent 才能在验证通过后自动合并回 `dev`。
+## Requirement Changes
 
-当 Plan 设置 `administrator_review_required: false`、`auto_execute_goals: true`、
-`auto_merge_to_dev: true` 时，Agent 可以按 Plan 串行拆分、执行、验证、push、合并、评估已合并短期分支清理并归档所有 Goal。遇到阻塞、范围扩大、安全风险或同类验证失败连续 5 次时，必须停止并通知管理员。
+- A clarification that does not change scope or acceptance may update the active
+  Goal and continue after the main agent records the change.
+- A material scope, acceptance, dependency, data, permission, or security change
+  moves the Plan to `needs_replan`, invalidates affected future work, emits an
+  attention event, and stops later Goals.
+- An independent new request becomes another Plan or standalone Goal.
 
-## 阶段 5：维护与发布
+## Protected Integration
 
-首版稳定后再启用远端 CI/CD：
+One administrator instruction may conditionally authorize Plan-to-`dev`, push,
+then `dev`-to-stable and push. The agent must still:
 
-- 远端 CI 调用同一个本地验证入口。
-- PR 或合并前必须通过 CI。
-- CD 单独配置，不绑定普通功能开发。
-- `main` 只保存稳定可发布版本。
-- 正式上线前必须完成 `0c-workflow/RELEASE_CHECKLIST.md`。
-- 上线前安全审查可使用 `0a-docs/0c-prompts/security-review.md`。
+1. fetch and compare the expected remote `dev` SHA;
+2. integrate the Plan candidate into `dev`;
+3. run full verification on the exact `dev` result;
+4. push `dev` only if it passes;
+5. fetch and compare the expected stable SHA;
+6. integrate only the verified `dev` result into stable;
+7. verify the stable result and push only if it passes.
 
-## 通知
+Any moved ref, conflict, or failed check stops the sequence and emits attention.
 
-出现需要管理员确认的问题或重要状态时，Agent 应调用：
+## Notifications
 
-```bash
-./0d-scripts/notify-admin.sh --level action_required --title "Title" --message "Message"
-```
+Use the fixed event catalog in `NOTIFY_EVENTS.md`. Progress and attention use
+distinct Feishu webhooks. Attention never falls back to progress. Each state
+transition gets at most one automatic delivery attempt; failures are recorded
+and reported without undoing completed engineering work.
 
-通知卡片必须包含项目来源标识。项目通知脚本默认使用当前 Git 仓库根目录名；需要覆盖时使用 `--project`，或在 `~/.config/nm-docs/nm-notify-feishu.env` 中设置 `FEISHU_PROJECT_NAME` / `PROJECT_NAME`。
+The final completion of a standalone Goal or Plan always emits
+`work_completed` through attention so the administrator receives a visible
+handoff rather than an ordinary progress update. The `finish` command validates
+the subject and records an idempotency key and delivery result in template
+state.
 
-飞书通知是推荐能力。缺少 `~/.config/nm-docs/nm-notify-feishu.env` 时，脚本会报告项目配置缺失并失败退出；Agent 必须说明失败原因，不得自行改用系统级通知。
+## Completion And Cleanup
+
+- Standalone Goal completion reports verification, review, branch, and whether
+  administrator acceptance or protected integration remains.
+- Plan completion reports every Goal, full verification, unresolved issues, and
+  exact candidate commit/tree.
+- Remove a Goal Worktree only after its agent stopped and its changes are safely
+  integrated. Retain Goal branches until Plan acceptance and `dev` integration.
+- Retain the Plan branch while it carries review, release, dependency, backup, or
+  rollback responsibility. Remote deletion always needs explicit authority.

@@ -6,6 +6,7 @@ This repository maintains reusable NotMaster workflow templates, skills, and det
 
 ## Workflow Status And Authority
 
+- V3.1 is the recommended workflow for new projects. Recommendation selects the default workflow; it does not declare production readiness or authorize protected branches, push, release, deployment, production access, or other external effects.
 - V5 is experimental and retained for supervised trials only. Its current runner and built-in checks do not authorize or independently prove unattended merge, release, deployment, production access, or production readiness.
 - `docs/nm-v6-workflow-spec.md` is the normative V6 design and acceptance source; its Chinese file is an administrator mirror. `template/v6`, `tools/nm-v6`, and `skills/nm-init-project-v6` form the V6 implementation. An exact V6 source snapshot is accepted only while a valid `tools/nm-v6/administrator-acceptance.json` record binds independently reviewed evidence and explicit administrator acceptance to that snapshot. The record-bound snapshot is administrator-accepted, but `recommended=false` and `production_ready=false`; any source drift invalidates that status.
 - The existence, reading, review, or prior implementation of a Spec does not authorize a new implementation change or any protected/external action. Require explicit administrator instructions or a valid future V6 grant for the exact scope.
@@ -33,8 +34,8 @@ This repository maintains reusable NotMaster workflow templates, skills, and det
 ## Repository Work Notifications
 
 - For non-trivial change or build tasks, delivery through `./0d-scripts/notify-event.sh` to the configured project Feishu channels is a standing administrator-authorized external effect unless the administrator opts out for that task. This authorizes only status notifications, not any other external action.
-- Emit `progress` only on material state changes: work start after preflight, completion of a meaningful stage, and final verified completion. Do not send routine heartbeats, one notification per command, or repeats for unchanged state.
-- Emit `attention` before stopping for an administrator decision or authorization, a safety or secret risk, an unsafe Git condition or conflict, an exhausted repair or verification path, or another blocker that prevents safe progress.
+- Emit `progress` only on material state changes: work start after preflight and completion of a meaningful intermediate stage. Do not send routine heartbeats, one notification per command, or repeats for unchanged state.
+- Emit `attention` for final verified completion as a visible administrator handoff, and before stopping for an administrator decision or authorization, a safety or secret risk, an unsafe Git condition or conflict, an exhausted repair or verification path, or another blocker that prevents safe progress.
 - Messages must identify the task or branch and briefly state completed work, current status, next action, and material risk. Never include secrets, credentials, production data, raw webhook values, or unnecessarily detailed logs.
 - Notifications communicate status only; they do not authorize, accept, merge, release, or deploy. Delivery failure does not invalidate completed work, but it must be reported and must not be hidden or rerouted through a system-level notifier without explicit administrator authorization.
 - The root scripts deliberately reuse only the V5 notification adapter. This does not adopt the V5 runner or authority model and does not change V5's experimental status. See [Repository Work Notifications](docs/repository-notifications.md) for the event catalog, commands, and limitations.

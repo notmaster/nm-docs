@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""Locate and run the NM V3 tool from nm-docs."""
+"""Run an exact bundled NM V3 tool or a tool from a local nm-docs checkout."""
 
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import subprocess
 import sys
-import tempfile
-import urllib.request
 from pathlib import Path
 
-
-RAW_TOOL_URL = "https://raw.githubusercontent.com/notmaster/nm-docs/main/tools/nm-v3/nm_v3.py"
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+BINDING = SKILL_ROOT / ".nm-v3-binding.json"
+BUNDLED_TOOL = SKILL_ROOT / "scripts/vendor/nm_v3.py"
 
 
 def candidate_repos() -> list[Path]:
@@ -21,8 +22,9 @@ def candidate_repos() -> list[Path]:
     values.extend(
         [
             Path.cwd(),
-            Path.home() / "code/mine/nm-docs",
-            Path("/Users/jango/code/mine/nm-docs"),
+            Path.home() / "code" / "nm-docs",
+            Path.home() / "code" / "mine" / "nm-docs",
+            Path.home() / "src" / "nm-docs",
         ]
     )
     return values
@@ -38,17 +40,32 @@ def find_tool() -> Path | None:
     return None
 
 
-def download_tool() -> Path:
-    target = Path(tempfile.gettempdir()) / "nm_v3.py"
-    with urllib.request.urlopen(RAW_TOOL_URL, timeout=30) as response:
-        target.write_bytes(response.read())
-    target.chmod(0o755)
-    return target
+def bundled_tool() -> Path | None:
+    if not BINDING.exists() and not BUNDLED_TOOL.exists():
+        return None
+    if not BINDING.is_file() or not BUNDLED_TOOL.is_file():
+        raise SystemExit("NM V3 Skill binding is incomplete; reinstall the Skill")
+    try:
+        binding = json.loads(BINDING.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"NM V3 Skill binding is invalid: {exc}") from exc
+    expected = binding.get("toolSha256")
+    actual = hashlib.sha256(BUNDLED_TOOL.read_bytes()).hexdigest()
+    if expected != actual:
+        raise SystemExit("NM V3 bundled tool digest drifted; reinstall the Skill")
+    if binding.get("templateVersion") != "3.1.0":
+        raise SystemExit("NM V3 Skill binding version is unsupported; reinstall the Skill")
+    return BUNDLED_TOOL
 
 
 def main() -> int:
-    tool = find_tool() or download_tool()
-    return subprocess.call([sys.executable, str(tool), *sys.argv[1:]])
+    tool = bundled_tool() or find_tool()
+    if tool is None:
+        raise SystemExit(
+            "NM V3 tool is unavailable; reinstall the Skill from a trusted nm-docs checkout "
+            "or set NM_DOCS_DIR"
+        )
+    return subprocess.call([sys.executable, "-I", str(tool), *sys.argv[1:]])
 
 
 if __name__ == "__main__":

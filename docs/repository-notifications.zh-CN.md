@@ -22,13 +22,17 @@ npm run notify:event -- \
 | --- | --- | --- |
 | `work_started` | `progress` | 预检完成且非平凡工作已经开始 |
 | `stage_completed` | `progress` | 有意义的发现、实现或验证阶段发生状态变化 |
-| `work_completed` | `progress` | 请求的工作和全部必要本地验证均已完成 |
+| `work_completed` | `attention` | 请求的工作和全部必要本地验证均已完成，并向管理员显式交接 |
 | `attention_required` | `attention` | 需要管理员决策、验收或新的授权 |
 | `blocked` | `attention` | 安全、Git 状态、依赖或重复技术失败阻止安全推进 |
 | `validation_failed` | `attention` | 必要检查仍失败且工作必须停止 |
 | `notify_test` | 由调用方选择 | 管理员明确要求真实投递测试 |
 
 每次状态转换只发送一个事件，并选择最具体的事件。最终阶段使用 `work_completed` 而不是 `stage_completed`；必要检查失败使用 `validation_failed` 而不是 `blocked`；`attention_required` 用于非错误的人工门禁，`blocked` 用于不安全状态或技术性硬停止。
+
+最终完成并通过验证不属于普通进度；即使没有错误，也必须使用 attention，确保管理员收到显式交接提醒。
+
+路由严重度与卡片语义彼此独立：`work_completed` 走 attention 通道但显示绿色完成卡片，`attention_required` 显示黄色，只有阻塞或验证失败显示红色。
 
 不要发送定时心跳、每条 shell 命令一条事件，或对未变化状态重复发送事件。阶段汇报应标识任务或分支，并说明已完成内容、当前状态、下一步和重大风险。
 

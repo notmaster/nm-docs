@@ -2,7 +2,43 @@
 
 [English](installation.md) | 中文
 
-## 管理员已接受的 V6 实现
+## 推荐的 V3.1 工作流
+
+从受信本地 checkout 安装 V3.1 Skill：
+
+```bash
+python3 tools/nm-v3/nm_v3.py install-skill \
+  --target-dir "$HOME/.agents/skills" \
+  --source-dir .
+```
+
+安装器会捆绑精确的 V3 工具，并记录模板版本、SHA-256、来源 commit 和来源 dirty
+状态。安装后的 wrapper 每次运行都校验该绑定，绝不从可变分支下载未经检查的可执行
+文件。采用经过审阅的更新时需要重新安装 Skill。
+
+初始化并校验新项目：
+
+```bash
+python3 tools/nm-v3/nm_v3.py init \
+  --target /absolute/project \
+  --project-name "My Project" \
+  --package-name "my-project" \
+  --source-dir .
+cd /absolute/project
+npm install
+npm run workflow:check
+npm run verify
+```
+
+已有项目先使用 `status`，再执行 `update --dry-run`；V3 3.0 项目使用
+`migrate --dry-run`。工具要求工作区干净并精确位于 `origin/dev` 基线，创建允许的
+任务分支，校验暂存结果，并在文件事务中断时回滚。远程模板 ref 会在读取文件前解析
+为一个不可变 commit。
+
+正式发布的 V3.1 源码应具有不可变发布标签 `v3.1.0`。创建或推送该标签仍属于需要
+单独授权的发布操作。
+
+## 管理员已接受但非推荐的 V6 实现
 
 V6 需要 Python 3.11 或更高版本。有效的 `tools/nm-v6/administrator-acceptance.json` 记录所绑定的精确源码快照，在完成独立证据审阅后已获管理员接受。源码漂移后该状态会失败关闭；V6 仍为 `recommended=false`、`production_ready=false`。安装 Skill 或通过检查不会确认项目 Spec、签署批准，也不会授权受保护或外部变更。
 
@@ -115,9 +151,8 @@ V5 仍是实验性版本。其 `auto` 模式、runner、通知成功和检查不
 
 ## 早期版本
 
-V4 和 V3 安装工具继续供已有项目使用：
+V4 安装工具继续供已有项目使用：
 
 ```bash
 bash tools/nm-v4/install-skill.sh --target-dir "$HOME/.agents/skills"
-bash tools/nm-v3/install-skill.sh --target-dir "$HOME/.agents/skills"
 ```
